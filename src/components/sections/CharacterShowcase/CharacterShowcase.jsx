@@ -3,11 +3,14 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faBolt, faGhost } from '@fortawesome/free-solid-svg-icons';
+import { faShieldAlt, faBolt, faGhost, faEye, faFire } from '@fortawesome/free-solid-svg-icons';
 import './CharacterShowcase.css';
-import character1 from '../../../assets/images/character1.jpg';
-import character2 from '../../../assets/images/character2.jpg';
-import character3 from '../../../assets/images/character3.jpg';
+
+import Titan from '../../../assets/images/character/Titan.png';
+import Wraith from '../../../assets/images/character/Wraith.png';
+import Volt from '../../../assets/images/character/Volt.png';
+import Oracle from '../../../assets/images/character/Oracle.png';
+import Ember from '../../../assets/images/character/Ember.png';
 
 
 
@@ -18,7 +21,7 @@ const characters = [
         role: "VANGUARD",
         desc: "Unstoppable force meets immovable object.",
         icon: faShieldAlt,
-        image: character1, // Sci-fi armor
+        image: Titan, // Heavy sci-fi armor
         color: "#c89b3c" // Gold
     },
     {
@@ -27,7 +30,7 @@ const characters = [
         role: "ASSASSIN",
         desc: "Death from the shadows, unseen.",
         icon: faGhost,
-        image: character2, // Cyber assassin
+        image: Wraith, // Cyber assassin
         color: "#ff4655" // Neon Red
     },
     {
@@ -36,8 +39,26 @@ const characters = [
         role: "SPEEDSTER",
         desc: "Faster than the speed of light.",
         icon: faBolt,
-        image: character3, // Futuristic speed
-        color: "#00f0ff" // Cyan arrow
+        image: Volt, // Futuristic speed suit
+        color: "#00f0ff" // Cyan
+    },
+    {
+        id: 4,
+        name: "ORACLE",
+        role: "TACTICIAN",
+        desc: "Sees every outcome before the battle begins.",
+        icon: faEye,
+        image: Oracle, // Holographic seer
+        color: "#7b61ff" // Mystic Violet
+    },
+    {
+        id: 5,
+        name: "EMBER",
+        role: "CATALYST",
+        desc: "Turns chaos into controlled destruction.",
+        icon: faFire,
+        image: Ember, // Elemental fire warrior
+        color: "#ff8c42" // Burning Orange
     }
 ];
 
