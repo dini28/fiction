@@ -69,52 +69,46 @@ const CharacterShowcase = () => {
     useGSAP(() => {
         if (!containerRef.current) return;
 
-        const sections = gsap.utils.toArray('.char-panel');
-        const totalPanels = sections.length;
+        const mm = gsap.matchMedia();
 
-        if (totalPanels === 0) return;
+        mm.add("(min-width: 769px)", () => {
+            const sections = gsap.utils.toArray('.char-panel');
+            const totalPanels = sections.length;
 
-        // Horizontal Scroll Animation
-        // Animate the container to move left by (totalPanels - 1) widths
-        // Since container width is totalPanels * 100vw, we move it by -(totalPanels-1)/totalPanels * 100%
+            if (totalPanels === 0) return;
 
-        gsap.to(containerRef.current, {
-            xPercent: -100 * (totalPanels - 1) / totalPanels,
-            ease: "none",
-            scrollTrigger: {
-                trigger: triggerRef.current,
-                pin: true,
-                scrub: 1,
-                // Use a function for 'end' to ensure it calculates after layout
-                end: () => "+=" + (containerRef.current ? containerRef.current.offsetWidth : 3000),
-                snap: 1 / (totalPanels - 1),
-                invalidateOnRefresh: true
-            }
-        });
-
-        // Parallax effects for text inside each panel
-        sections.forEach((section) => {
-            const text = section.querySelector('.char-info');
-            const img = section.querySelector('.char-img');
-
-            // animate text slightly faster/different than container for depth? 
-            // Actually, for horizontal scroll, we can animate elements when they come into view
-            // But since we are moving the container, global scrollTrigger triggers based on horizontal pos?
-            // Easier: Just let the pin handle the view. Maybe parallax the background image position.
-
-            gsap.fromTo(img,
-                { backgroundPosition: "0% 50%" },
-                {
-                    backgroundPosition: "100% 50%",
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: triggerRef.current,
-                        start: "top top",
-                        end: "+=3000",
-                        scrub: true
-                    }
+            // Horizontal Scroll Animation
+            gsap.to(containerRef.current, {
+                xPercent: -100 * (totalPanels - 1) / totalPanels,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: triggerRef.current,
+                    pin: true,
+                    scrub: 1,
+                    end: () => "+=" + (containerRef.current ? containerRef.current.offsetWidth : 3000),
+                    snap: 1 / (totalPanels - 1),
+                    invalidateOnRefresh: true
                 }
-            );
+            });
+
+            // Parallax effects for text inside each panel
+            sections.forEach((section) => {
+                const img = section.querySelector('.char-img');
+
+                gsap.fromTo(img,
+                    { backgroundPosition: "0% 50%" },
+                    {
+                        backgroundPosition: "100% 50%",
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: triggerRef.current,
+                            start: "top top",
+                            end: "+=3000",
+                            scrub: true
+                        }
+                    }
+                );
+            });
         });
 
     }, { scope: containerRef });

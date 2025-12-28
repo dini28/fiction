@@ -11,8 +11,8 @@
 
 .char-showcase-container {
     display: flex;
-    width: 400%;
-    /* 1 intro + 3 chars */
+    width: fit-content;
+    /* Adapts to number of panels (1 intro + N chars) */
     height: 100%;
     will-change: transform;
 }
@@ -150,4 +150,50 @@
     color: #ccc;
     font-size: 1.1rem;
     max-width: 400px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .char-showcase-wrapper {
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .char-showcase-container {
+        width: 100%;
+        flex-direction: column;
+        display: flex;
+        height: auto;
+    }
+
+    .char-panel {
+        width: 100%;
+        height: 100vh;
+        /* Full screen for each char on mobile too, or consider min-height */
+        min-height: 600px;
+    }
+
+    .char-intro-panel {
+        height: 80vh;
+        /* Slightly shorter intro */
+        min-height: 500px;
+    }
+
+    .char-intro-content h2 {
+        font-size: 3rem;
+    }
+
+    .char-name {
+        font-size: 2.5rem;
+    }
+
+    .char-info {
+        padding: 2rem;
+        width: 90%;
+        backdrop-filter: blur(8px);
+    }
+
+    .char-desc {
+        font-size: 1rem;
+    }
 }
