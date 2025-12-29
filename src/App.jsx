@@ -5,17 +5,17 @@ import { TextPlugin } from 'gsap/TextPlugin';
 import { useGSAP } from '@gsap/react';
 import Footer from "./components/layout/Footer/Footer"
 import Header from "./components/layout/Header/Header"
-import Hero from "./components/sections/Hero/Hero"
-import TextParallax from "./components/sections/TextParallax/TextParallax"
-import CharacterShowcase from "./components/sections/CharacterShowcase/CharacterShowcase"
-import GamingNews from "./components/sections/GamingNews/GamingNews"
-import UpcomingEvents from "./components/sections/UpcomingEvents/UpcomingEvents"
-import ParallaxVisual from "./components/sections/ParallaxVisual/ParallaxVisual"
-import Community from "./components/sections/Community/Community"
-import Newsletter from "./components/sections/Newsletter/Newsletter"
-import Loader from "./components/common/Loader/Loader";
-import SectionDivider from "./components/common/SectionDivider/SectionDivider";
-import CustomCursor from "./components/common/CustomCursor/CustomCursor";
+import Hero from "./features/hero/Hero"
+import TextParallax from "./features/text-parallax/TextParallax"
+import CharacterShowcase from "./features/character-showcase/CharacterShowcase"
+import GamingNews from "./features/gaming-news/GamingNews"
+import UpcomingEvents from "./features/upcoming-events/UpcomingEvents"
+import ParallaxVisual from "./features/parallax-visual/ParallaxVisual"
+import Community from "./features/community/Community"
+import Newsletter from "./features/newsletter/Newsletter"
+import Loader from "./components/ui/Loader/Loader";
+import SectionDivider from "./components/ui/SectionDivider/SectionDivider";
+import CustomCursor from "./components/ui/CustomCursor/CustomCursor";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
 

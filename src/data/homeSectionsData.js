@@ -1,9 +1,9 @@
 import { faTwitch, faDiscord, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faTrophy, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 
-import parallax_1 from '../assets/images/parallax_1.jpg';
-import parallax_2 from '../assets/images/parallax_2.jpg';
-//import parallax_3 from '../assets/images/parallax_3.jpg';
+import parallax_1 from '../assets/images/backgrounds/parallax_1.jpg';
+import parallax_2 from '../assets/images/backgrounds/parallax_2.jpg';
+//import parallax_3 from '../assets/images/backgrounds/parallax_3.jpg';
 
 export const eventsData = [
     {

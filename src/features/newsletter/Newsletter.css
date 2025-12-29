@@ -1,0 +1,113 @@
+.newsletter-section {
+    padding: 100px 0;
+    text-align: center;
+    background: url('../../../assets/images/NewsLetter.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--color-dark-surface);
+    position: relative;
+}
+
+.newsletter-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg,
+            var(--color-primary),
+            var(--color-secondary),
+            var(--color-primary));
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
+}
+
+.newsletter-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.newsletter-icon {
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.newsletter-title {
+    font-size: 2.5rem;
+    color: white;
+    font-family: 'Turret Road', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.newsletter-desc {
+    color: var(--color-text-gray);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.newsletter-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 15px 25px;
+    color: white;
+    font-family: inherit;
+    outline: none;
+}
+
+.newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.newsletter-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.newsletter-btn:hover {
+    background: white;
+    color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+    .newsletter-form {
+        flex-direction: column;
+        background: transparent;
+        border: none;
+        gap: 15px;
+    }
+
+    .newsletter-input {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        width: 100%;
+    }
+
+    .newsletter-btn {
+        width: 100%;
+    }
+}

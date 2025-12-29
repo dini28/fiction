@@ -288,7 +288,7 @@
     }
 
     .footer-nav {
-        grid-template-columns: repeat(3, minmax(140px, 1fr));
+        grid-template-columns: repeat(1, minmax(140px, 1fr));
     }
 
     .footer-legal p {

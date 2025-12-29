@@ -3,8 +3,8 @@ import {
     faXTwitter, faInstagram, faDiscord,
     faLinkedin, faFacebook, faYoutube
 } from '@fortawesome/free-brands-svg-icons';
-import logo_white from '../../../assets/logo_white.svg';
-import logo from '../../../assets/logo.svg';
+import logo_white from '../../../assets/branding/logo_white.svg';
+import logo from '../../../assets/branding/logo.svg';
 import './Footer.css';
 import { useState } from 'react';
 

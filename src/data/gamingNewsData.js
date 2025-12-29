@@ -1,8 +1,10 @@
-import GamingNewsMain from '../assets/images/GamingNews/GamingNewsMain.jpg'
-import GamingShift from '../assets/images/GamingNews/GravityShift.jpg'
-import CrystalKeepers from '../assets/images/GamingNews/CrystalKeepers.jpg'
-import WarZone from '../assets/images/GamingNews/WarZone.png'
-import ShadowSector from '../assets/images/GamingNews/ShadowSector.png'
+import GamingNewsMain from '../assets/images/games/GamingNewsMain.jpg'
+import GamingShift from '../assets/images/games/GravityShift.jpg'
+import CrystalKeepers from '../assets/images/games/CrystalKeepers.jpg'
+import WarZone from '../assets/images/games/WarZone.png'
+import ShadowSector from '../assets/images/games/ShadowSector.png'
+import NeonPulse from '../assets/images/games/NeonPulse.png'
+import Obsidian from '../assets/images/games/Obsidian.png'
 
 export const newsData = {
     featured: {
@@ -57,19 +59,19 @@ export const gamesData = {
     mainGames: [
         {
             id: 'nebula-1',
-            name: 'Neon Protocol',
-            image: '/images/neon-protocol.jpg',
+            name: 'Neon Pulse',
+            image: NeonPulse,
             platforms: ['desktop', 'playstation', 'xbox'],
             size: 'default',
             genre: 'Cyberpunk RPG'
         },
         {
             id: 'nebula-2',
-            name: 'Void Runner',
-            image: '/images/void-runner.jpg',
+            name: 'Obsidian Edge',
+            image: Obsidian,
             platforms: ['desktop', 'mobile-alt'],
             size: 'default',
-            genre: 'Infinite Flyer'
+            genre: 'Dark Action RPG'
         }
     ],
     midGames: [

@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import './Header.css';
-import logo from '../../../assets/logo.svg';
-import logo_white from '../../../assets/logo_white.svg';
+import logo from '../../../assets/branding/logo.svg';
+import logo_white from '../../../assets/branding/logo_white.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faMagnifyingGlass, faBars, faX, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-import NeonPulse from '../../../assets/images/NeonPulse.png';
-import Aethelgard from '../../../assets/images/Aethelgard.png';
+import NeonPulse from '../../../assets/images/games/NeonPulse.png';
+import Aethelgard from '../../../assets/images/games/Aethelgard.png';
+import Obsidian from '../../../assets/images/games/Obsidian.png';
 
 const Header = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -87,7 +88,7 @@ const Header = () => {
         },
         {
             name: 'Obsidian Edge',
-            image: 'https://via.placeholder.com/400x200/e17055/ffffff?text=Obsidian+Edge',
+            image: Obsidian,
             text: 'A dark, crumbling kingdom buried under a permanent eclipse. The only light comes from the glowing runes on your sword.'
         },
         {
