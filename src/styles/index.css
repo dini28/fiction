@@ -12,6 +12,7 @@
 
     --color-text-white: #ffffff;
     --color-text-gray: #8f9193;
+    --color-text-dark: #1a1a2e;
 
     --spacing-xs: 8px;
     --spacing-sm: 10px;
@@ -45,12 +46,34 @@ body {
     min-height: 100vh;
     color: var(--color-text-white);
     overflow-x: hidden;
-    cursor: none;
-    /* Hide default cursor */
 }
 
-/* Ensure links also don't show cursor */
+/* Ensure links show default cursor */
 a,
 button {
-    cursor: none;
+    cursor: auto;
+}
+
+/* Performance optimizations */
+.char-img,
+.parallax-img,
+.gaming-news-card,
+.event-card {
+    will-change: transform;
+}
+
+.lenis.lenis-smooth {
+    height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
 }

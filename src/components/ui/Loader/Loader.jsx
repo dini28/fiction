@@ -1,89 +1,56 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import loaderJson from '../../../assets/images/animation.json';
 import './Loader.css';
 
-const Loader = ({ onComplete, loadingProgress = null }) => {
+const Loader = ({ onComplete }) => {
     const loaderRef = useRef(null);
-    const progressRef = useRef(null);
-    const textRef = useRef(null);
+    const contentRef = useRef(null);
     const bgRef = useRef(null);
-    const [currentText, setCurrentText] = useState('LOADING');
 
     useGSAP(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
         const tl = gsap.timeline({
+            delay: 6.0, // Allow the Lottie animation to play for a bit
             onComplete: () => {
                 if (onComplete) onComplete();
             }
         });
 
-        gsap.set(progressRef.current, { scaleX: 0 });
-
-        tl.call(() => setCurrentText('INITIALIZING SYSTEM'), null, 0.2);
-
-        if (loadingProgress === null) {
-            tl.to(progressRef.current, {
-                scaleX: 1,
-                duration: prefersReducedMotion ? 1 : 2.5,
-                ease: "power2.out"
-            }, 0.5);
-        }
-
-        tl.call(() => setCurrentText('SYSTEM READY'), null, prefersReducedMotion ? 2 : 3);
-
-        if (!prefersReducedMotion) {
-            tl.to(textRef.current, {
-                duration: 0.05,
-                x: '+=2',
-                repeat: 5,
-                yoyo: true,
-                ease: "power1.inOut"
-            }, 3.2);
-        }
+        tl.to(contentRef.current, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.8,
+            ease: "power4.inOut"
+        });
 
         tl.to(bgRef.current, {
             yPercent: -100,
-            duration: prefersReducedMotion ? 0.5 : 1.2,
-            ease: "power4.inOut",
-            delay: prefersReducedMotion ? 0.5 : 1
+            duration: 1.2,
+            ease: "power4.inOut"
         });
 
         tl.set(loaderRef.current, {
             display: 'none'
         });
 
-    }, { scope: loaderRef, dependencies: [loadingProgress] });
-
-    useGSAP(() => {
-        if (loadingProgress !== null && progressRef.current) {
-            gsap.to(progressRef.current, {
-                scaleX: loadingProgress / 100,
-                duration: 0.3,
-                ease: "power2.out"
-            });
-        }
-    }, { dependencies: [loadingProgress] });
+    }, { scope: loaderRef });
 
     return (
         <div ref={loaderRef} className="loader-container">
             <div ref={bgRef} className="loader-bg">
-                <div className="loader-content">
-                    <div ref={textRef} className="loader-text">
-                        {currentText}
-                        <span className="cursor-blink"></span>
+                <div ref={contentRef} className="loader-content">
+                    <div className="lottie-wrapper">
+                        <DotLottieReact
+                            data={loaderJson}
+                            loop
+                            autoplay
+                        />
                     </div>
-
-                    <div className="progress-bar-track">
-                        <div ref={progressRef} className="progress-bar-fill"></div>
+                    <div className="loader-text-minimal">
+                        INITIALIZING SYSTEM
                     </div>
-
-                    {loadingProgress !== null && (
-                        <div className="progress-percentage">
-                            {Math.round(loadingProgress)}%
-                        </div>
-                    )}
                 </div>
             </div>
         </div>

@@ -1,36 +1,10 @@
 import { faTwitch, faDiscord, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faTrophy, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons';
 
-import parallax_1 from '../assets/images/backgrounds/parallax_1.jpg';
-import parallax_2 from '../assets/images/backgrounds/parallax_2.jpg';
+import parallax_1 from '../assets/images/backgrounds/parallax_1.webp';
+import parallax_2 from '../assets/images/backgrounds/parallax_2.webp';
 //import parallax_3 from '../assets/images/backgrounds/parallax_3.jpg';
 
-export const eventsData = [
-    {
-        id: 1,
-        title: "Valorant Champions 2025",
-        date: "AUG 15 - 25",
-        status: "Upcoming",
-        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
-        description: "The world's best teams clash for the ultimate title in Seoul."
-    },
-    {
-        id: 2,
-        title: "Community Gameday: CS2",
-        date: "THIS SATURDAY",
-        status: "Open",
-        image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=800&q=80",
-        description: "Join our discord for 5v5 scrims. Prizes for MVP."
-    },
-    {
-        id: 3,
-        title: "Dev Stream: Patch 4.0",
-        date: "JULY 10",
-        status: "Live Soon",
-        image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=800&q=80",
-        description: "Deep dive into the new agent mechanics and map rotation."
-    }
-];
 
 export const communityData = {
     stats: [
@@ -56,7 +30,7 @@ export const parallaxData = [
     },
     {
         id: 2,
-        image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=1600&q=80",
+        image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1600&q=80",
         title: "Cyberpunk Future",
         subtitle: "Redefine Your Reality"
     },

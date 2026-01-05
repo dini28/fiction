@@ -1,16 +1,15 @@
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt, faBolt, faGhost, faEye, faFire } from '@fortawesome/free-solid-svg-icons';
 import './CharacterShowcase.css';
 
-import fortress from '../../assets/images/characters/fortress.png';
-import phantom from '../../assets/images/characters/phantom.png';
-import surge from '../../assets/images/characters/surge.png';
-import nexus from '../../assets/images/characters/nexus.png';
-import inferno from '../../assets/images/characters/inferno.png';
+import fortress from '../../assets/images/characters/fortress.webp';
+import phantom from '../../assets/images/characters/phantom.webp';
+import surge from '../../assets/images/characters/surge.webp';
+import nexus from '../../assets/images/characters/nexus.webp';
+import inferno from '../../assets/images/characters/inferno.webp';
 
 
 
@@ -84,7 +83,7 @@ const CharacterShowcase = () => {
                 scrollTrigger: {
                     trigger: triggerRef.current,
                     pin: true,
-                    scrub: 1,
+                    scrub: 1.5,
                     end: () => "+=" + (containerRef.current ? containerRef.current.offsetWidth : 3000),
                     snap: 1 / (totalPanels - 1),
                     invalidateOnRefresh: true
@@ -94,19 +93,21 @@ const CharacterShowcase = () => {
             // Parallax effects for images
             sections.forEach((section) => {
                 const img = section.querySelector('.char-img');
-                gsap.fromTo(img,
-                    { backgroundPosition: "0% 50%" },
-                    {
-                        backgroundPosition: "100% 50%",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: triggerRef.current,
-                            start: "top top",
-                            end: "+=3000",
-                            scrub: true
+                if (img) {
+                    gsap.fromTo(img,
+                        { backgroundPosition: "0% 50%" },
+                        {
+                            backgroundPosition: "100% 50%",
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: triggerRef.current,
+                                start: "top top",
+                                end: "+=3000",
+                                scrub: 1.5
+                            }
                         }
-                    }
-                );
+                    );
+                }
             });
         });
 

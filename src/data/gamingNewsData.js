@@ -1,56 +1,55 @@
 import GamingNewsMain from '../assets/images/games/GamingNewsMain.jpg'
-import GamingShift from '../assets/images/games/GravityShift.jpg'
-import CrystalKeepers from '../assets/images/games/CrystalKeepers.jpg'
+import GamingShift from '../assets/images/games/GravityShift.webp'
+import CrystalKeepers from '../assets/images/games/CrystalKeepers.webp'
 import WarZone from '../assets/images/games/WarZone.png'
 import ShadowSector from '../assets/images/games/ShadowSector.png'
-import NeonPulse from '../assets/images/games/NeonPulse.png'
-import Obsidian from '../assets/images/games/Obsidian.png'
+import Obsidian from '../assets/images/games/Obsidian.webp'
+
+import agent from '../assets/images/agent.jpg'
+import news_1 from '../assets/images/news/news_1.png'
+import news_2 from '../assets/images/news/news_2.jpg'
 
 export const newsData = {
     featured: {
-        id: 'featured-warzone',
-        image: GamingNewsMain,
-        title: 'Operation: Dark Winter',
-        subtitle: 'Official Gameplay Launch Trailer',
+        id: 'featured-ironfall',
+        image: GamingNewsMain, // custom / local asset
+        title: 'Operation: Ironfall',
+        subtitle: 'Cinematic Gameplay Reveal',
         badge: 'Live Now',
         badgeType: 'critical'
     },
     sidebar: [
         {
             id: 'news-1',
-            title: 'EARN YOUR LEGACY | Worlds 2025',
+            title: 'CLAIM THE CROWN | Ascension League',
             badge: 'News',
-            badgeType: 'lol',
-            // Esports arena stage
-            image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80',
-            alt: 'Worlds 2025'
+            badgeType: 'elite',
+            image: news_1,
+            alt: 'Ascension League Arena'
         },
         {
             id: 'news-2',
-            title: 'GIVE THEM NOTHING // Veto Agent Trailer',
+            title: 'LEAVE NO TRACE || Phantom Unit Trailer',
             badge: 'News',
             badgeType: 'default',
-            // Cyberpunk character concept
-            image: 'https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800&q=80',
-            alt: 'Valorant'
+            image: news_2,
+            alt: 'Sci-Fi Operative'
         },
         {
             id: 'news-3',
-            title: 'Final Contact - The Path to Paris',
+            title: 'Final Signal — Road to Obsidian City',
             badge: 'News',
             badgeType: 'default',
-            // Stadium crowd/lights
-            image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80',
-            alt: 'Esports'
+            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
+            alt: 'Futuristic Arena'
         },
         {
             id: 'news-4',
-            title: 'Worlds 2025 Primer',
+            title: 'Ascension League: Season Zero Briefing',
             badge: 'News',
-            badgeType: 'lol',
-            // Trophy or championship vibe
-            image: 'https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&q=80',
-            alt: 'Championship'
+            badgeType: 'elite',
+            image: agent,
+            alt: 'Championship Relic'
         }
     ]
 };
@@ -59,14 +58,6 @@ export const gamesData = {
     mainGames: [
         {
             id: 'nebula-1',
-            name: 'Neon Pulse',
-            image: NeonPulse,
-            platforms: ['desktop', 'playstation', 'xbox'],
-            size: 'default',
-            genre: 'Cyberpunk RPG'
-        },
-        {
-            id: 'nebula-2',
             name: 'Obsidian Edge',
             image: Obsidian,
             platforms: ['desktop', 'mobile-alt'],
@@ -76,7 +67,7 @@ export const gamesData = {
     ],
     midGames: [
         {
-            id: 'nebula-3',
+            id: 'nebula-2',
             name: 'Star\nTactics',
             image: 'https://images.unsplash.com/photo-1614728263952-84ea206f25ab?w=600&h=400&fit=crop&q=80',
             platforms: ['desktop', 'apple'],
@@ -84,7 +75,7 @@ export const gamesData = {
             genre: 'Turn-based Strategy'
         },
         {
-            id: 'nebula-4',
+            id: 'nebula-3',
             name: 'Gravity\nShift',
             image: GamingShift,
             platforms: ['mobile-alt'],
@@ -92,7 +83,7 @@ export const gamesData = {
             genre: 'Puzzle Platformer'
         },
         {
-            id: 'nebula-5',
+            id: 'nebula-4',
             name: 'Crystal\nKeepers',
             image: CrystalKeepers,
             platforms: ['desktop', 'apple', 'mobile-alt'],
@@ -102,7 +93,7 @@ export const gamesData = {
     ],
     comingSoon: [
         {
-            id: 'nebula-6',
+            id: 'nebula-5',
             name: '',
             image: WarZone,
             platforms: ['desktop', 'playstation', 'xbox'],
@@ -111,7 +102,7 @@ export const gamesData = {
             releaseDate: 'Q4 2026'
         },
         {
-            id: 'nebula-7',
+            id: 'nebula-6',
             name: '',
             image: ShadowSector,
             platforms: ['desktop'],

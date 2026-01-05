@@ -1,13 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
-import './Header.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faX, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../../assets/branding/logo.svg';
 import logo_white from '../../../assets/branding/logo_white.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe, faMagnifyingGlass, faBars, faX, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import './Header.css';
 
-import NeonPulse from '../../../assets/images/games/NeonPulse.png';
+import discover from '../../../assets/images/discover.webp';
+import join from '../../../assets/images/join.webp';
+
 import Aethelgard from '../../../assets/images/games/Aethelgard.png';
-import Obsidian from '../../../assets/images/games/Obsidian.png';
+import Obsidian from '../../../assets/images/games/Obsidian.webp';
+
+import fictiongames from '../../../assets/images/business/fictiongames.webp';
+import fictioncontact from '../../../assets/images/business/fictioncontact.webp';
+import fictionsupport from '../../../assets/images/business/fictionsupport.webp';
+import fictionmerch from '../../../assets/images/business/fictionmerch.webp';
 
 const Header = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -16,11 +23,11 @@ const Header = () => {
     const [featuredData, setFeaturedData] = useState({
         images: [
             {
-                img: 'https://via.placeholder.com/400x200/d13639/ffffff?text=Featured+1',
+                img: discover,
                 text: 'Discover amazing gaming experiences'
             },
             {
-                img: 'https://via.placeholder.com/400x200/6c5ce7/ffffff?text=Featured+2',
+                img: join,
                 text: 'Join millions of players worldwide'
             }
         ],
@@ -93,7 +100,7 @@ const Header = () => {
         },
         {
             name: 'Neon Pulse',
-            image: NeonPulse,
+            image: '',
             text: 'A sprawling, neon-soaked metropolis controlled by a central AI called "The Architect."'
         },
         {
@@ -118,6 +125,29 @@ const Header = () => {
         }
     ];
 
+    const businessData = [
+        {
+            name: 'FICTION GAMES',
+            image: fictiongames,
+            text: 'Discover amazing gaming experiences'
+        },
+        {
+            name: 'FICTION CONTACT',
+            image: fictioncontact,
+            text: 'Join millions of players worldwide'
+        },
+        {
+            name: 'FICTION SUPPORT',
+            image: fictionsupport,
+            text: 'A Victorian-style city haunted by spirits that have crossed over from the "Glow."'
+        },
+        {
+            name: 'FICTION MERCH',
+            image: fictionmerch,
+            text: 'A Victorian-style city haunted by spirits that have crossed over from the "Glow."'
+        }
+    ];
+
     const handleLinkHover = (image, text) => {
         setFeaturedData({
             images: [{ img: image, text: text }],
@@ -129,11 +159,11 @@ const Header = () => {
         setFeaturedData({
             images: [
                 {
-                    img: 'https://via.placeholder.com/400x200/d13639/ffffff?text=Featured+1',
+                    img: discover,
                     text: 'Discover amazing gaming experiences'
                 },
                 {
-                    img: 'https://via.placeholder.com/400x200/6c5ce7/ffffff?text=Featured+2',
+                    img: join,
                     text: 'Join millions of players worldwide'
                 }
             ],
@@ -261,10 +291,20 @@ const Header = () => {
 
                                         <h3 className="section-spacing">Business</h3>
                                         <ul role="list">
-                                            <li><a href="#business" role="menuitem">FICTION GAMES</a></li>
-                                            <li><a href="#business" role="menuitem">FICTION MERCH</a></li>
-                                            <li><a href="#business" role="menuitem">FICTION SUPPORT</a></li>
-                                            <li><a href="#business" role="menuitem">FICTION CONTACT</a></li>
+                                            {businessData.map((business, index) => (
+                                                <li key={index}>
+                                                    <a
+                                                        href="#business"
+                                                        onMouseEnter={() => handleLinkHover(business.image, business.text)}
+                                                        onMouseLeave={handleLinkLeave}
+                                                        onFocus={() => handleLinkHover(business.image, business.text)}
+                                                        onBlur={handleLinkLeave}
+                                                        role="menuitem"
+                                                    >
+                                                        {business.name}
+                                                    </a>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
 
@@ -301,20 +341,6 @@ const Header = () => {
                     </nav>
 
                     <div className="right-section">
-                        <button className="globe-icon" aria-label="Change language">
-                            <FontAwesomeIcon icon={faGlobe} />
-                        </button>
-                        <div className="search-container">
-                            <input
-                                type="search"
-                                className="search-input"
-                                placeholder="SEARCH"
-                                aria-label="Search"
-                            />
-                            <button className="search-button" aria-label="Submit search">
-                                <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            </button>
-                        </div>
                         <div className="sign-in-container">
                             <button className="sign-in-btn">SIGN IN</button>
                         </div>

@@ -9,7 +9,7 @@ const Hero = () => {
     const [videoLoaded, setVideoLoaded] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setVideoLoaded(true), 500);
+        const timer = setTimeout(() => setVideoLoaded(true), 8000);
         return () => clearTimeout(timer);
     }, []);
 

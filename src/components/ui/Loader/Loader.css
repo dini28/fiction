@@ -6,7 +6,6 @@
     width: 100%;
     height: 100vh;
     z-index: 9999;
-    pointer-events: none;
     overflow: hidden;
 }
 
@@ -18,117 +17,47 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 /* Content Container */
 .loader-content {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     padding: 0 2rem;
-    text-align: center;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
-/* Text Styling */
-.loader-text {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.5rem;
-    color: #06b6d4;
-    letter-spacing: 0.3em;
-    margin-bottom: 2rem;
-    font-weight: bold;
+/* Lottie Wrapper */
+.lottie-wrapper {
+    width: 300px;
+    height: 300px;
+}
+
+/* Minimal Text Styling */
+.loader-text-minimal {
+    font-family: 'Turret Road', sans-serif;
+    font-size: 1.25rem;
+    color: #ff4655;
+    letter-spacing: 0.4em;
+    font-weight: 500;
     text-transform: uppercase;
-    position: relative;
-    text-shadow:
-        0 0 10px rgba(6, 182, 212, 0.5),
-        0 0 20px rgba(6, 182, 212, 0.3);
-}
-
-/* Blinking Cursor */
-.cursor-blink {
-    display: inline-block;
-    width: 8px;
-    height: 24px;
-    background-color: #06b6d4;
-    margin-left: 8px;
-    vertical-align: middle;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-
-    0%,
-    49% {
-        opacity: 1;
-    }
-
-    50%,
-    100% {
-        opacity: 0;
-    }
-}
-
-/* Progress Bar Track */
-.progress-bar-track {
-    width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-    border-radius: 2px;
-}
-
-/* Progress Bar Fill */
-.progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #06b6d4, #22d3ee);
-    width: 100%;
-    transform-origin: left;
-    box-shadow:
-        0 0 15px rgba(6, 182, 212, 0.8),
-        0 0 30px rgba(6, 182, 212, 0.4);
-}
-
-/* Progress Percentage */
-.progress-percentage {
-    margin-top: 1rem;
-    color: rgba(6, 182, 212, 0.6);
-    font-size: 0.875rem;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-    .cursor-blink {
-        animation: none;
-        opacity: 1;
-    }
-
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
 }
 
 /* Responsive Design */
-@media (max-width: 640px) {
-    .loader-content {
-        max-width: 320px;
-        padding: 0 1.5rem;
+@media (max-width: 768px) {
+    .lottie-wrapper {
+        width: 200px;
+        height: 200px;
     }
 
-    .loader-text {
-        font-size: 1.125rem;
-        letter-spacing: 0.2em;
-        margin-bottom: 1.5rem;
-    }
-
-    .cursor-blink {
-        width: 6px;
-        height: 18px;
+    .loader-text-minimal {
+        font-size: 1rem;
+        letter-spacing: 0.3em;
     }
 }
