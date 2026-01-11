@@ -1,0 +1,226 @@
+.login-page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.back-to-home {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    z-index: 100;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: 3px;
+    opacity: 0.6;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+}
+
+.back-to-home:hover {
+    opacity: 1;
+    gap: 18px;
+    color: #ff0000;
+}
+
+.content-section {
+    flex: 1.2;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+    background: #000;
+    overflow: hidden;
+}
+
+.visual-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    filter: brightness(0.7) contrast(1.1);
+    z-index: 1;
+}
+
+.content-overlay {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.brand-tag {
+    color: #ff0000;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.company-name {
+    font-family: 'Atomic Age', sans-serif;
+}
+
+.content-overlay h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 30px;
+    letter-spacing: -2px;
+}
+
+.content-overlay p {
+    font-size: 1.1rem;
+    color: #888;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.stat-item h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.stat-item p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    letter-spacing: 1px;
+}
+
+.auth-section {
+    flex: 0.8;
+    background: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-header {
+    margin-bottom: 40px;
+}
+
+.auth-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.auth-header p {
+    color: #666;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.auth-form .input-group {
+    margin-bottom: 25px;
+}
+
+.auth-form .input-icon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ff0000;
+}
+
+.auth-form input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 0 15px 35px;
+    color: #fff;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #ff0000;
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 20px;
+    background: #ff0000;
+    color: #fff;
+    border: none;
+    font-weight: 800;
+    letter-spacing: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.auth-submit-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+.auth-footer {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.auth-footer p {
+    color: #444;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.toggle-link {
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    margin-left: 8px;
+    transition: color 0.3s;
+}
+
+.toggle-link:hover {
+    color: #ff0000;
+}
+
+@media (max-width: 1100px) {
+    .content-section {
+        display: none;
+    }
+
+    .auth-section {
+        flex: 1;
+        border-left: none;
+    }
+}

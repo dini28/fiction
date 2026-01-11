@@ -28,24 +28,32 @@ const ScrollToTop = () => {
   return null;
 };
 
-function App() {
+function AppContent() {
+  const { pathname } = useLocation();
   const [isLoading, setIsLoading] = useState(true);
+  const isLoginPage = pathname === '/login';
 
+  return (
+    <SmoothScroll>
+      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+      {!isLoginPage && <Header />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/careers" element={<CareersPage />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+      {!isLoginPage && <Footer />}
+    </SmoothScroll>
+  );
+}
+
+function App() {
   return (
     <Router>
       <ScrollToTop />
-      <SmoothScroll>
-        {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/careers" element={<CareersPage />} />
-          <Route path="/news" element={<NewsPage />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
-        <Footer />
-      </SmoothScroll>
+      <AppContent />
     </Router>
   )
 }
