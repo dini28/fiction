@@ -7,6 +7,7 @@ import './Hero.css'
 
 const Hero = () => {
     const [videoLoaded, setVideoLoaded] = useState(false);
+    const currentYear = new Date().getFullYear();
 
     useEffect(() => {
         const timer = setTimeout(() => setVideoLoaded(true), 8000);
@@ -16,106 +17,95 @@ const Hero = () => {
     const containerRef = useRef();
 
     useGSAP(() => {
-        const tl = gsap.timeline({ defaults: { ease: "back.out(1.7)" } });
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        tl.from(".main-title span", {
-            y: 100,
+        tl.from(".hero-badge", {
+            y: 20,
             opacity: 0,
-            duration: 1,
-            stagger: 0.1
+            duration: 0.8,
+            delay: 0.2
         })
-            .from(".subtitle", {
-                scale: 0.5,
+            .from(".main-title .line", {
+                y: 50,
                 opacity: 0,
-                duration: 0.8
-            }, "-=0.5")
-            .from(".description", {
-                y: 30,
+                duration: 1,
+                stagger: 0.15,
+                skewY: 2
+            }, "-=0.4")
+            .from(".hero-subtitle", {
+                y: 20,
                 opacity: 0,
                 duration: 0.8,
-                ease: "power2.out"
+                letterSpacing: "1em"
             }, "-=0.6")
-            .from(".cta-button", {
-                scale: 0,
+            .from(".hero-description", {
+                y: 20,
+                opacity: 0,
+                duration: 0.8
+            }, "-=0.6")
+            .from(".hero-cta", {
+                y: 20,
                 opacity: 0,
                 duration: 0.6
-            }, "-=0.4")
-            .from(".year-badge", {
-                x: -50,
+            }, "-=0.6")
+            .from(".decorative-element", {
                 opacity: 0,
-                rotation: -45,
-                duration: 0.8
-            }, 0);
+                duration: 1.5,
+                stagger: 0.2
+            }, "-=1");
 
     }, { scope: containerRef });
 
     return (
-        <section className="hero" role="banner" ref={containerRef}>
-            <div className="video-background" aria-hidden="true">
-                <iframe
-                    src="https://www.youtube.com/embed/fvbEnWLRo1s?autoplay=1&mute=1&loop=1&playlist=fvbEnWLRo1s&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
-                    title="Esports Tournament Background Video"
-                    frameBorder="0"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    loading="lazy"
-                    className={videoLoaded ? 'loaded' : ''}
-                ></iframe>
+        <section className="hero-section" role="banner" ref={containerRef}>
+            <div className="hero-background-wrapper" aria-hidden="true">
+                <div className="video-container">
+                    <iframe
+                        src="https://www.youtube.com/embed/fvbEnWLRo1s?autoplay=1&mute=1&loop=1&playlist=fvbEnWLRo1s&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+                        title="Esports Tournament Background Video"
+                        frameBorder="0"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                        loading="lazy"
+                        className={`hero-video ${videoLoaded ? 'is-loaded' : ''}`}
+                    ></iframe>
+                </div>
+                <div className="hero-overlay"></div>
             </div>
 
-            <div className="video-overlay" aria-hidden="true"></div>
-
-            <div className="decorative-lines" aria-hidden="true">
-                <div className="line line-1"></div>
-                <div className="line line-2"></div>
-                <div className="line line-3"></div>
-            </div>
-
-            <div className="accent-shapes" aria-hidden="true">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="presentation">
-                    <polygon
-                        points="100,20 180,60 180,140 100,180 20,140 20,60"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                    />
-                    <polygon
-                        points="100,40 160,70 160,130 100,160 40,130 40,70"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                    />
-                </svg>
+            {/* Decorative Elements */}
+            <div className="hero-decorations" aria-hidden="true">
+                <div className="decorative-element deco-line deco-line-1"></div>
+                <div className="decorative-element deco-line deco-line-2"></div>
+                <div className="decorative-element deco-shape">
+                    <svg viewBox="0 0 100 100" className="spinning-shape">
+                        <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="none" stroke="currentColor" strokeWidth="1" />
+                    </svg>
+                </div>
             </div>
 
             <div className="hero-content">
-                <div className="year-badge">
-                    <span>20</span>
-                    <span className="x-icon" aria-hidden="true">✕</span>
-                    <span>25</span>
+                <div className="hero-badge">
+                    <span className="badge-text">SEASON {currentYear}</span>
                 </div>
 
-                <h1 className="main-title">
-                    <span>ESPORTS</span>
-                    <span className="highlight">CHAMPIONS</span>
-                </h1>
-
-                <div className="subtitle" role="text">
-                    TOURNAMENT
+                <div className="main-title">
+                    <div className="line line-top" aria-hidden="true">ESPORTS</div>
+                    <div className="line line-bottom text-highlight" aria-hidden="true">CHAMPIONS</div>
                 </div>
 
-                <p className="description">
-                    Watch the biggest plays as the best teams in competitive gaming compete at Champions.
+                <div className="hero-subtitle">TOURNAMENT SERIES</div>
+
+                <p className="hero-description">
+                    Witness the evolution of competitive gaming. The world's elite teams clash for glory, honor, and the championship title.
                 </p>
 
-                <a
-                    href="#join"
-                    className="cta-button"
-                    aria-label="Join the Battle - Register for tournament"
-                >
-                    Join the Battle
-                    <FontAwesomeIcon className="arrow-icon" icon={faArrowRight} />
-                </a>
+                <div className="hero-cta">
+                    <a href="#join" className="primary-button" aria-label="Join the Battle">
+                        <span>Join the Battle</span>
+                        <FontAwesomeIcon icon={faArrowRight} className="icon" />
+                    </a>
+                </div>
             </div>
         </section>
     );

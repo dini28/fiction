@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
@@ -12,7 +12,7 @@ const Loader = ({ onComplete }) => {
 
     useGSAP(() => {
         const tl = gsap.timeline({
-            delay: 6.0, // Allow the Lottie animation to play for a bit
+            delay: 2.0,
             onComplete: () => {
                 if (onComplete) onComplete();
             }

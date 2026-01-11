@@ -1,0 +1,170 @@
+.not-found-container {
+    height: 100vh;
+    width: 100vw;
+    background-color: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+.noise-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+.error-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.error-code {
+    font-family: 'Turret Road', sans-serif;
+    font-size: 10rem;
+    font-weight: 800;
+    line-height: 1;
+    color: white;
+    position: relative;
+    text-shadow: 4px 4px var(--color-primary);
+    margin: 0;
+}
+
+.error-code::before,
+.error-code::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.error-code::before {
+    left: 2px;
+    text-shadow: -2px 0 #00ffff;
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-1 3s infinite linear alternate-reverse;
+}
+
+.error-code::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--color-primary);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+.error-divider {
+    height: 2px;
+    width: 150px;
+    background: var(--color-primary);
+    margin: 20px auto;
+    box-shadow: 0 0 15px var(--color-primary);
+}
+
+.error-message {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.error-message .highlight {
+    color: var(--color-primary);
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.error-desc {
+    color: var(--color-text-gray);
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+.home-btn {
+    position: relative;
+    display: inline-block;
+    padding: 15px 40px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.home-btn:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(255, 70, 85, 0.3);
+}
+
+.btn-text {
+    font-family: 'Bruno Ace SC', sans-serif;
+    color: white;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 2;
+}
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0.1;
+    animation: scanline 6s linear infinite;
+    pointer-events: none;
+    z-index: 3;
+}
+
+@keyframes scanline {
+    0% {
+        top: -10%;
+    }
+
+    100% {
+        top: 110%;
+    }
+}
+
+@keyframes glitch-anim-1 {
+    0% {
+        clip: rect(30px, 9999px, 10px, 0);
+    }
+
+    100% {
+        clip: rect(80px, 9999px, 100px, 0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0% {
+        clip: rect(100px, 9999px, 85px, 0);
+    }
+
+    100% {
+        clip: rect(10px, 9999px, 130px, 0);
+    }
+}

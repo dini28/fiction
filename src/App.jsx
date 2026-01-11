@@ -1,44 +1,52 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { useGSAP } from '@gsap/react';
 import Footer from "./components/layout/Footer/Footer"
 import Header from "./components/layout/Header/Header"
-import Hero from "./features/hero/Hero"
-import TextParallax from "./features/text-parallax/TextParallax"
-import CharacterShowcase from "./features/character-showcase/CharacterShowcase"
-import GamingNews from "./features/gaming-news/GamingNews"
-import ParallaxVisual from "./features/parallax-visual/ParallaxVisual"
-import Community from "./features/community/Community"
-import Newsletter from "./features/newsletter/Newsletter"
 import Loader from "./components/ui/Loader/Loader";
-import SectionDivider from "./components/ui/SectionDivider/SectionDivider";
 import SmoothScroll from "./components/ui/SmoothScroll/SmoothScroll";
+import Home from './pages/Home';
+import AboutPage from './pages/AboutPage';
+import CareersPage from './pages/CareersPage';
+import NewsPage from './pages/NewsPage';
+import LoginPage from './pages/LoginPage';
 
 import gsap from 'gsap';
 gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [pathname]);
+  return null;
+};
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <SmoothScroll>
-      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
-      <Header />
-      <Hero />
-      <SectionDivider />
-      <TextParallax />
-      <CharacterShowcase />
-      <SectionDivider variant="glow" />
-      <GamingNews />
-      <SectionDivider />
-      <ParallaxVisual />
-      <SectionDivider variant="dots" />
-      <SectionDivider />
-      <Community />
-      <Newsletter />
-      <Footer />
-    </SmoothScroll>
+    <Router>
+      <ScrollToTop />
+      <SmoothScroll>
+        {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+        <Footer />
+      </SmoothScroll>
+    </Router>
   )
 }
 

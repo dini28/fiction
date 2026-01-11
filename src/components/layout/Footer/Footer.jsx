@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faXTwitter, faInstagram, faDiscord,
@@ -10,6 +11,12 @@ import { useState } from 'react';
 
 const Footer = () => {
     const [isHovered, setIsHovered] = useState(false);
+
+    const mainLinks = [
+        { label: "WHO WE ARE", path: "/about" },
+        { label: "WORK WITH US", path: "/careers" },
+        { label: "NEWS", path: "/news" }
+    ];
 
     const navLinks = [
         "PRESS", "SECURITY", "LEGAL", "LEADERSHIP",
@@ -28,8 +35,10 @@ const Footer = () => {
     ];
 
     const scrollToTop = (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (window.location.pathname === '/') {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     };
 
     return (
@@ -39,18 +48,25 @@ const Footer = () => {
                     <div className="footer-main">
                         <div className="footer-left">
                             <div className="footer-logo">
-                                <img
-                                    src={isHovered ? logo : logo_white}
-                                    alt="Fiction Games Logo"
-                                    onMouseEnter={() => setIsHovered(true)}
-                                    onMouseLeave={() => setIsHovered(false)}
-                                />
+                                <Link to="/">
+                                    <img
+                                        src={isHovered ? logo : logo_white}
+                                        alt="Fiction Games Logo"
+                                        onMouseEnter={() => setIsHovered(true)}
+                                        onMouseLeave={() => setIsHovered(false)}
+                                    />
+                                </Link>
                                 <p className="logo-text">
                                     Fiction <span> games </span>
                                 </p>
                             </div>
 
                             <nav className="footer-nav">
+                                {mainLinks.map((link) => (
+                                    <Link key={link.label} to={link.path}>
+                                        {link.label}
+                                    </Link>
+                                ))}
                                 {navLinks.map((link) => (
                                     <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}>
                                         {link}

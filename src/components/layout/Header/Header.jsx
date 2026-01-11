@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faX, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faBars, faX } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../../assets/branding/logo.svg';
 import logo_white from '../../../assets/branding/logo_white.svg';
 import './Header.css';
@@ -22,14 +23,8 @@ const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [featuredData, setFeaturedData] = useState({
         images: [
-            {
-                img: discover,
-                text: 'Discover amazing gaming experiences'
-            },
-            {
-                img: join,
-                text: 'Join millions of players worldwide'
-            }
+            { img: discover, text: 'Discover amazing gaming experiences' },
+            { img: join, text: 'Join millions of players worldwide' }
         ],
         isSingle: false
     });
@@ -39,32 +34,23 @@ const Header = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            setIsScrolled(window.scrollY > 20);
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     useEffect(() => {
-        const handleEscape = (e) => {
-            if (e.key === 'Escape' && isDropdownOpen) {
-                setIsDropdownOpen(false);
-                dropdownButtonRef.current?.focus();
-            }
-        };
-        document.addEventListener('keydown', handleEscape);
-        return () => document.removeEventListener('keydown', handleEscape);
-    }, [isDropdownOpen]);
-
-    useEffect(() => {
         if (isDropdownOpen) {
             document.body.style.overflow = 'hidden';
+            const handleEscape = (e) => {
+                if (e.key === 'Escape') setIsDropdownOpen(false);
+            };
+            document.addEventListener('keydown', handleEscape);
+            return () => document.removeEventListener('keydown', handleEscape);
         } else {
             document.body.style.overflow = '';
         }
-        return () => {
-            document.body.style.overflow = '';
-        };
     }, [isDropdownOpen]);
 
     useEffect(() => {
@@ -78,283 +64,197 @@ const Header = () => {
             }
         };
 
-        if (isDropdownOpen) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        if (isDropdownOpen) document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [isDropdownOpen]);
 
     const gamesData = [
-        {
-            name: 'Aethelgard: The Rift',
-            image: Aethelgard,
-            text: 'The city of Aethelgard, which exists simultaneously in its golden age (The Past) and its decaying ruins (The Future).'
-        },
-        {
-            name: 'Obsidian Edge',
-            image: Obsidian,
-            text: 'A dark, crumbling kingdom buried under a permanent eclipse. The only light comes from the glowing runes on your sword.'
-        },
-        {
-            name: 'Neon Pulse',
-            image: '',
-            text: 'A sprawling, neon-soaked metropolis controlled by a central AI called "The Architect."'
-        },
-        {
-            name: 'Cinder Crown',
-            image: 'https://via.placeholder.com/400x200/1f4788/ffffff?text=Cinder+Crown',
-            text: 'A frozen wasteland called The Ever-Frost, where the sun has gone out.'
-        },
-        {
-            name: 'Vector Blade',
-            image: 'https://via.placeholder.com/400x200/0ac8b9/ffffff?text=Vector+Blade',
-            text: 'A minimalist, digital dimension where everything is made of sharp geometric shapes and vibrant light.'
-        },
-        {
-            name: 'Titan\'s Wake',
-            image: 'https://via.placeholder.com/400x200/f9ca24/ffffff?text=Titan\'s+Wake',
-            text: 'The entire game takes place on the back of a "World-Titan"—a creature the size of a continent that is slowly waking up.'
-        },
-        {
-            name: 'Spectral Breach',
-            image: 'https://via.placeholder.com/400x200/8e44ad/ffffff?text=Spectral+Breach',
-            text: 'A Victorian-style city haunted by spirits that have crossed over from the "Glow."'
-        }
+        { name: 'Aethelgard: The Rift', image: Aethelgard, text: 'The city of Aethelgard.' },
+        { name: 'Obsidian Edge', image: Obsidian, text: 'A dark, crumbling kingdom.' },
+        { name: 'Neon Pulse', image: '', text: 'A sprawling, neon-soaked metropolis.' },
+        { name: 'Cinder Crown', image: 'https://via.placeholder.com/400x200/1f4788/ffffff?text=Cinder+Crown', text: 'A frozen wasteland.' },
+        { name: 'Vector Blade', image: 'https://via.placeholder.com/400x200/0ac8b9/ffffff?text=Vector+Blade', text: 'A minimalist, digital dimension.' },
+        { name: 'Titan\'s Wake', image: 'https://via.placeholder.com/400x200/f9ca24/ffffff?text=Titan\'s+Wake', text: 'The entire game takes place on a Titan.' },
+        { name: 'Spectral Breach', image: 'https://via.placeholder.com/400x200/8e44ad/ffffff?text=Spectral+Breach', text: 'A Victorian-style city haunted by spirits.' }
     ];
 
     const businessData = [
-        {
-            name: 'FICTION GAMES',
-            image: fictiongames,
-            text: 'Discover amazing gaming experiences'
-        },
-        {
-            name: 'FICTION CONTACT',
-            image: fictioncontact,
-            text: 'Join millions of players worldwide'
-        },
-        {
-            name: 'FICTION SUPPORT',
-            image: fictionsupport,
-            text: 'A Victorian-style city haunted by spirits that have crossed over from the "Glow."'
-        },
-        {
-            name: 'FICTION MERCH',
-            image: fictionmerch,
-            text: 'A Victorian-style city haunted by spirits that have crossed over from the "Glow."'
-        }
+        { name: 'FICTION GAMES', image: fictiongames, text: 'Discover amazing gaming experiences' },
+        { name: 'FICTION CONTACT', image: fictioncontact, text: 'Join millions of players worldwide' },
+        { name: 'FICTION SUPPORT', image: fictionsupport, text: 'Customer support center' },
+        { name: 'FICTION MERCH', image: fictionmerch, text: 'Official merchandise' }
     ];
 
     const handleLinkHover = (image, text) => {
-        setFeaturedData({
-            images: [{ img: image, text: text }],
-            isSingle: true
-        });
+        if (!image) return;
+        setFeaturedData({ images: [{ img: image, text: text }], isSingle: true });
     };
 
     const handleLinkLeave = () => {
         setFeaturedData({
             images: [
-                {
-                    img: discover,
-                    text: 'Discover amazing gaming experiences'
-                },
-                {
-                    img: join,
-                    text: 'Join millions of players worldwide'
-                }
+                { img: discover, text: 'Discover amazing gaming experiences' },
+                { img: join, text: 'Join millions of players worldwide' }
             ],
             isSingle: false
         });
     };
 
-    const handleDropdownToggle = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-        if (isMobileMenuOpen) {
-            setIsMobileMenuOpen(false);
-        }
-    };
-
-    const handleCloseDropdown = () => {
-        setIsDropdownOpen(false);
-        dropdownButtonRef.current?.focus();
-    };
-
-    const handleMobileMenuToggle = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-        if (isDropdownOpen) {
-            setIsDropdownOpen(false);
-        }
-    };
-
     return (
         <>
-            {isDropdownOpen && (
-                <div
-                    className="dropdown-backdrop"
-                    onClick={handleCloseDropdown}
-                    aria-hidden="true"
-                />
-            )}
-
             <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
                 <div className="header-container">
                     <div className="left-section">
                         <div className="logo">
-                            <a href="#home" aria-label="Home">
+                            <Link to="/" aria-label="Home">
                                 <img src={logo_white} alt="Fiction Logo" />
                                 <h4>Fiction</h4>
-                            </a>
+                            </Link>
                         </div>
 
                         <button
-                            className="mobile-menu-toggle"
-                            onClick={handleMobileMenuToggle}
-                            aria-label="Toggle mobile menu"
-                            aria-expanded={isMobileMenuOpen}
+                            ref={dropdownButtonRef}
+                            className="dropdown-trigger"
+                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            aria-expanded={isDropdownOpen}
+                            aria-haspopup="true"
                         >
-                            <FontAwesomeIcon icon={isMobileMenuOpen ? faX : faBars} />
+                            <img src={logo} alt="logo" aria-hidden="true" />
+                            <span>Explorer</span>
+                            <FontAwesomeIcon icon={faChevronDown} className={`fa-xs ${isDropdownOpen ? 'fa-rotate-180' : ''}`} style={{ transition: 'transform 0.3s' }} />
                         </button>
-
-                        <div>
-                            <button
-                                ref={dropdownButtonRef}
-                                className="dropdown-icon"
-                                onClick={handleDropdownToggle}
-                                aria-label="Games menu"
-                                aria-expanded={isDropdownOpen}
-                                aria-haspopup="true"
-                            >
-                                <img src={logo} alt="Fiction Logo" />
-                                <FontAwesomeIcon icon={faChevronDown} />
-                            </button>
-
-                            <div
-                                ref={dropdownRef}
-                                className={`dropdown ${isDropdownOpen ? 'active' : ''}`}
-                                role="menu"
-                                aria-hidden={!isDropdownOpen}
-                            >
-                                <button
-                                    className="close-btn"
-                                    onClick={handleCloseDropdown}
-                                    aria-label="Close menu"
-                                >
-                                    <i className="fa-solid fa-xmark" aria-hidden="true"></i>
-                                </button>
-                                <div className="dropdown-container">
-                                    <div className="dropdown-section">
-                                        <h3>Games</h3>
-                                        <ul role="list">
-                                            {gamesData.map((game, index) => (
-                                                <li key={index}>
-                                                    <a
-                                                        href="#games"
-                                                        onMouseEnter={() => handleLinkHover(game.image, game.text)}
-                                                        onMouseLeave={handleLinkLeave}
-                                                        onFocus={() => handleLinkHover(game.image, game.text)}
-                                                        onBlur={handleLinkLeave}
-                                                        role="menuitem"
-                                                    >
-                                                        {game.name}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    <div className="dropdown-section">
-                                        <h3>Forge</h3>
-                                        <ul role="list">
-                                            <li><a href="#forge" role="menuitem">CONV/RGENCE</a></li>
-                                            <li><a href="#forge" role="menuitem">HEXTECH MAYHEM</a></li>
-                                            <li><a href="#forge" role="menuitem">THE MAGESEEKER</a></li>
-                                        </ul>
-
-                                        <h3 className="section-spacing">Esports</h3>
-                                        <ul role="list">
-                                            <li><a href="#esports" role="menuitem">ESPORTS</a></li>
-                                            <li><a href="#esports" role="menuitem">FICTION ESPORTS</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="dropdown-section">
-                                        <h3>Entertainment</h3>
-                                        <ul role="list">
-                                            <li><a href="#entertainment" role="menuitem">ARCANE</a></li>
-                                            <li><a href="#entertainment" role="menuitem">UNIVERSE</a></li>
-                                            <li><a href="#entertainment" role="menuitem">FICTION GAMES MUSIC</a></li>
-                                        </ul>
-
-                                        <h3 className="section-spacing">Business</h3>
-                                        <ul role="list">
-                                            {businessData.map((business, index) => (
-                                                <li key={index}>
-                                                    <a
-                                                        href="#business"
-                                                        onMouseEnter={() => handleLinkHover(business.image, business.text)}
-                                                        onMouseLeave={handleLinkLeave}
-                                                        onFocus={() => handleLinkHover(business.image, business.text)}
-                                                        onBlur={handleLinkLeave}
-                                                        role="menuitem"
-                                                    >
-                                                        {business.name}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    <div className="featured-section">
-                                        {featuredData.isSingle ? (
-                                            <div className="featured-card single">
-                                                <img src={featuredData.images[0].img} alt="Featured game content" />
-                                                <div className="featured-content">
-                                                    <p>{featuredData.images[0].text}</p>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div className="featured-cards-container">
-                                                {featuredData.images.map((item, index) => (
-                                                    <div key={index} className="featured-card">
-                                                        <img src={item.img} alt={`Featured content ${index + 1}`} />
-                                                        <div className="featured-content">
-                                                            <p>{item.text}</p>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <nav className="center-section" aria-label="Main navigation">
-                        <a href="#about" className="nav-item">WHO WE ARE</a>
-                        <a href="#careers" className="nav-item">WORK WITH US</a>
-                        <a href="#news" className="nav-item">NEWS</a>
+                        <Link to="/about" className="nav-item">Who We Are</Link>
+                        <Link to="/careers" className="nav-item">Work With Us</Link>
+                        <Link to="/news" className="nav-item">News</Link>
                     </nav>
 
                     <div className="right-section">
-                        <div className="sign-in-container">
-                            <button className="sign-in-btn">SIGN IN</button>
-                        </div>
+                        <Link to="/login" className="sign-in-link">
+                            Sign In
+                        </Link>
+                        <button
+                            className="mobile-toggle"
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            aria-label="Toggle mobile menu"
+                        >
+                            <FontAwesomeIcon icon={isMobileMenuOpen ? faX : faBars} />
+                        </button>
                     </div>
                 </div>
 
-                {isMobileMenuOpen && (
-                    <nav className="mobile-menu" aria-label="Mobile navigation">
-                        <a href="#about" className="mobile-nav-item">WHO WE ARE</a>
-                        <a href="#careers" className="mobile-nav-item">WORK WITH US</a>
-                        <a href="#news" className="mobile-nav-item">NEWS</a>
-                    </nav>
-                )}
+                {/* Mobile Menu */}
+                <nav className={`mobile-nav ${isMobileMenuOpen ? 'open' : ''}`} aria-label="Mobile navigation">
+                    <Link to="/about" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Who We Are</Link>
+                    <Link to="/careers" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Work With Us</Link>
+                    <Link to="/news" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>News</Link>
+                </nav>
             </header>
+
+            {/* Dropdown Overlay */}
+            {isDropdownOpen && (
+                <div className="dropdown-backdrop" onClick={() => setIsDropdownOpen(false)} aria-hidden="true" />
+            )}
+
+            {/* Mega Menu Dropdown */}
+            <div
+                ref={dropdownRef}
+                className={`dropdown-menu ${isDropdownOpen ? 'active' : ''}`}
+                role="menu"
+                aria-hidden={!isDropdownOpen}
+            >
+                <button className="close-dropdown-btn" onClick={() => setIsDropdownOpen(false)} aria-label="Close menu">
+                    <FontAwesomeIcon icon={faX} />
+                </button>
+
+                <div className="dropdown-wrapper">
+                    <div className="dropdown-links">
+                        <div className="dropdown-column">
+                            <span className="dropdown-section-title">Games</span>
+                            <ul className="dropdown-link-list">
+                                {gamesData.map((game, i) => (
+                                    <li key={i}>
+                                        <a
+                                            href="#games"
+                                            className="dropdown-link"
+                                            onMouseEnter={() => handleLinkHover(game.image, game.text)}
+                                            onMouseLeave={handleLinkLeave}
+                                        >
+                                            {game.name}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="dropdown-column">
+                            <span className="dropdown-section-title">Forge</span>
+                            <ul className="dropdown-link-list">
+                                <li><a href="#forge" className="dropdown-link">Conv/rgence</a></li>
+                                <li><a href="#forge" className="dropdown-link">Hextech Mayhem</a></li>
+                                <li><a href="#forge" className="dropdown-link">The Mageseeker</a></li>
+                            </ul>
+
+                            <div style={{ marginTop: '2rem' }}></div>
+                            <span className="dropdown-section-title">Esports</span>
+                            <ul className="dropdown-link-list">
+                                <li><a href="#esports" className="dropdown-link">LoL Esports</a></li>
+                                <li><a href="#esports" className="dropdown-link">Valorant Esports</a></li>
+                            </ul>
+                        </div>
+
+                        <div className="dropdown-column">
+                            <span className="dropdown-section-title">Entertainment</span>
+                            <ul className="dropdown-link-list">
+                                <li><a href="#arcane" className="dropdown-link">Arcane</a></li>
+                                <li><a href="#music" className="dropdown-link">Music</a></li>
+                            </ul>
+
+                            <div style={{ marginTop: '2rem' }}></div>
+                            <span className="dropdown-section-title">Business</span>
+                            <ul className="dropdown-link-list">
+                                {businessData.map((biz, i) => (
+                                    <li key={i}>
+                                        <a
+                                            href="#business"
+                                            className="dropdown-link"
+                                            onMouseEnter={() => handleLinkHover(biz.image, biz.text)}
+                                            onMouseLeave={handleLinkLeave}
+                                        >
+                                            {biz.name}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="dropdown-featured hidden-mobile">
+                        <div className="dropdown-section-title">Featured</div>
+                        {featuredData.isSingle ? (
+                            <div className="featured-card">
+                                <img src={featuredData.images[0].img} alt="Featured" />
+                                <div className="featured-info">
+                                    <p>{featuredData.images[0].text}</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', width: '100%' }}>
+                                {featuredData.images.map((item, idx) => (
+                                    <div key={idx} className="featured-card" style={{ flex: 1 }}>
+                                        <img src={item.img} alt="Featured" />
+                                        <div className="featured-info">
+                                            <p>{item.text}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

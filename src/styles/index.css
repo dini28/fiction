@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Atomic+Age&family=Bruno+Ace+SC&family=Turret+Road:wght@200;300;400;500;700;800&display=swap');
-
 :root {
     --color-primary: #ff4655;
     --color-primary-dark: #d13639;
@@ -48,18 +46,9 @@ body {
     overflow-x: hidden;
 }
 
-/* Ensure links show default cursor */
 a,
 button {
-    cursor: auto;
-}
-
-/* Performance optimizations */
-.char-img,
-.parallax-img,
-.gaming-news-card,
-.event-card {
-    will-change: transform;
+    cursor: pointer;
 }
 
 .lenis.lenis-smooth {

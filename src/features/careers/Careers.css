@@ -1,0 +1,279 @@
+.careers-section {
+    padding: 120px 0;
+    background-color: #080808;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+    background-size: 100px 100px;
+}
+
+.careers-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.careers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+    gap: 40px;
+}
+
+.careers-subtitle {
+    font-family: 'Bruno Ace SC', sans-serif;
+    color: var(--color-primary);
+    letter-spacing: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.careers-title {
+    font-family: 'Turret Road', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.careers-title .highlight {
+    color: var(--color-primary);
+    text-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
+}
+
+.careers-desc {
+    max-width: 500px;
+    font-size: 1.1rem;
+    color: var(--color-text-gray);
+    line-height: 1.6;
+}
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    gap: 25px;
+    margin-bottom: 80px;
+}
+
+.job-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.job-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--color-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.job-info h3 {
+    font-family: 'Turret Road', sans-serif;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.job-meta {
+    display: flex;
+    gap: 15px;
+}
+
+.job-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    background: rgba(255, 70, 85, 0.1);
+    color: var(--color-primary);
+    border: 1px solid rgba(255, 70, 85, 0.2);
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.apply-btn {
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.apply-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--color-primary);
+    transition: all 0.5s ease;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+}
+
+.apply-btn:hover::before {
+    width: 300%;
+    height: 300%;
+}
+
+.apply-btn .btn-text {
+    position: relative;
+    z-index: 1;
+}
+
+.apply-btn:hover {
+    border-color: var(--color-primary);
+}
+
+.culture-footer {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    padding: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.culture-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.culture-icon {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+}
+
+.culture-item p {
+    font-family: 'Bruno Ace SC', sans-serif;
+    color: var(--color-text-gray);
+    letter-spacing: 1px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 80px;
+}
+
+.benefit-card {
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    border-color: var(--color-primary);
+    background: rgba(255, 70, 85, 0.05);
+}
+
+.benefit-card h4 {
+    font-family: 'Turret Road', sans-serif;
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.benefit-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-gray);
+    line-height: 1.4;
+}
+
+.process-map {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.process-step {
+    flex: 1;
+    position: relative;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.step-num {
+    display: block;
+    font-family: 'Turret Road', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    opacity: 0.3;
+    margin-bottom: 10px;
+}
+
+.step-content h4 {
+    font-family: 'Turret Road', sans-serif;
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.step-content p {
+    font-size: 0.85rem;
+    color: var(--color-text-gray);
+    line-height: 1.5;
+}
+
+.step-arrow {
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 1px;
+    background: var(--color-primary);
+    opacity: 0.5;
+}
+
+@media (max-width: 1024px) {
+    .careers-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .jobs-grid,
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-map {
+        flex-direction: column;
+    }
+
+    .step-arrow {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .culture-footer {
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .job-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+}

@@ -1,4 +1,4 @@
-import GamingNewsMain from '../assets/images/games/GamingNewsMain.jpg'
+import image from '../assets/images/image.png'
 import GamingShift from '../assets/images/games/GravityShift.webp'
 import CrystalKeepers from '../assets/images/games/CrystalKeepers.webp'
 import WarZone from '../assets/images/games/WarZone.png'
@@ -12,7 +12,7 @@ import news_2 from '../assets/images/news/news_2.jpg'
 export const newsData = {
     featured: {
         id: 'featured-ironfall',
-        image: GamingNewsMain, // custom / local asset
+        image: image,
         title: 'Operation: Ironfall',
         subtitle: 'Cinematic Gameplay Reveal',
         badge: 'Live Now',

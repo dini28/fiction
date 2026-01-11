@@ -1,31 +1,35 @@
-import { useRef, useMemo, useState, useEffect } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './GamingNews.css';
+import './HeroNews.css';
 import { newsData, gamesData } from '../../data/gamingNewsData';
 import FeaturedNews from '../../components/ui/FeaturedNews';
 import NewsItem from '../../components/ui/NewsItem';
 import GameCard from '../../components/ui/GameCard';
 import SectionHeader from '../../components/ui/SectionHeader';
 
-const GamingNews = () => {
-    const [visibleNewsCount, setVisibleNewsCount] = useState(3);
+
+
+const HeroNews = () => {
     const containerRef = useRef();
     const newsGridRef = useRef();
     const liveGamesRef = useRef();
     const futureGamesRef = useRef();
 
+    // Memoize combined games array
     const featuredGames = useMemo(() =>
         [...gamesData.mainGames, ...gamesData.midGames],
         []
     );
 
     useGSAP(() => {
+        // Check for reduced motion preference
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        if (prefersReducedMotion) return;
+        if (prefersReducedMotion) return; // Skip animations if user prefers reduced motion
 
+        // News Grid Animation
         if (newsGridRef.current) {
             const newsItems = gsap.utils.toArray('.news-grid > *');
 
@@ -49,6 +53,7 @@ const GamingNews = () => {
             }
         }
 
+        // Live Games Animation
         if (liveGamesRef.current) {
             const liveWrappers = liveGamesRef.current.querySelectorAll('.game-card-wrapper');
 
@@ -66,7 +71,7 @@ const GamingNews = () => {
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: liveGamesRef.current,
-                            start: "top 90%",
+                            start: "top 90%", // Trigger slightly earlier
                             once: true
                         }
                     }
@@ -74,6 +79,7 @@ const GamingNews = () => {
             }
         }
 
+        // Future Games Animation
         if (futureGamesRef.current) {
             const futureWrappers = futureGamesRef.current.querySelectorAll('.game-card-wrapper');
 
@@ -91,7 +97,7 @@ const GamingNews = () => {
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: futureGamesRef.current,
-                            start: "top 90%",
+                            start: "top 90%", // Trigger slightly earlier
                             once: true
                         }
                     }
@@ -102,34 +108,33 @@ const GamingNews = () => {
     }, { scope: containerRef, dependencies: [] });
 
     const handleSeeMore = () => {
-        setVisibleNewsCount(prev => prev + 3);
+        console.log('See more clicked');
+        // Add your navigation logic here
     };
 
-    useEffect(() => {
-        ScrollTrigger.refresh();
-    }, [visibleNewsCount]);
-
+    // Data validation
     if (!newsData || !gamesData) {
         return (
-            <section id="news" className="gaming-news-wrapper">
+            <div className="gaming-news-wrapper">
                 <div className="container">
                     <p style={{ color: '#fff', textAlign: 'center', padding: '4rem 0' }}>
                         Loading content...
                     </p>
                 </div>
-            </section>
+            </div>
         );
     }
 
     return (
-        <section id="news" className="gaming-news-wrapper" ref={containerRef}>
+        <div className="gaming-news-wrapper" ref={containerRef}>
             <div className="container">
+                {/* News Section */}
                 <section className="news-section" aria-labelledby="news-heading">
                     <SectionHeader
                         id="news-heading"
                         title="HEADLINES"
                         subtitle="LATEST UPDATES"
-                        showButton={newsData.sidebar && visibleNewsCount < newsData.sidebar.length}
+                        showButton={true}
                         onButtonClick={handleSeeMore}
                     />
 
@@ -138,13 +143,14 @@ const GamingNews = () => {
                             <FeaturedNews news={newsData.featured} />
                         )}
                         <div className="news-sidebar" role="list">
-                            {newsData.sidebar?.slice(0, visibleNewsCount).map((news) => (
+                            {newsData.sidebar?.map((news) => (
                                 <NewsItem key={news.id} news={news} />
                             ))}
                         </div>
                     </div>
                 </section>
 
+                {/* Games Section */}
                 <section className="games-section" aria-labelledby="games-heading">
                     <SectionHeader
                         id="games-heading"
@@ -189,8 +195,8 @@ const GamingNews = () => {
                     </div>
                 </section>
             </div>
-        </section>
+        </div>
     );
 };
 
-export default GamingNews;
+export default HeroNews;

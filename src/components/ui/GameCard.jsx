@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDesktop, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
 import { faApple, faPlaystation, faXbox } from '@fortawesome/free-brands-svg-icons';

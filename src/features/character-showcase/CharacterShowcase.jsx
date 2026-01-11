@@ -83,27 +83,29 @@ const CharacterShowcase = () => {
                 scrollTrigger: {
                     trigger: triggerRef.current,
                     pin: true,
-                    scrub: 1.5,
+                    scrub: 1,
                     end: () => "+=" + (containerRef.current ? containerRef.current.offsetWidth : 3000),
                     snap: 1 / (totalPanels - 1),
-                    invalidateOnRefresh: true
+                    invalidateOnRefresh: true,
+                    id: "horizontalScroll"
                 }
             });
 
-            // Parallax effects for images
+            // Parallax effects for images (Translate X instead of background position)
             sections.forEach((section) => {
-                const img = section.querySelector('.char-img');
+                const img = section.querySelector('img');
                 if (img) {
                     gsap.fromTo(img,
-                        { backgroundPosition: "0% 50%" },
+                        { x: -50 },
                         {
-                            backgroundPosition: "100% 50%",
+                            x: 50,
                             ease: "none",
                             scrollTrigger: {
-                                trigger: triggerRef.current,
-                                start: "top top",
-                                end: "+=3000",
-                                scrub: 1.5
+                                trigger: section,
+                                containerAnimation: gsap.getById("horizontalScroll"), // If we named it, but here we can just scrub
+                                start: "left right",
+                                end: "right left",
+                                scrub: true
                             }
                         }
                     );
@@ -116,9 +118,7 @@ const CharacterShowcase = () => {
 
             panels.forEach((panel) => {
                 const info = panel.querySelector('.char-info');
-                const img = panel.querySelector('.char-img');
 
-                // Fade up animation for info cards on mobile
                 gsap.fromTo(info,
                     { y: 50, opacity: 0 },
                     {
@@ -130,20 +130,6 @@ const CharacterShowcase = () => {
                             start: "top 80%",
                             end: "top 20%",
                             toggleActions: "play none none reverse"
-                        }
-                    }
-                );
-
-                // Subtle zoom effect for background images on mobile
-                gsap.fromTo(img,
-                    { scale: 1.1 },
-                    {
-                        scale: 1,
-                        scrollTrigger: {
-                            trigger: panel,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: true
                         }
                     }
                 );
@@ -168,10 +154,9 @@ const CharacterShowcase = () => {
 
                 {characters.map((char) => (
                     <div className="char-panel" key={char.id}>
-                        <div
-                            className="char-img"
-                            style={{ backgroundImage: `url(${char.image})` }}
-                        ></div>
+                        <div className="char-visual">
+                            <img src={char.image} alt={char.name} className="char-img" />
+                        </div>
                         <div className="char-overlay"></div>
                         <div className="char-info">
                             <div className="char-role-icon" style={{ color: char.color }}>

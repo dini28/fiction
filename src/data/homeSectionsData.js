@@ -3,7 +3,7 @@ import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 import parallax_1 from '../assets/images/backgrounds/parallax_1.webp';
 import parallax_2 from '../assets/images/backgrounds/parallax_2.webp';
-//import parallax_3 from '../assets/images/backgrounds/parallax_3.jpg';
+import parallax_3 from '../assets/images/backgrounds/parallax_3.webp';
 
 
 export const communityData = {
@@ -30,13 +30,13 @@ export const parallaxData = [
     },
     {
         id: 2,
-        image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1600&q=80",
+        image: parallax_2,
         title: "Cyberpunk Future",
         subtitle: "Redefine Your Reality"
     },
     {
         id: 3,
-        image: parallax_2,
+        image: parallax_3,
         title: "Pro Hardware",
         subtitle: "Gear Up For Victory"
     }
