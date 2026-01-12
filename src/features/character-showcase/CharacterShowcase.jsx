@@ -136,6 +136,17 @@ const CharacterShowcase = () => {
             });
         });
 
+
+        // Scroll Indicator Pulse
+        gsap.to(".scroll-indicator", {
+            y: 10,
+            opacity: 0.5,
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
     }, { scope: containerRef });
 
     return (

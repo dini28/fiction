@@ -1,46 +1,72 @@
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import useScrambleText from '../../../hooks/useScrambleText';
 import './PageHero.css';
 
-const PageHero = ({ title, subtitle, description, children }) => {
-    const heroRef = useRef();
+gsap.registerPlugin(ScrollTrigger);
+
+const PageHero = ({
+    title = "PAGE TITLE",
+    subtitle = "SECTION",
+    description,
+    backgroundImage,
+    alignment = "left"
+}) => {
+    const containerRef = useRef(null);
+    const [scrambledTitle, triggerScramble] = useScrambleText(title, 1200);
 
     useGSAP(() => {
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({
+            defaults: { ease: "power3.out" }
+        });
 
-        tl.fromTo(".page-hero-subtitle",
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-        )
-            .fromTo(".page-hero-title",
-                { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: "power4.out" }, "-=0.6"
-            )
-            .fromTo(".page-hero-desc",
-                { opacity: 0 },
-                { opacity: 1, duration: 1 }, "-=0.4"
-            )
-            .fromTo(".hero-decoration",
-                { scaleX: 0 },
-                { scaleX: 1, duration: 0.8, ease: "power3.inOut" }, "-=0.8"
-            );
+        tl.fromTo(".hero-bg-image",
+            { scale: 1.1, filter: "brightness(0)" },
+            { scale: 1, filter: "brightness(0.6) contrast(1.1)", duration: 1.5, ease: "power2.out" }
+        );
 
-    }, { scope: heroRef });
+        tl.from(".hero-subtitle-kick", {
+            x: -20,
+            opacity: 0,
+            duration: 0.8,
+            delay: 0.5
+        }, "-=1.0");
+
+        tl.from(".hero-main-title", {
+            y: 30,
+            opacity: 0,
+            skewY: 5,
+            duration: 0.8,
+            onStart: triggerScramble
+        }, "-=0.6");
+
+        if (description) {
+            tl.from(".hero-desc", {
+                y: 20,
+                opacity: 0,
+                duration: 0.8
+            }, "-=0.4");
+        }
+
+    }, { scope: containerRef, dependencies: [title] });
 
     return (
-        <div className="page-hero" ref={heroRef}>
-            <div className="page-hero-content">
-                <p className="page-hero-subtitle">{subtitle}</p>
-                <h1 className="page-hero-title">
-                    {title}
-                </h1>
-                <div className="hero-decoration"></div>
-                {description && <p className="page-hero-desc">{description}</p>}
-                {children}
+        <section className="page-hero" ref={containerRef}>
+            <div className="hero-bg-wrapper">
+                {backgroundImage && (
+                    <img src={backgroundImage} alt="custom-hero-bg" className="hero-bg-image" />
+                )}
+                <div className="hero-overlay-gradient"></div>
             </div>
-            <div className="hero-bg-glow"></div>
-        </div>
+
+            <div className={`page-hero-content ${alignment}`}>
+                <div className="hero-subtitle-kick">{subtitle}</div>
+                <h1 className="hero-main-title">{scrambledTitle}</h1>
+                {description && <p className="hero-desc">{description}</p>}
+            </div>
+        </section>
     );
 };
 

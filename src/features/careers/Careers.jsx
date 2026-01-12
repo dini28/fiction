@@ -1,105 +1,38 @@
-import { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import PageHero from '../../components/ui/PageHero/PageHero';
-import SectionMarquee from '../../components/ui/SectionMarquee/SectionMarquee';
+import React from 'react';
+import JobsGrid from './components/JobsGrid';
+import Benefits from './components/Benefits';
+import SelectionProcess from './components/SelectionProcess';
+import CultureFooter from './components/CultureFooter';
 import './Careers.css';
 
 const Careers = () => {
-    const sectionRef = useRef();
-
     const jobs = [
-        { title: "Senior Game Designer", type: "Full-Time", location: "Remote / Tokyo" },
-        { title: "Technical Artist", type: "Contract", location: "Global" },
-        { title: "Network Architect", type: "Full-Time", location: "San Francisco" },
-        { title: "Narrative Liaison", type: "Full-Time", location: "Remote" }
+        { title: "Senior Gameplay Engineer", dept: "Engineering", loc: "Remote / Tokyo", type: "Full-time" },
+        { title: "VFX Artist", dept: "Art", loc: "Tokyo", type: "Full-time" },
+        { title: "Community Manager", dept: "Publishing", loc: "Remote", type: "Contract" }
     ];
 
-    // Ensure content is visible if JS is slow/fails
-    useGSAP(() => {
-        gsap.set(".job-card, .benefit-card, .process-step", { autoAlpha: 1 }); // Reset first
-        // Jobs Grid
-        gsap.from(".job-card", {
-            scrollTrigger: {
-                trigger: ".jobs-grid",
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-            },
-            y: 30,
-            opacity: 0,
-            stagger: 0.15,
-            duration: 0.6,
-            ease: "power2.out"
-        });
-
-        // Benefits
-        gsap.from(".benefit-card", {
-            scrollTrigger: {
-                trigger: ".benefits-grid",
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-            },
-            scale: 0.95,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.6,
-            ease: "power2.out"
-        });
-
-        // Process Steps
-        gsap.from(".process-step", {
-            scrollTrigger: {
-                trigger: ".process-map",
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-            },
-            y: 30,
-            opacity: 0,
-            stagger: 0.2,
-            duration: 0.8,
-            ease: "power2.out"
-        });
-
-        ScrollTrigger.refresh();
-    }, { scope: sectionRef });
-
     const benefits = [
-        { title: "RADICAL AUTONOMY", desc: "No clock-punching. No micromanagement. You own your output, your schedule, and your methods." },
-        { title: "EQUITY BREACH", desc: "Every operative receives significant profit-sharing. We build together, we win together." },
-        { title: "NEURAL GROWTH", desc: "Annual stipends for conferences, courses, and neural link upgrades (or just books)." },
-        { title: "HARDWARE SYNC", desc: "Top-tier rig provided upon initiation. Keep it fresh, keep it fast." }
+        { title: "Global Freedom", desc: "Work from anywhere. We value output, not desk time." },
+        { title: "Uncapped Growth", desc: "Profit sharing and equity for every full-time operative." },
+        { title: "Health Protocol", desc: "Comprehensive coverage for you and your dependents." },
+        { title: "Level Up", desc: "$5k annual stipend for hardware, games, and learning." }
     ];
 
     const process = [
-        { step: "01", title: "TRANSMISSION", desc: "Send us your portfolio. Show us the work that keeps you awake at night." },
-        { step: "02", title: "TECH SCAN", desc: "A practical assessment of your craft. No whiteboard algorithms, just real problems." },
-        { step: "03", title: "CULTURE SYNC", desc: "A conversation with the team to ensure our wavelengths align." },
-        { step: "04", title: "INTEGRATION", desc: "Formal offer and onboarding. Welcome to the collective." }
+        { step: "01", title: "Intel Scan", desc: "Application review" },
+        { step: "02", title: "Sync", desc: "Initial culture interview" },
+        { step: "03", title: "Ops Check", desc: "Technical skill assessment" },
+        { step: "04", title: "Final Boss", desc: "Founders interview" }
     ];
 
     return (
-        <section id="careers" className="careers-section" ref={sectionRef}>
-            <div className="careers-container">
-                <PageHero
-                    title={<>INITIATE YOUR <span className="highlight">LEGACY</span></>}
-                    subtitle="WORK WITH US"
-                    description="We are looking for bold thinkers, master pixel-smiths, and architects of the impossible. Fiction is a studio where your best work isn't just encouraged—it's demanded."
-                />
-
-                <JobsGrid jobs={jobs} />
-
-                <SectionMarquee text="OPERATIVE BENEFITS • UPGRADE YOUR REALITY •" speed={1.5} />
-
-                <Benefits benefits={benefits} />
-
-                <SectionMarquee text="DEPLOYMENT PROTOCOL • INITIATE SEQUENCE •" speed={2} reverse />
-
-                <SelectionProcess process={process} />
-
-                <CultureFooter />
-            </div>
-        </section>
+        <div className="careers-container">
+            <JobsGrid jobs={jobs} />
+            <Benefits benefits={benefits} />
+            <SelectionProcess process={process} />
+            <CultureFooter />
+        </div>
     );
 };
 

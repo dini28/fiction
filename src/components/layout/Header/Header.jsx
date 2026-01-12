@@ -129,6 +129,7 @@ const Header = () => {
                         <Link to="/about" className="nav-item">Who We Are</Link>
                         <Link to="/careers" className="nav-item">Work With Us</Link>
                         <Link to="/news" className="nav-item">News</Link>
+                        <Link to="/armory" className="nav-item">Armory</Link>
                     </nav>
 
                     <div className="right-section">
@@ -150,6 +151,7 @@ const Header = () => {
                     <Link to="/about" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Who We Are</Link>
                     <Link to="/careers" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Work With Us</Link>
                     <Link to="/news" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>News</Link>
+                    <Link to="/armory" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Armory</Link>
                     <Link to="/login" className="mobile-nav-link mobile-sign-in" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
                 </nav>
             </header>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFingerprint, faArrowLeft, faTerminal, faShieldAlt, faSatellite } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faSatellite } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, Link } from 'react-router-dom';
 import './LoginPage.css';
 

@@ -74,7 +74,8 @@ const Footer = () => {
     const mainLinks = [
         { label: "WHO WE ARE", path: "/about" },
         { label: "WORK WITH US", path: "/careers" },
-        { label: "NEWS", path: "/news" }
+        { label: "NEWS", path: "/news" },
+        { label: "ARMORY", path: "/armory" }
     ];
 
     const navLinks = [

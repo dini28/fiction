@@ -7,7 +7,9 @@ import { newsData, gamesData } from '../../data/gamingNewsData';
 import FeaturedNews from '../../components/ui/FeaturedNews';
 import NewsItem from '../../components/ui/NewsItem';
 import GameCard from '../../components/ui/GameCard';
+import MagneticButton from '../../components/ui/MagneticButton/MagneticButton';
 import SectionHeader from '../../components/ui/SectionHeader';
+
 
 
 

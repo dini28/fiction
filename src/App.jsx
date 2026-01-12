@@ -12,7 +12,11 @@ import AboutPage from './pages/AboutPage';
 import CareersPage from './pages/CareersPage';
 import NewsPage from './pages/NewsPage';
 import LoginPage from './pages/LoginPage';
+import ArmoryPage from './pages/ArmoryPage';
 import NotFoundPage from './pages/NotFoundPage';
+
+import GlobalNoise from "./components/ui/GlobalNoise/GlobalNoise";
+import CustomCursor from "./components/ui/CustomCursor/CustomCursor";
 
 import gsap from 'gsap';
 gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
@@ -34,11 +38,13 @@ function AppContent() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Define valid routes to determine if we should show header/footer
-  const validRoutes = ['/', '/about', '/careers', '/news'];
+  const validRoutes = ['/', '/about', '/careers', '/news', '/armory'];
   const showLayout = validRoutes.includes(pathname);
 
   return (
     <SmoothScroll>
+      <GlobalNoise />
+      <CustomCursor />
       {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
       {showLayout && <Header />}
       <Routes>
@@ -46,6 +52,7 @@ function AppContent() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/armory" element={<ArmoryPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

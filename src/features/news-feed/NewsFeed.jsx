@@ -1,63 +1,31 @@
-import { useRef, useEffect } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SectionMarquee from '../../components/ui/SectionMarquee/SectionMarquee';
+import React from 'react';
+import PageHero from '../../components/ui/PageHero/PageHero';
+import NewsMasonry from './components/NewsMasonry';
+import newsHeroBg from '../../assets/images/news-hero.png';
 import './NewsFeed.css';
-import { newsData } from '../../data/gamingNewsData';
 
 const NewsFeed = () => {
-    const containerRef = useRef();
-
-    useGSAP(() => {
-        // Hero entry
-        gsap.from(".feed-hero", {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power4.out"
-        });
-
-        // Masonry cards entry
-        gsap.from(".news-card", {
-            y: 30,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: ".news-masonry",
-                start: "top 85%",
-                toggleActions: "play none none none"
-            }
-        });
-
-        // Refresh triggers on load
-        ScrollTrigger.refresh();
-    }, { scope: containerRef });
-
-    const featured = newsData.featured;
-    const items = newsData.sidebar;
+    const newsItems = [
+        { id: 1, category: "ESPORTS", date: "JAN 12, 2026", title: "TOKYO FINALS: TEAM ECHO TAKES THE CROWN", description: "In a stunning upset, the underdogs from Sector 7 defeated the reigning champions. Full match analysis enclosed.", type: "featured" },
+        { id: 2, category: "UPDATE", date: "JAN 10, 2026", title: "PATCH 4.2: NEON HORIZON", description: "New map 'Cyber-Slums' added. Weapon balance adjustments. Netcode optimizations.", type: "standard" },
+        { id: 3, category: "COMMUNITY", date: "JAN 08, 2026", title: "FAN ART SPOTLIGHT: VOL. 24", description: "Showcasing the incredible creativity of our operatives. This week: 3D character renders.", type: "standard" },
+        { id: 4, category: "DEV", date: "JAN 05, 2026", title: "BEHIND THE SCENES: AUDIO DESIGN", description: "Audio Director Sarah Lin discusses the process of creating the soundscape for the new agent.", type: "standard" },
+        { id: 5, category: "ESPORTS", date: "JAN 02, 2026", title: "ROSTER SHUFFLE: OFF-SEASON TRACKER", description: "Keeping tabs on all the player movements ahead of the Spring Split.", type: "standard" },
+        { id: 6, category: "LORE", date: "DEC 28, 2025", title: "THE ARCHIVES: PROJECT GENESIS", description: "Uncover the origins of the Fiction Protocol in this deep dive into the lore.", type: "standard" }
+    ];
 
     return (
-        <div className="news-feed-container" ref={containerRef}>
-            <header className="feed-header">
-                <p className="feed-subtitle">FREQUENCY: HIGH</p>
-                <h1 className="feed-title">THE FICTION <span className="highlight">FEED</span></h1>
-            </header>
-
-            <NewsHero featured={featured} />
-
-            <div className="feed-divider">
-                <SectionMarquee text="INCOMING TRANSMISSIONS • GLOBAL FEED •" speed={1} />
-            </div>
-
-            <NewsMasonry items={items} />
-
+        <div className="news-feed-container">
+            <PageHero
+                title="TRANSMISSIONS"
+                subtitle="NEWS & UPDATES"
+                description="Stay connected to the pulse of the network. Operational updates, esports intel, and developer logs."
+                backgroundImage={newsHeroBg}
+                alignment="center"
+            />
+            <NewsMasonry items={newsItems} />
             <div className="feed-pagination">
-                <button className="load-more-btn">
-                    <span className="btn-text">LOAD MORE FREQUENCIES</span>
-                </button>
+                <button className="load-more-btn">DECRYPT OLDER LOGS</button>
             </div>
         </div>
     );

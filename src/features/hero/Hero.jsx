@@ -4,10 +4,16 @@ import gsap from 'gsap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
+import MagneticButton from '../../components/ui/MagneticButton/MagneticButton';
+
+import useScrambleText from '../../hooks/useScrambleText';
+
 
 const Hero = () => {
     const [videoLoaded, setVideoLoaded] = useState(false);
     const currentYear = new Date().getFullYear();
+    const [titleText, triggerScramble] = useScrambleText("CHAMPIONS", 1500);
+
 
     useEffect(() => {
         const timer = setTimeout(() => setVideoLoaded(true), 8000);
@@ -25,13 +31,19 @@ const Hero = () => {
             duration: 0.8,
             delay: 0.2
         })
-            .from(".main-title .line", {
+            .from(".main-title .line-top", {
                 y: 50,
                 opacity: 0,
                 duration: 1,
-                stagger: 0.15,
                 skewY: 2
             }, "-=0.4")
+            .from(".main-title .line-bottom", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                skewY: 2,
+                onStart: () => triggerScramble() // Trigger the scramble effect when this animation starts
+            }, "-=0.8")
             .from(".hero-subtitle", {
                 y: 20,
                 opacity: 0,
@@ -91,7 +103,7 @@ const Hero = () => {
 
                 <div className="main-title">
                     <div className="line line-top" aria-hidden="true">ESPORTS</div>
-                    <div className="line line-bottom text-highlight" aria-hidden="true">CHAMPIONS</div>
+                    <div className="line line-bottom text-highlight" aria-hidden="true">{titleText}</div>
                 </div>
 
                 <div className="hero-subtitle">TOURNAMENT SERIES</div>
@@ -101,10 +113,10 @@ const Hero = () => {
                 </p>
 
                 <div className="hero-cta">
-                    <a href="#join" className="primary-button" aria-label="Join the Battle">
+                    <MagneticButton href="#join" aria-label="Join the Battle">
                         <span>Join the Battle</span>
                         <FontAwesomeIcon icon={faArrowRight} className="icon" />
-                    </a>
+                    </MagneticButton>
                 </div>
             </div>
         </section>

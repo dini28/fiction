@@ -1,26 +1,21 @@
-import Hero from "../features/hero/Hero"
-import TextParallax from "../features/text-parallax/TextParallax"
-import CharacterShowcase from "../features/character-showcase/CharacterShowcase"
-import Community from "../features/community/Community"
-import Newsletter from "../features/newsletter/Newsletter"
-import SectionMarquee from "../components/ui/SectionMarquee/SectionMarquee";
-import HeroNews from "../features/HeroNews/HeroNews"
+import React from 'react';
+import Hero from '../features/hero/Hero';
+import HeroNews from '../features/HeroNews/HeroNews';
+import TextParallax from '../features/text-parallax/TextParallax';
+import CharacterShowcase from '../features/character-showcase/CharacterShowcase';
+import Community from '../features/community/Community';
+import Newsletter from '../features/newsletter/Newsletter';
 
 const Home = () => {
-    const currentYear = new Date().getFullYear();
-
     return (
-        <>
+        <main>
             <Hero />
-            <SectionMarquee text={`WELCOME TO THE FUTURE • EST ${currentYear} •`} speed={1.5} />
-            <TextParallax />
             <HeroNews />
+            <TextParallax />
             <CharacterShowcase />
-            <SectionMarquee text="UNLEASH YOUR POWER • DOMINATE THE ARENA •" speed={2.5} />
-            <SectionMarquee text="JOIN THE FICTION • PLAY FOR FREE •" />
             <Community />
             <Newsletter />
-        </>
+        </main>
     );
 };
 

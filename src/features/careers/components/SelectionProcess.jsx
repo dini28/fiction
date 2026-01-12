@@ -1,4 +1,4 @@
-const SelectionProcess = ({ process }) => {
+const SelectionProcess = ({ process = [] }) => {
     return (
         <div className="careers-process" style={{ marginTop: '80px' }}>
             <h3 className="section-small-title">THE SELECTION JOURNEY</h3>
@@ -10,7 +10,6 @@ const SelectionProcess = ({ process }) => {
                             <h4>{item.title}</h4>
                             <p>{item.desc}</p>
                         </div>
-                        {index < process.length - 1 && <div className="step-arrow"></div>}
                     </div>
                 ))}
             </div>

@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import './Newsletter.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faCheckCircle, faTowerBroadcast } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Newsletter = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -21,19 +21,13 @@ const Newsletter = () => {
             }
         });
 
-        tl.from(".newsletter-icon", {
-            scale: 0,
-            rotation: 180,
+        tl.from(".newsletter-title", {
+            y: 40,
             opacity: 0,
-            duration: 1,
-            ease: "back.out(1.7)"
+            duration: 0.8,
+            skewX: 10,
+            delay: 0.2
         })
-            .from(".newsletter-title", {
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                skewX: 10
-            }, "-=0.6")
             .from(".newsletter-desc", {
                 y: 20,
                 opacity: 0,
