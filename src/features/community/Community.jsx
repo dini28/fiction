@@ -1,10 +1,88 @@
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 import './Community.css';
 import { communityData } from '../../data/homeSectionsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Community = () => {
+    const containerRef = useRef(null);
+
+    useGSAP(() => {
+        // Entrance Animations
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        tl.from(".community-content h2", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power4.out"
+        })
+            .from(".community-desc", {
+                x: -30,
+                opacity: 0,
+                duration: 0.8
+            }, "-=0.6")
+            .from(".community-btn", {
+                y: 20,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.2
+            }, "-=0.4")
+            .from(".stat-card", {
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "back.out(1.7)"
+            }, "-=0.8");
+
+        ScrollTrigger.refresh();
+
+        // 3D Card Effect
+        const cards = gsap.utils.toArray('.stat-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                const dx = x - xc;
+                const dy = y - yc;
+
+                gsap.to(card, {
+                    duration: 0.5,
+                    rotateY: dx / 15,
+                    rotateX: -dy / 15,
+                    scale: 1.05,
+                    ease: "power2.out"
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    duration: 0.5,
+                    rotateY: 0,
+                    rotateX: 0,
+                    scale: 1,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+    }, { scope: containerRef });
+
     return (
-        <section className="community-section">
+        <section className="community-section" ref={containerRef}>
             <div className="container">
                 <div className="community-grid">
                     <div className="community-content">

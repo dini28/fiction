@@ -1,9 +1,11 @@
 import { useState, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 import './Newsletter.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faCheckCircle, faTowerBroadcast } from '@fortawesome/free-solid-svg-icons';
 
 const Newsletter = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -14,43 +16,51 @@ const Newsletter = () => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "top 98%", // Trigger almost immediately when section enters
-                toggleActions: "play none none none"
+                start: "top 80%",
+                toggleActions: "play none none reverse"
             }
         });
 
-        tl.fromTo(".newsletter-icon",
-            { scale: 0.8, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
-        )
-            .fromTo(".newsletter-title",
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.4 },
-                "-=0.2"
-            )
-            .fromTo(".newsletter-desc",
-                { y: 15, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.4 },
-                "-=0.2"
-            )
-            .fromTo(".newsletter-form",
-                { y: 10, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", immediateRender: false },
-                "-=0.2"
-            );
+        tl.from(".newsletter-icon", {
+            scale: 0,
+            rotation: 180,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)"
+        })
+            .from(".newsletter-title", {
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                skewX: 10
+            }, "-=0.6")
+            .from(".newsletter-desc", {
+                y: 20,
+                opacity: 0,
+                duration: 0.6
+            }, "-=0.4")
+            .from(".newsletter-form", {
+                width: 0,
+                opacity: 0,
+                duration: 1,
+                ease: "power4.inOut"
+            }, "-=0.2");
+
+        ScrollTrigger.refresh();
 
     }, { scope: containerRef });
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email) {
-            setIsSubmitted(true);
+            const tl = gsap.timeline();
 
-            gsap.from(".success-message", {
-                scale: 0.8,
+            tl.to(".newsletter-content > *", {
                 opacity: 0,
-                duration: 0.5,
-                ease: "back.out(1.7)"
+                y: -20,
+                stagger: 0.1,
+                duration: 0.4,
+                onComplete: () => setIsSubmitted(true)
             });
         }
     };
@@ -60,29 +70,28 @@ const Newsletter = () => {
             <div className="newsletter-content">
                 {!isSubmitted ? (
                     <>
-                        <FontAwesomeIcon icon={faEnvelope} className="newsletter-icon" />
-                        <h2 className="newsletter-title" data-text="Get The Drops">Get The Drops</h2>
-                        <p className="newsletter-desc">Subscribe to our newsletter for exclusive in-game items, beta keys, and the latest esports news.</p>
+                        <h2 className="newsletter-title" data-text="SECURE THE DROPS">SECURE THE DROPS</h2>
+                        <p className="newsletter-desc">Join the elite network for exclusive intel, prototype access, and priority transmission updates.</p>
 
                         <form className="newsletter-form" onSubmit={handleSubmit}>
                             <input
                                 type="email"
-                                placeholder='Enter your email'
+                                placeholder='ENTER OPERATOR EMAIL...'
                                 className="newsletter-input"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                             <button type="submit" className="newsletter-btn">
-                                <span className="btn-text">Subscribe</span>
+                                <span className="btn-text">INITIALIZE</span>
                             </button>
                         </form>
                     </>
                 ) : (
                     <div className="success-message">
                         <FontAwesomeIcon icon={faCheckCircle} className="success-icon" />
-                        <h2 className="success-title">Transmission Received</h2>
-                        <p className="success-desc">Identity verified. Welcome to the inner circle, {email}.</p>
+                        <h2 className="success-title">UPLINK ESTABLISHED</h2>
+                        <p className="success-desc">Intel frequency locked to: {email}. Prepare for immediate deployment.</p>
                         <button
                             className="reset-btn"
                             onClick={() => {
@@ -90,7 +99,7 @@ const Newsletter = () => {
                                 setEmail('');
                             }}
                         >
-                            <span className="btn-text">Register another operator</span>
+                            <span className="btn-text">RE-CONNECT ANOTHER TERMINAL</span>
                         </button>
                     </div>
                 )}

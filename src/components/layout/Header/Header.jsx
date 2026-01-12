@@ -150,6 +150,7 @@ const Header = () => {
                     <Link to="/about" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Who We Are</Link>
                     <Link to="/careers" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Work With Us</Link>
                     <Link to="/news" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>News</Link>
+                    <Link to="/login" className="mobile-nav-link mobile-sign-in" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
                 </nav>
             </header>
 

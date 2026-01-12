@@ -1,9 +1,10 @@
 import image from '../assets/images/image.png'
 import GamingShift from '../assets/images/games/GravityShift.webp'
-import CrystalKeepers from '../assets/images/games/CrystalKeepers.webp'
+import AbstractStrategy from '../assets/images/games/AbstractStrategy.webp'
 import WarZone from '../assets/images/games/WarZone.png'
 import ShadowSector from '../assets/images/games/ShadowSector.png'
 import Obsidian from '../assets/images/games/Obsidian.webp'
+import StarTactics from '../assets/images/games/StarTactics.webp'
 
 import agent from '../assets/images/agent.jpg'
 import news_1 from '../assets/images/news/news_1.png'
@@ -69,7 +70,7 @@ export const gamesData = {
         {
             id: 'nebula-2',
             name: 'Star\nTactics',
-            image: 'https://images.unsplash.com/photo-1614728263952-84ea206f25ab?w=600&h=400&fit=crop&q=80',
+            image: StarTactics,
             platforms: ['desktop', 'apple'],
             size: 'small',
             genre: 'Turn-based Strategy'
@@ -84,8 +85,8 @@ export const gamesData = {
         },
         {
             id: 'nebula-4',
-            name: 'Crystal\nKeepers',
-            image: CrystalKeepers,
+            name: 'Abstract\nStrategy',
+            image: AbstractStrategy,
             platforms: ['desktop', 'apple', 'mobile-alt'],
             size: 'small',
             genre: 'Battle Royale'

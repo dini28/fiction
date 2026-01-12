@@ -7,10 +7,69 @@ import {
 import logo_white from '../../../assets/branding/logo_white.svg';
 import logo from '../../../assets/branding/logo.svg';
 import './Footer.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
     const [isHovered, setIsHovered] = useState(false);
+    const footerRef = useRef(null);
+    const typographyRef = useRef(null);
+
+    useGSAP(() => {
+        const chars = typographyRef.current.querySelectorAll('.char');
+
+        // Entrance Animation
+        gsap.fromTo(chars,
+            {
+                y: 50,
+                opacity: 0,
+                rotateX: -20,
+            },
+            {
+                y: 0,
+                opacity: 1,
+                rotateX: 0,
+                stagger: {
+                    amount: 0.5,
+                    from: "start"
+                },
+                duration: 1.2,
+                ease: "expo.out",
+                scrollTrigger: {
+                    trigger: footerRef.current,
+                    start: "top 95%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+
+        // Professional Hover Effect
+        chars.forEach((char) => {
+            char.addEventListener('mouseenter', () => {
+                gsap.to(char, {
+                    y: -5,
+                    scale: 1.05,
+                    color: "rgba(255, 70, 85, 1)",
+                    duration: 0.3,
+                    ease: "power3.out"
+                });
+            });
+
+            char.addEventListener('mouseleave', () => {
+                gsap.to(char, {
+                    y: 0,
+                    scale: 1,
+                    color: "transparent",
+                    duration: 0.3,
+                    ease: "power3.inOut"
+                });
+            });
+        });
+    }, { scope: footerRef });
 
     const mainLinks = [
         { label: "WHO WE ARE", path: "/about" },
@@ -42,8 +101,13 @@ const Footer = () => {
     };
 
     return (
-        <footer className="footer">
+        <footer className="footer" ref={footerRef}>
             <div className="footer-container">
+                <div className="footer-typography" ref={typographyRef}>
+                    {"Fiction".split("").map((char, index) => (
+                        <span key={index} className="char">{char}</span>
+                    ))}
+                </div>
                 <div className="footer-top">
                     <div className="footer-main">
                         <div className="footer-left">
@@ -68,9 +132,9 @@ const Footer = () => {
                                     </Link>
                                 ))}
                                 {navLinks.map((link) => (
-                                    <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}>
+                                    <Link key={link} to="/404">
                                         {link}
-                                    </a>
+                                    </Link>
                                 ))}
                             </nav>
                         </div>
@@ -86,7 +150,7 @@ const Footer = () => {
 
                     <div className="footer-bottom">
                         <div className="footer-legal">
-                            <a href="#">Cookie Preferences</a>
+                            <Link to="/404">Cookie Preferences</Link>
                             <p> | </p>
                             <span>© {new Date().getFullYear()} <span className='logo'> Fiction </span> Games, Inc. All Rights Reserved.</span>
                         </div>

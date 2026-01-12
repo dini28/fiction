@@ -380,6 +380,10 @@
         display: none;
     }
 
+    .right-section .sign-in-link {
+        display: none;
+    }
+
     .mobile-toggle {
         display: block;
     }
@@ -399,6 +403,8 @@
         visibility: hidden;
         z-index: 900;
         pointer-events: none;
+        display: flex;
+        flex-direction: column;
     }
 
     .mobile-nav.open {
@@ -416,6 +422,12 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         text-decoration: none;
         font-weight: 600;
+    }
+
+    .mobile-sign-in {
+        margin-top: 1rem;
+        color: var(--hero-primary);
+        border-bottom: none;
     }
 
     .dropdown-menu {

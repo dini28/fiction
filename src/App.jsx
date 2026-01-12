@@ -32,12 +32,15 @@ const ScrollToTop = () => {
 function AppContent() {
   const { pathname } = useLocation();
   const [isLoading, setIsLoading] = useState(true);
-  const isLoginPage = pathname === '/login';
+
+  // Define valid routes to determine if we should show header/footer
+  const validRoutes = ['/', '/about', '/careers', '/news'];
+  const showLayout = validRoutes.includes(pathname);
 
   return (
     <SmoothScroll>
       {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
-      {!isLoginPage && <Header />}
+      {showLayout && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
@@ -46,7 +49,7 @@ function AppContent() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      {!isLoginPage && <Footer />}
+      {showLayout && <Footer />}
     </SmoothScroll>
   );
 }

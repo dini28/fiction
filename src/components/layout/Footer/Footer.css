@@ -27,6 +27,84 @@
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-typography {
+    display: flex;
+    justify-content: center;
+    perspective: 2000px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 100px 0 60px;
+    overflow: hidden;
+    position: relative;
+}
+
+.footer-typography::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 70, 85, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.footer-typography::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--color-primary);
+    box-shadow: 0 0 20px var(--color-primary);
+    animation: borderGrow 2s ease forwards;
+    animation-delay: 1s;
+}
+
+@keyframes borderGrow {
+    to {
+        width: 100%;
+    }
+}
+
+.footer-typography .char {
+    font-family: 'Atomic Age', sans-serif;
+    font-size: clamp(4rem, 20vw, 22rem);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+    display: inline-block;
+    line-height: 0.8;
+    letter-spacing: -0.02em;
+    cursor: default;
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Elegant Light Sweep */
+    background: linear-gradient(110deg,
+            rgba(255, 255, 255, 0) 40%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0) 60%);
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: lightSweep 12s infinite linear;
+}
+
+@keyframes lightSweep {
+    from {
+        background-position: 200% 0;
+    }
+
+    to {
+        background-position: -200% 0;
+    }
 }
 
 .footer-top {
