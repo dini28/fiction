@@ -2,12 +2,12 @@
 .section-marquee-wrapper {
     position: relative;
     width: 100%;
-    padding: 3rem 0;
+    height: 100%;
     overflow: hidden;
-    background: transparent;
+    background: black;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    margin: 4rem 0;
+    padding: 2rem;
 }
 
 .section-marquee {
@@ -29,7 +29,7 @@
     font-size: 4rem;
     font-weight: 900;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.501);
     margin-right: 2rem;
     text-transform: uppercase;
     letter-spacing: 4px;

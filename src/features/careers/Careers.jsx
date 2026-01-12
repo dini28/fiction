@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PageHero from '../../components/ui/PageHero/PageHero';
 import SectionMarquee from '../../components/ui/SectionMarquee/SectionMarquee';
 import './Careers.css';
@@ -86,73 +87,20 @@ const Careers = () => {
                     description="We are looking for bold thinkers, master pixel-smiths, and architects of the impossible. Fiction is a studio where your best work isn't just encouraged—it's demanded."
                 />
 
-                <div className="jobs-grid">
-                    {jobs.map((job, index) => (
-                        <div key={index} className="job-card">
-                            <div className="job-info">
-                                <h3>{job.title}</h3>
-                                <div className="job-meta">
-                                    <span className="job-tag">{job.type}</span>
-                                    <span className="job-tag">{job.location}</span>
-                                </div>
-                            </div>
-                            <button className="apply-btn">
-                                <span className="btn-text">Transmit Intent</span>
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                <JobsGrid jobs={jobs} />
 
                 <SectionMarquee text="OPERATIVE BENEFITS • UPGRADE YOUR REALITY •" speed={1.5} />
 
-                <div className="careers-benefits" style={{ marginTop: '80px' }}>
-                    <h3 className="section-small-title">OPERATIVE BENEFITS</h3>
-                    <div className="benefits-grid">
-                        {benefits.map((benefit, index) => (
-                            <div key={index} className="benefit-card">
-                                <h4>{benefit.title}</h4>
-                                <p>{benefit.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <Benefits benefits={benefits} />
 
                 <SectionMarquee text="DEPLOYMENT PROTOCOL • INITIATE SEQUENCE •" speed={2} reverse />
 
-                <div className="careers-process" style={{ marginTop: '80px' }}>
-                    <h3 className="section-small-title">THE SELECTION JOURNEY</h3>
-                    <div className="process-map">
-                        {process.map((item, index) => (
-                            <div key={index} className="process-step">
-                                <span className="step-num">{item.step}</span>
-                                <div className="step-content">
-                                    <h4>{item.title}</h4>
-                                    <p>{item.desc}</p>
-                                </div>
-                                {index < process.length - 1 && <div className="step-arrow"></div>}
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <SelectionProcess process={process} />
 
-                <div className="culture-footer">
-                    <div className="culture-item">
-                        <span className="culture-icon">✦</span>
-                        <p>Radical Autonomy</p>
-                    </div>
-                    <div className="culture-item">
-                        <span className="culture-icon">✦</span>
-                        <p>Global Collaboration</p>
-                    </div>
-                    <div className="culture-item">
-                        <span className="culture-icon">✦</span>
-                        <p>Uncapped Innovation</p>
-                    </div>
-                </div>
+                <CultureFooter />
             </div>
         </section>
     );
-
 };
 
 export default Careers;

@@ -12,6 +12,7 @@ import AboutPage from './pages/AboutPage';
 import CareersPage from './pages/CareersPage';
 import NewsPage from './pages/NewsPage';
 import LoginPage from './pages/LoginPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 import gsap from 'gsap';
 gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
@@ -43,6 +44,7 @@ function AppContent() {
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {!isLoginPage && <Footer />}
     </SmoothScroll>

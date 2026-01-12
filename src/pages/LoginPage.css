@@ -1,226 +1,283 @@
-.login-page-wrapper {
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;900&family=Atomic+Age&family=Bruno+Ace+SC&display=swap');
+
+.login-v4-wrapper {
     display: flex;
     min-height: 100vh;
     width: 100%;
     background: #000;
     position: relative;
     overflow: hidden;
+    color: #e0e0e0;
+}
+
+/* Global Scanlines Overlay */
+.login-v4-wrapper::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 1000;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
 }
 
 .back-to-home {
     position: absolute;
-    top: 40px;
-    left: 40px;
-    z-index: 100;
-    color: #fff;
+    top: 30px;
+    left: 30px;
+    z-index: 1001;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 12px;
-    letter-spacing: 3px;
-    opacity: 0.6;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    text-transform: uppercase;
+    gap: 8px;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
 }
 
 .back-to-home:hover {
     opacity: 1;
-    gap: 18px;
     color: #ff0000;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
-.content-section {
-    flex: 1.2;
+.briefing-section {
+    flex: 1.3;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 80px;
-    background: #000;
-    overflow: hidden;
+    padding: 60px;
+    border-right: 1px solid rgba(0, 255, 255, 0.1);
+    background: #020202;
 }
 
-.visual-background {
+.briefing-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.4;
-    filter: brightness(0.7) contrast(1.1);
-    z-index: 1;
+    opacity: 0.25;
+    filter: grayscale(1) brightness(0.5);
+    z-index: 0;
 }
 
-.content-overlay {
+.briefing-content {
     position: relative;
-    z-index: 2;
-    max-width: 600px;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.brand-tag {
-    color: #ff0000;
+.sys-header {
+    display: flex;
+    justify-content: space-between;
     font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    color: #ff0000;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    padding-bottom: 10px;
+    opacity: 0.7;
+}
+
+.brand-logo-container {
     margin-bottom: 20px;
-    display: block;
 }
 
-.company-name {
+.brand-logo {
     font-family: 'Atomic Age', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #ff0000;
+    letter-spacing: 12px;
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
 }
 
-.content-overlay h1 {
-    font-size: 4rem;
-    line-height: 1.1;
+.brand-underline {
+    width: 60px;
+    height: 2px;
+    background: #ff0000;
+    margin-top: 5px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.briefing-content h1 {
+    font-size: 3.5rem;
     font-weight: 900;
     color: #fff;
-    margin-bottom: 30px;
-    letter-spacing: -2px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    line-height: 1;
 }
 
-.content-overlay p {
-    font-size: 1.1rem;
-    color: #888;
-    line-height: 1.6;
-    margin-bottom: 40px;
+.briefing-content .highlight {
+    color: #ff0000;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
 }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-}
-
-.stat-item h3 {
-    color: #fff;
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-}
-
-.stat-item p {
+.mission-log {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    margin-top: auto;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-left: 2px solid #ff0000;
     font-size: 0.8rem;
-    margin-bottom: 0;
-    letter-spacing: 1px;
+    max-width: 500px;
 }
 
-.auth-section {
-    flex: 0.8;
-    background: #050505;
+.log-entry {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+.log-time {
+    color: #555;
+}
+
+.log-message {
+    color: #888;
+}
+
+.terminal-section {
+    flex: 0.7;
+    background: #000;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 60px;
+    padding: 40px;
     position: relative;
-    border-left: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.auth-container {
+.terminal-container {
     width: 100%;
-    max-width: 420px;
+    max-width: 380px;
 }
 
-.auth-header {
-    margin-bottom: 40px;
+.terminal-header {
+    margin-bottom: 50px;
 }
 
-.auth-header h2 {
-    font-size: 2.2rem;
-    font-weight: 800;
+.terminal-header h2 {
+    font-size: 1.5rem;
     color: #fff;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
 }
 
-.auth-header p {
-    color: #666;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+.terminal-header .status-line {
+    font-size: 0.7rem;
+    color: #00ff00;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.auth-form .input-group {
-    margin-bottom: 25px;
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background: #00ff00;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff00;
+    animation: pulse 1.5s infinite;
 }
 
-.auth-form .input-icon {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #ff0000;
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
-.auth-form input {
+.terminal-form .input-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.terminal-form input {
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 15px 0 15px 35px;
-    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 0 12px 0;
+    color: #ffffff;
     font-size: 0.9rem;
     transition: all 0.3s;
 }
 
-.auth-form input:focus {
+.terminal-form input:focus {
     outline: none;
-    border-color: #ff0000;
+    border-bottom-color: #ff0000;
 }
 
-.auth-submit-btn {
+.terminal-form input::placeholder {
+    color: #333;
+}
+
+.terminal-submit-btn {
     width: 100%;
-    padding: 20px;
-    background: #ff0000;
-    color: #fff;
-    border: none;
-    font-weight: 800;
-    letter-spacing: 4px;
+    padding: 15px;
+    background: transparent;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-weight: 700;
+    letter-spacing: 3px;
     cursor: pointer;
-    margin-top: 20px;
     transition: all 0.3s;
-    text-transform: uppercase;
+    margin-top: 20px;
 }
 
-.auth-submit-btn:hover {
-    background: #fff;
+.terminal-submit-btn:hover {
+    background: #ff0000;
     color: #000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
 }
 
-.auth-footer {
+.terminal-footer {
     margin-top: 40px;
-    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 30px;
+    font-size: 0.7rem;
 }
 
-.auth-footer p {
-    color: #444;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-}
-
-.toggle-link {
-    color: #fff;
+.toggle-btn {
     background: none;
     border: none;
+    color: #888;
     cursor: pointer;
-    font-weight: 700;
-    margin-left: 8px;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: 0.8rem;
     transition: color 0.3s;
 }
 
-.toggle-link:hover {
-    color: #ff0000;
+.toggle-btn:hover {
+    color: #fff;
 }
 
 @media (max-width: 1100px) {
-    .content-section {
+    .briefing-section {
         display: none;
     }
 
-    .auth-section {
+    .terminal-section {
         flex: 1;
-        border-left: none;
     }
 }

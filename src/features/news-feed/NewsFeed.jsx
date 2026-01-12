@@ -46,45 +46,13 @@ const NewsFeed = () => {
                 <h1 className="feed-title">THE FICTION <span className="highlight">FEED</span></h1>
             </header>
 
-            {featured && (
-                <div className="feed-hero">
-                    <div className="hero-badge">BREAKING NEWS</div>
-                    <div className="hero-content">
-                        <img src={featured.image} alt={featured.title} className="hero-img" />
-                        <div className="hero-text-overlay">
-                            <span className="hero-tag">{featured.category}</span>
-                            <h2>{featured.title}</h2>
-                            <p>{featured.description}</p>
-                            <button className="read-more-btn">
-                                <span className="btn-text">DECRYPT ARTICLE</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            )}
+            <NewsHero featured={featured} />
 
             <div className="feed-divider">
                 <SectionMarquee text="INCOMING TRANSMISSIONS • GLOBAL FEED •" speed={1} />
             </div>
 
-            <div className="news-masonry">
-                {items?.map((item) => (
-                    <div key={item.id} className="news-card">
-                        <div className="card-header">
-                            <span className="card-tag">{item.category}</span>
-                            <span className="card-date">{item.date}</span>
-                        </div>
-                        <h3>{item.title}</h3>
-                        <p>{item.description || "In-depth intelligence report pending. Operator discretion advised."}</p>
-                        <div className="card-footer">
-                            <span className="read-time">5 MIN READ</span>
-                            <div className="card-arrow"></div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <NewsMasonry items={items} />
 
             <div className="feed-pagination">
                 <button className="load-more-btn">
