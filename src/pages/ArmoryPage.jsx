@@ -1,105 +1,142 @@
-import { useState, useRef } from 'react';
+
+import { useState, useRef, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import './ArmoryPage.css';
 import { armoryData } from '../data/armoryData';
 import GlobalNoise from '../components/ui/GlobalNoise/GlobalNoise';
 import MagneticButton from '../components/ui/MagneticButton/MagneticButton';
+import PageHero from '../components/ui/PageHero/PageHero';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilter } from '@fortawesome/free-solid-svg-icons';
 
 const ArmoryPage = () => {
     const [activeCategory, setActiveCategory] = useState('all');
+    const [activeSubcategory, setActiveSubcategory] = useState('all');
     const containerRef = useRef(null);
+    const productGridRef = useRef(null);
 
-    const filteredProducts = activeCategory === 'all'
-        ? armoryData.products
-        : armoryData.products.filter(p => p.category === activeCategory);
+    // Reset subcategory when main category changes
+    useEffect(() => {
+        setActiveSubcategory('all');
+    }, [activeCategory]);
+
+    const filteredProducts = armoryData.products.filter(p => {
+        if (activeCategory === 'all') return true;
+        if (p.category !== activeCategory) return false;
+        if (activeSubcategory === 'all') return true;
+        return p.subcategory === activeSubcategory;
+    });
 
     useGSAP(() => {
-        gsap.from(".armory-hero-title", {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power4.out",
-            delay: 0.2
-        });
+        // Animate products when filter changes
+        gsap.fromTo(".product-card",
+            { y: 30, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.4,
+                stagger: 0.05,
+                ease: "power2.out",
+                overwrite: true
+            }
+        );
+    }, { scope: productGridRef, dependencies: [filteredProducts] });
 
-        gsap.from(".product-card", {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out",
-            delay: 0.5
-        });
-    }, { scope: containerRef });
+    const currentCategoryData = armoryData.categories.find(c => c.id === activeCategory);
 
     return (
         <div className="page-wrapper armory-page" ref={containerRef}>
             <GlobalNoise />
 
-            <section className="armory-hero">
-                <div className="armory-hero-content">
-                    <h1 className="armory-hero-title" data-text={armoryData.hero.title}>
-                        {armoryData.hero.title}
-                    </h1>
-                    <p className="armory-hero-subtitle">{armoryData.hero.description}</p>
-                </div>
-                <div className="armory-overlay"></div>
-            </section>
+            <PageHero
+                title={armoryData.hero.title}
+                subtitle={armoryData.hero.subtitle}
+                description={armoryData.hero.description}
+                backgroundImage={armoryData.hero.image}
+            />
 
             <section className="armory-content container">
                 <div className="armory-controls">
-                    <div className="category-filters">
-                        {armoryData.categories.map(cat => (
-                            <button
-                                key={cat.id}
-                                className={`filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                                onClick={() => setActiveCategory(cat.id)}
-                            >
-                                {cat.label}
-                            </button>
-                        ))}
+                    <div className="filter-section">
+                        <div className="main-filters">
+                            {armoryData.categories.map(cat => (
+                                <button
+                                    key={cat.id}
+                                    className={`filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                                    onClick={() => setActiveCategory(cat.id)}
+                                >
+                                    {cat.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {currentCategoryData && currentCategoryData.subcategories && (
+                            <div className="sub-filters">
+                                <button
+                                    className={`sub-filter-btn ${activeSubcategory === 'all' ? 'active' : ''}`}
+                                    onClick={() => setActiveSubcategory('all')}
+                                >
+                                    VIEW ALL
+                                </button>
+                                {currentCategoryData.subcategories.map(sub => (
+                                    <button
+                                        key={sub}
+                                        className={`sub-filter-btn ${activeSubcategory === sub ? 'active' : ''}`}
+                                        onClick={() => setActiveSubcategory(sub)}
+                                    >
+                                        {sub.replace('-', ' & ').replace('-', ' ')}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
+
                     <div className="armory-search">
-                        <FontAwesomeIcon icon={faSearch} />
+                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
                         <input type="text" placeholder="SEARCH DATABASE..." />
+                        <FontAwesomeIcon icon={faFilter} className="filter-icon" />
                     </div>
                 </div>
 
-                <div className="product-grid">
-                    {filteredProducts.map(product => (
-                        <div key={product.id} className={`product-card rarity-${product.rarity}`}>
-                            <div className="product-image-container">
-                                {/* Placeholder for now if image fails */}
-                                <div className="img-placeholder" style={{ background: '#222' }}>
-                                    {product.image && <img src={product.image} alt={product.name} />}
+                <div className="product-grid" ref={productGridRef}>
+                    {filteredProducts.length > 0 ? (
+                        filteredProducts.map(product => (
+                            <div key={product.id} className={`product-card rarity-${product.rarity}`}>
+                                <div className="product-image-container">
+                                    <div className="img-wrapper">
+                                        {product.image && <img src={product.image} alt={product.name} />}
+                                    </div>
+                                    {product.tag && <span className="product-tag">{product.tag}</span>}
+                                    <div className="product-overlay">
+                                        <MagneticButton className="quick-buy-btn">
+                                            ADD TO CART
+                                        </MagneticButton>
+                                    </div>
                                 </div>
-                                {product.tag && <span className="product-tag">{product.tag}</span>}
-                                <div className="product-overlay">
-                                    <MagneticButton className="quick-buy-btn">
-                                        ADD TO CART
-                                    </MagneticButton>
+                                <div className="product-info">
+                                    <div className="product-header">
+                                        <h3 className="product-name">{product.name}</h3>
+                                        <span className="product-price">${product.price}</span>
+                                    </div>
+                                    <div className="product-rarity-bar" data-rarity={product.rarity}></div>
+                                    <div className="product-stats">
+                                        {Object.entries(product.stats).map(([key, value]) => (
+                                            <div key={key} className="stat-item">
+                                                <span className="stat-label">{key.replace('_', ' ')}</span>
+                                                <span className="stat-val">{value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="product-info">
-                                <h3 className="product-name">{product.name}</h3>
-                                <div className="product-meta">
-                                    <span className="product-rarity">{product.rarity.toUpperCase()}</span>
-                                    <span className="product-price">${product.price}</span>
-                                </div>
-                                <div className="product-stats">
-                                    {Object.entries(product.stats).map(([key, value]) => (
-                                        <div key={key} className="stat-item">
-                                            <span className="stat-label">{key}</span>
-                                            <span className="stat-val">{value}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                        ))
+                    ) : (
+                        <div className="no-results">
+                            <h3>NO ASSETS FOUND</h3>
+                            <p>Adjust your filters, Operative.</p>
                         </div>
-                    ))}
+                    )}
                 </div>
             </section>
         </div>
@@ -107,3 +144,4 @@ const ArmoryPage = () => {
 };
 
 export default ArmoryPage;
+

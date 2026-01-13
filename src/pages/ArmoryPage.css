@@ -2,86 +2,143 @@
     background-color: #0b0b0b;
     min-height: 100vh;
     padding-top: 80px;
-    /* Header space */
     color: #fff;
 }
 
-.armory-hero {
-    height: 40vh;
+.armory-content {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 4rem;
-}
-
-.armory-hero-content {
-    text-align: center;
     z-index: 2;
-    position: relative;
+    padding: 2rem;
 }
 
-.armory-hero-title {
-    font-family: 'Turret Road', sans-serif;
-    font-size: clamp(3rem, 6vw, 5rem);
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: #fff;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    letter-spacing: 5px;
-}
-
-.armory-hero-subtitle {
-    font-family: 'Bruno Ace SC', sans-serif;
-    color: var(--hero-primary, #ff4655);
-    letter-spacing: 2px;
-}
-
+/* Controls & Filters */
 .armory-controls {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 2rem;
-    padding-bottom: 2rem;
+    margin-bottom: 4rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 2rem;
 }
 
-.category-filters {
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.main-filters {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .filter-btn {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #888;
-    padding: 0.75rem 1.5rem;
+    padding: 0.8rem 2rem;
     font-family: 'Bruno Ace SC', sans-serif;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     text-transform: uppercase;
     font-size: 0.9rem;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
 }
 
-.filter-btn:hover,
-.filter-btn.active {
-    border-color: var(--hero-primary, #ff4655);
+.filter-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--hero-primary, #ff4655);
+    transition: width 0.3s ease;
+}
+
+.filter-btn:hover {
     color: #fff;
-    background: rgba(255, 70, 85, 0.1);
+    background: rgba(255, 255, 255, 0.08);
 }
 
+.filter-btn.active {
+    color: #fff;
+    border-color: rgba(255, 70, 85, 0.5);
+    background: rgba(255, 70, 85, 0.05);
+}
+
+.filter-btn.active::after {
+    width: 100%;
+}
+
+.sub-filters {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    padding-left: 1rem;
+    border-left: 2px solid var(--hero-primary);
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sub-filter-btn {
+    background: transparent;
+    border: none;
+    color: #666;
+    font-family: 'Turret Road', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    transition: color 0.3s ease;
+}
+
+.sub-filter-btn:hover,
+.sub-filter-btn.active {
+    color: var(--hero-primary);
+}
+
+.sub-filter-btn.active {
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 70, 85, 0.4);
+}
+
+/* Search */
 .armory-search {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.8rem 1.2rem;
+    gap: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 400px;
+    align-self: flex-end;
+    transition: border-color 0.3s ease;
+}
+
+.armory-search:focus-within {
+    border-color: var(--hero-primary);
+}
+
+.search-icon {
+    color: #666;
 }
 
 .armory-search input {
@@ -90,73 +147,94 @@
     color: #fff;
     outline: none;
     font-family: 'Turret Road', sans-serif;
-    width: 200px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.filter-icon {
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.filter-icon:hover {
+    color: #fff;
 }
 
 /* Product Grid */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
     margin-bottom: 5rem;
+    min-height: 400px;
 }
 
 .product-card {
-    background: rgba(20, 20, 20, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(145deg, rgba(20, 20, 20, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
     position: relative;
-    overflow: hidden;
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.product-card.rarity-legendary {
-    border-color: #ffd700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
-}
-
-.product-card.rarity-rare {
-    border-color: #b08dff;
-}
-
-.product-card.rarity-common {
-    border-color: #666;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
+    z-index: 2;
 }
 
 .product-image-container {
-    height: 300px;
-    background: #151515;
+    height: 340px;
+    background: #0f0f0f;
     position: relative;
     overflow: hidden;
+    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.img-placeholder {
+.img-wrapper {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.img-placeholder img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+.img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
 }
 
-.product-card:hover .img-placeholder img {
-    transform: scale(1.1);
+.product-card:hover .img-wrapper {
+    transform: scale(1.08);
+}
+
+.product-tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--hero-primary);
+    color: #000;
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-weight: 700;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    z-index: 5;
+    letter-spacing: 1px;
 }
 
 .product-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -169,84 +247,145 @@
     opacity: 1;
 }
 
-.product-tag {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: var(--hero-primary);
-    color: #000;
-    font-weight: bold;
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    z-index: 5;
-}
-
+/* Product Info */
 .product-info {
     padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+    gap: 1rem;
 }
 
 .product-name {
     font-family: 'Turret Road', sans-serif;
     font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-}
-
-.product-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    font-family: 'Bruno Ace SC', sans-serif;
-    font-size: 0.8rem;
-    color: #888;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    color: #fff;
+    text-transform: uppercase;
 }
 
 .product-price {
-    color: #fff;
+    font-family: 'Bruno Ace SC', sans-serif;
+    color: var(--hero-primary);
     font-weight: bold;
+    font-size: 1rem;
+}
+
+.product-rarity-bar {
+    height: 2px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-rarity-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 40%;
+    background: currentColor;
+}
+
+.product-card.rarity-common .product-rarity-bar {
+    color: #888;
+}
+
+.product-card.rarity-rare .product-rarity-bar {
+    color: #00bcd4;
+}
+
+.product-card.rarity-epic .product-rarity-bar {
+    color: #9c27b0;
+}
+
+.product-card.rarity-legendary .product-rarity-bar {
+    color: #ffd700;
+}
+
+.product-card.rarity-mythic .product-rarity-bar {
+    color: #ff4655;
 }
 
 .product-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 1rem;
+    margin-top: auto;
 }
 
 .stat-item {
     display: flex;
     flex-direction: column;
+    gap: 0.2rem;
 }
 
 .stat-label {
     font-size: 0.6rem;
     color: #555;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .stat-val {
-    font-size: 0.8rem;
-    color: #ddd;
+    font-size: 0.75rem;
+    color: #ccc;
     font-family: 'Turret Road', sans-serif;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
-    .armory-controls {
-        flex-direction: column;
-        align-items: stretch;
-    }
+/* No Results */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem;
+    color: #666;
+}
 
-    .category-filters {
-        overflow-x: auto;
-        padding-bottom: 10px;
+.no-results h3 {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 900px) {
+    .armory-controls {
+        flex-direction: column-reverse;
     }
 
     .armory-search {
-        width: 100%;
+        max-width: 100%;
+        align-self: stretch;
+    }
+}
+
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: 1fr;
     }
 
-    .armory-search input {
-        width: 100%;
+    .main-filters {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .filter-btn {
+        flex-shrink: 0;
     }
 }

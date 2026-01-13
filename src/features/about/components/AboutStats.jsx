@@ -1,13 +1,26 @@
-const AboutStats = () => {
+import React, { useRef } from 'react';
+import useCountUp from '../../../hooks/useCountUp';
+
+const StatItem = ({ stat }) => {
+    const { count, elementRef } = useCountUp(parseInt(stat.value.replace(/,/g, '')), 1.5);
+
+    return (
+        <div className="stat-card" ref={elementRef}>
+            <h3 className="stat-value">
+                {stat.value.includes('+') ? '+' : ''}{count.toLocaleString()}
+                <span className="stat-label-small">{stat.label}</span>
+            </h3>
+        </div>
+    );
+};
+
+const AboutStats = ({ stats = [] }) => {
     return (
         <div className="about-stats">
-            <div className="stat-item">
-                <span className="stat-number">45M</span>
-                <span className="stat-label">Active Players</span>
-            </div>
-            <div className="stat-item">
-                <span className="stat-number">200+</span>
-                <span className="stat-label">Global Artists</span>
+            <div className="stats-grid">
+                {stats.map((stat, index) => (
+                    <StatItem key={index} stat={stat} />
+                ))}
             </div>
         </div>
     );
