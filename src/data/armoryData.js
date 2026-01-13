@@ -6,6 +6,11 @@ import Hoddie from '../assets/images/Armory/Hoddie.png';
 import Keyboard from '../assets/images/Armory/Keyboard.png';
 import Pants from '../assets/images/Armory/Pants.png';
 import Chair from '../assets/images/Armory/Chair.png';
+import Pendant from '../assets/images/Armory/Pendant.png';
+import Hat from '../assets/images/Armory/Hat.png';
+import Beanie from '../assets/images/Armory/Beanie.png'
+import City from '../assets/images/Armory/City.png'
+import Poster from '../assets/images/Armory/Poster.png'
 
 export const armoryData = {
     hero: {
@@ -82,7 +87,17 @@ export const armoryData = {
             category: 'apparel',
             subcategory: 'hats-beanies',
             rarity: 'common',
-            image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?q=80&w=1000&auto=format&fit=crop",
+            image: Beanie,
+            stats: { warmth: "MID", size: "ONE-SIZE", logo: "EMBROIDERED" }
+        },
+        {
+            id: 'a7',
+            name: "GAMER HAT",
+            price: 29.99,
+            category: 'apparel',
+            subcategory: 'hats-beanies',
+            rarity: 'common',
+            image: Hat,
             stats: { warmth: "MID", size: "ONE-SIZE", logo: "EMBROIDERED" }
         },
         {
@@ -92,7 +107,7 @@ export const armoryData = {
             category: 'apparel',
             subcategory: 'jewelry',
             rarity: 'epic',
-            image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000&auto=format&fit=crop",
+            image: Pendant,
             stats: { material: "STERLING SILVER", weight: "LIGHT", chain: "24 INCH" }
         },
 
@@ -159,7 +174,7 @@ export const armoryData = {
             category: 'art',
             subcategory: 'art-prints',
             rarity: 'common',
-            image: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=1000&auto=format&fit=crop",
+            image: City,
             stats: { size: "24x36", paper: "ARCHIVAL", finish: "MATTE" }
         },
         {
@@ -169,7 +184,7 @@ export const armoryData = {
             category: 'art',
             subcategory: 'posters',
             rarity: 'common',
-            image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1000&auto=format&fit=crop",
+            image: Poster,
             stats: { size: "18x24", paper: "GLOSS", series: "WAVE 1" }
         }
     ]

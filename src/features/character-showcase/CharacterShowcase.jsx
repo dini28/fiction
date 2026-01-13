@@ -2,62 +2,67 @@ import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faBolt, faGhost, faEye, faFire } from '@fortawesome/free-solid-svg-icons';
+import { faJedi, faHurricane, faPersonRunning, faShieldHalved, faPersonRifle } from '@fortawesome/free-solid-svg-icons';
 import './CharacterShowcase.css';
 
-import fortress from '../../assets/images/characters/fortress.webp';
-import phantom from '../../assets/images/characters/phantom.webp';
-import surge from '../../assets/images/characters/surge.webp';
-import nexus from '../../assets/images/characters/nexus.webp';
-import inferno from '../../assets/images/characters/inferno.webp';
+import GravityShift from '../../assets/images/characters/GravityShift.png';
+import ObsidianEdge from '../../assets/images/characters/ObsidianEdge.png';
+import ShadowSector from '../../assets/images/characters/ShadowSector.png';
+import StarTactics from '../../assets/images/characters/StarTactics.png';
+import TitanWake from '../../assets/images/characters/TitanWake.png';
 
 
 
 const characters = [
     {
         id: 1,
-        name: "FORTRESS",
-        role: "VANGUARD",
-        desc: "Front-line anchor who absorbs damage like a MOBA tank, creating space for the team while controlling objectives.",
-        icon: faShieldAlt,
-        image: fortress,
-        color: "#c89b3c"
+        name: "George",
+        title: "STAR TACTICS",
+        role: "GUARDIAN",
+        desc: "A legendary spacefarer who has traversed the cosmos, bringing back technology and hope from the furthest reaches of the galaxy.",
+        icon: faJedi,
+        image: StarTactics,
+        color: "#e2e3dd"
     },
     {
         id: 2,
-        name: "PHANTOM",
+        name: "Liam",
+        title: "OBSIDIAN EDGE",
         role: "ASSASSIN",
-        desc: "Stealth operative who stalks targets through the shadows, eliminating high-value enemies with precision like a tactical shooter ghost.",
-        icon: faGhost,
-        image: phantom,
-        color: "#ff4655"
+        desc: "A master of the blade living the assassin's creed, stalking high-value targets from the shadows of the neon city.",
+        icon: faHurricane,
+        image: ObsidianEdge,
+        color: "#ff8c42"
     },
     {
         id: 3,
-        name: "SURGE",
+        name: "Noah",
+        title: "Gravity Shift",
         role: "SPEEDSTER",
-        desc: "Hyper-mobile runner who blitzes across the battlefield with FPS movement mechanics, flanking and repositioning instantly.",
-        icon: faBolt,
-        image: surge,
-        color: "#00f0ff"
+        desc: "A legendary runner who conquered the Labyrinth of Gold, outsmarting traps and rivals to claim the ultimate prize.",
+        icon: faPersonRunning,
+        image: GravityShift,
+        color: "#e1c283"
     },
     {
         id: 4,
-        name: "NEXUS",
-        role: "TACTICIAN",
-        desc: "Strategic mastermind who reads the battlefield like an RTS commander, predicting enemy movements and countering plays.",
-        icon: faEye,
-        image: nexus,
-        color: "#7b61ff"
+        name: "Elijah",
+        title: "Shadow Sector",
+        role: "WARRIOR",
+        desc: "A timeless warrior who bridges eras, wielding ancient combat mastery enhanced by modern warfare technology.",
+        icon: faShieldHalved,
+        image: ShadowSector,
+        color: "#83afb6"
     },
     {
         id: 5,
-        name: "INFERNO",
-        role: "CATALYST",
-        desc: "Elemental brawler who chains devastating combos like a fighting game character, turning momentum into explosive finishers.",
-        icon: faFire,
-        image: inferno,
-        color: "#ff8c42"
+        name: "Alfred",
+        title: "TITAN WAKE",
+        role: "SOLDIER",
+        desc: "The planet's staunchest defender, a soldier dedicated to holding the line against the catastrophic Titan threat.",
+        icon: faPersonRifle,
+        image: TitanWake,
+        color: "#e6b582"
     }
 ];
 
@@ -170,10 +175,15 @@ const CharacterShowcase = () => {
                         </div>
                         <div className="char-overlay"></div>
                         <div className="char-info">
-                            <div className="char-role-icon" style={{ color: char.color }}>
-                                <FontAwesomeIcon icon={char.icon} />
+                            <div className='char-info-header'>
+                                <div className="char-role-icon" style={{ color: char.color }}>
+                                    <FontAwesomeIcon icon={char.icon} />
+                                </div>
+                                <div className='char-info-header-text'>
+                                    <h4 className="char-name">{char.name}</h4>
+                                    <h5 className="char-title" style={{ color: char.color }}>{char.title}</h5>
+                                </div>
                             </div>
-                            <h3 className="char-name">{char.name}</h3>
                             <div className="char-role" style={{ borderColor: char.color, color: char.color }}>
                                 {char.role}
                             </div>
