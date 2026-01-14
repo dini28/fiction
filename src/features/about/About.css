@@ -16,59 +16,159 @@
     /* Systematic spacing */
 }
 
-/* 1. Mission & Values (Refactored) */
-.about-main {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 60px;
+/* 1. Mission Section */
+.about-mission {
+    padding: 2rem 0;
 }
 
-.about-values {
+.mission-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
 }
 
-.value-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 40px;
+.mission-title {
+    font-family: 'Teko', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 0.9;
+    color: white;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.mission-lead {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: 3rem;
+    max-width: 500px;
+}
+
+/* Values Stack */
+.values-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.value-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.value-number {
+    font-family: 'Teko', sans-serif;
+    font-size: 2rem;
+    color: var(--color-primary);
+    line-height: 1;
+    opacity: 0.8;
+}
+
+.value-info h3 {
+    font-family: 'rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+}
+
+.value-info p {
+    font-size: 0.95rem;
+    color: #a0a0a0;
+    line-height: 1.5;
+}
+
+/* Visual Frame */
+.mission-visual {
     position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.value-card::before {
-    content: '';
+.visual-frame {
+    position: relative;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.office-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: grayscale(0.4) contrast(1.1);
+    transition: filter 0.5s ease;
+}
+
+.visual-frame:hover .office-image {
+    filter: grayscale(0) contrast(1);
+}
+
+.frame-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.top-left {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.bottom-right {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+}
+
+.visual-frame:hover .frame-corner {
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
+}
+
+.scan-line {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2px;
-    height: 100%;
-    background: var(--color-primary);
-    transform: scaleY(0);
-    transition: transform 0.4s ease;
-    transform-origin: bottom;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 70, 85, 0.5);
+    opacity: 0;
+    box-shadow: 0 0 10px var(--color-primary);
+    pointer-events: none;
 }
 
-.value-card:hover {
-    background: rgba(255, 70, 85, 0.03);
-    transform: translateY(-5px);
-    border-color: rgba(255, 70, 85, 0.2);
+.visual-frame:hover .scan-line {
+    animation: scan 2s linear infinite;
+    opacity: 1;
 }
 
-.value-card:hover::before {
-    transform: scaleY(1);
-    transform-origin: top;
-}
+@keyframes scan {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
 
-.value-card h3 {
-    font-family: 'Teko', sans-serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
 }
 
 /* 2. Timeline (Systematic Horizontal Flow) */
@@ -167,98 +267,458 @@
     margin-bottom: 5px;
 }
 
-.member-info .member-role {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.9rem;
-    color: var(--color-primary);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 600;
+/* 2. Timeline (System Logs) */
+.about-origins {
+    padding: 2rem 0;
 }
 
-/* 4. Stats (Server Metrics) */
-.about-stats {
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-top: 2rem;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 100px 60px 1fr;
+    gap: 0;
+    position: relative;
+    min-height: 120px;
+}
+
+/* Column 1: Year */
+.timeline-year {
+    font-family: 'Teko', sans-serif;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: right;
+    padding-top: 0;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-year {
+    color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+}
+
+/* Column 2: Track */
+.timeline-track {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-node {
+    width: 14px;
+    height: 14px;
+    background: var(--color-background-dark);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary);
+    z-index: 2;
+    margin-top: 10px;
+    /* Align with text top */
+    transition: all 0.3s ease;
+}
+
+.timeline-line {
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.timeline-item:last-child .timeline-line {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+}
+
+.timeline-item:hover .timeline-node {
+    background: var(--color-primary);
+    transform: scale(1.3);
+    box-shadow: 0 0 20px var(--color-primary);
+}
+
+/* Column 3: Content */
+.timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 3rem;
+    padding-left: 1rem;
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+}
+
+.system-tag {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.status-tag {
+    color: #666;
+}
+
+.timeline-event {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    max-width: 600px;
+    line-height: 1.5;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-event {
+    border-color: rgba(255, 70, 85, 0.3);
+    border-left-color: var(--color-primary);
+    background: rgba(255, 70, 85, 0.02);
+    transform: translateX(5px);
+}
+
+/* 3. Collective (Systematic Personnel Grid) */
+.about-collective {
+    padding: 4rem 0;
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding: 0 40px;
+}
+
+.section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, rgba(255, 255, 255, 0.1) 100%);
+    opacity: 0.5;
+}
+
+.team-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    padding: 60px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0 40px;
 }
 
-.stat-item {
+/* Personnel Card */
+.personnel-card {
+    background: rgba(10, 10, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    min-height: 380px;
+}
+
+.personnel-card:hover {
+    border-color: rgba(255, 70, 85, 0.5);
+    background: rgba(20, 20, 25, 0.9);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+}
+
+.card-id {
+    color: var(--color-text-secondary);
+}
+
+.card-status {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* Visual Frame */
+.member-visual {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    background: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.avatar-content {
+    font-family: 'Teko', sans-serif;
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+}
+
+.avatar-placeholder {
+    font-family: 'Teko', sans-serif;
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+}
+
+/* Frame Decorators */
+.corner-accent {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--color-primary);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.bottom-right {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+.personnel-card:hover .corner-accent {
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+}
+
+.scan-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(255, 70, 85, 0.1) 50%, transparent 60%);
+    background-size: 100% 200%;
+    background-position: 0% 0%;
+    transition: all 0.5s ease;
+    opacity: 0;
+    mix-blend-mode: overlay;
+}
+
+.personnel-card:hover .scan-overlay {
+    opacity: 1;
+    animation: scan-pass 2s linear infinite;
+}
+
+@keyframes scan-pass {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 0% 200%;
+    }
+}
+
+/* Info */
+.member-info {
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.member-name {
+    font-family: 'Teko', sans-serif;
+    font-size: 1.8rem;
+    color: white;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.member-role {
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.1em;
+}
+
+/* 4. Stats (System Usage) */
+.about-stats {
+    padding: 2rem 0 4rem 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 40px;
+    background: rgba(10, 10, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.stats-grid::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 20%;
+    width: 60%;
+    height: 2px;
+    background: var(--color-primary);
+    box-shadow: 0 0 15px var(--color-primary);
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.stat-value {
+    font-family: 'Teko', sans-serif;
+    font-size: 4.5rem;
+    line-height: 0.8;
+    color: white;
+    margin-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: 20px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.stat-number {
-    font-family: 'Teko', sans-serif;
-    font-size: 4rem;
-    line-height: 1;
-    color: white;
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
+.stat-label-small {
     font-family: 'Rajdhani', sans-serif;
     font-size: 0.9rem;
     color: var(--color-text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.stat-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--color-primary);
+    width: 0%;
+    /* Animated in JS */
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Section Decorators */
 .section-small-title {
     font-family: 'Rajdhani', sans-serif;
     font-size: 1rem;
-    color: var(--color-text-secondary);
+    color: var(--color-primary);
     margin-bottom: 40px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.3em;
     display: flex;
     align-items: center;
     gap: 15px;
+    text-transform: uppercase;
+    opacity: 0.8;
 }
 
 .section-small-title::before {
     content: '';
-    width: 20px;
+    width: 30px;
     height: 2px;
     background: var(--color-primary);
 }
 
+.section-title {
+    font-family: 'Teko', sans-serif;
+    font-size: 4rem;
+    color: white;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
-    .timeline-container {
+    .stats-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 60px;
-        border-top: none;
-    }
-
-    .timeline-item::before {
-        display: none;
-        /* Simplify for tablet */
     }
 }
 
 @media (max-width: 768px) {
-    .about-stats {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 30px;
+    .mission-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .timeline-container {
+        margin-left: 0;
     }
 
     .team-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .stats-grid {
+        padding: 20px;
+    }
 }
 
 @media (max-width: 480px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
 
-    .timeline-container,
-    .team-grid,
-    .about-stats {
+    .stats-grid {
         grid-template-columns: 1fr;
     }
 }

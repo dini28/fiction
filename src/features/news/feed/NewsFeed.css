@@ -1,0 +1,172 @@
+/* News Feed - Systematic Design */
+.news-feed-container {
+    padding: 0;
+    background-color: var(--color-background-dark, #0a0a0f);
+}
+
+/* Pagination / Footer */
+.feed-pagination {
+    display: flex;
+    justify-content: center;
+    padding: 60px 0 100px;
+}
+
+.load-more-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-gray);
+    padding: 15px 40px;
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.load-more-btn:hover {
+    border-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 70, 85, 0.2);
+}
+
+/* Masonry / Grid Styling */
+.news-masonry {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.news-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.news-card:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 70, 85, 0.03);
+    border-color: rgba(255, 70, 85, 0.3);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 15px;
+}
+
+.card-tag {
+    color: var(--color-primary);
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.card-date {
+    color: var(--color-text-gray);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.news-card h3 {
+    font-family: 'Teko', sans-serif;
+    color: white;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.news-card:first-child h3 {
+    font-size: 3.5rem;
+}
+
+.news-card p {
+    color: var(--color-text-gray);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    flex: 1;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.read-time {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.card-arrow {
+    width: 30px;
+    height: 1px;
+    background: var(--color-primary);
+    position: relative;
+    transition: width 0.3s ease;
+}
+
+.card-arrow::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: 6px;
+    height: 6px;
+    border-top: 1px solid var(--color-primary);
+    border-right: 1px solid var(--color-primary);
+    transform: rotate(45deg);
+}
+
+.news-card:hover .card-arrow {
+    width: 50px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .news-masonry {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .news-card:first-child {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .news-masonry {
+        grid-template-columns: 1fr;
+    }
+
+    .news-card:first-child {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .news-card:first-child h3 {
+        font-size: 2.5rem;
+    }
+}

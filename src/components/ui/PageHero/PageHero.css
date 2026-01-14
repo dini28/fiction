@@ -8,7 +8,12 @@
     justify-content: center;
     overflow: hidden;
     padding-top: 80px;
-    /* Offset for fixed header */
+    background-color: #0f1923;
+    --hero-primary: #ff4655;
+    --hero-dark: #0f1923;
+    --hero-light: #ece8e1;
+    --hero-dim: #768089;
+    --hero-glow: rgba(255, 70, 85, 0.5);
 }
 
 /* Background */
@@ -34,10 +39,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom,
-            rgba(10, 10, 15, 0.4) 0%,
-            rgba(10, 10, 15, 0.8) 80%,
-            rgba(10, 10, 15, 1) 100%);
+    background: radial-gradient(circle at center, rgba(15, 25, 35, 0.4) 0%, rgba(15, 25, 35, 0.95) 100%),
+        linear-gradient(to bottom, rgba(15, 25, 35, 0.2) 0%, rgba(15, 25, 35, 0.9) 100%);
     z-index: 1;
 }
 
@@ -50,6 +53,7 @@
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .page-hero-content.center {
@@ -64,48 +68,124 @@
 
 /* Typography */
 .hero-subtitle-kick {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    color: var(--color-accent);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    margin-bottom: 0.5rem;
 }
 
-.hero-subtitle-kick::before {
+.subtitle-text {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--hero-primary);
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 70, 85, 0.3);
+    padding: 0.5em 1.5em;
+    background: rgba(15, 25, 35, 0.6);
+    backdrop-filter: blur(4px);
+    position: relative;
+}
+
+.subtitle-text::before,
+.subtitle-text::after {
     content: '';
-    display: block;
-    width: 30px;
-    height: 2px;
-    background-color: var(--color-accent);
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--hero-primary);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.subtitle-text::before {
+    left: -2px;
+}
+
+.subtitle-text::after {
+    right: -2px;
 }
 
 .hero-main-title {
     font-family: 'Teko', sans-serif;
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(3rem, 7vw, 7rem);
     line-height: 0.9;
     font-weight: 700;
-    color: var(--color-text-primary);
+    color: var(--hero-light);
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    position: relative;
+    text-shadow: 0 0 40px var(--hero-glow);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
 }
 
 .hero-desc {
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.1rem;
     line-height: 1.6;
-    color: var(--color-text-secondary);
+    color: var(--hero-dim);
     max-width: 600px;
     margin-bottom: 2rem;
 }
 
-/* Decorative / Glitch elements could be added here if needed via pseudo-elements */
+/* Decorations */
+.hero-decorations {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
 
+.decorative-element {
+    position: absolute;
+}
+
+.deco-line {
+    background: var(--hero-dim);
+    opacity: 0.3;
+}
+
+.deco-line-1 {
+    top: 20%;
+    left: 10%;
+    width: 1px;
+    height: 100px;
+}
+
+.deco-line-1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -2px;
+    width: 5px;
+    height: 5px;
+    background: var(--hero-primary);
+}
+
+.deco-line-2 {
+    bottom: 15%;
+    right: 15%;
+    width: 150px;
+    height: 1px;
+}
+
+.deco-shape {
+    top: 15%;
+    right: 10%;
+    width: 120px;
+    height: 120px;
+    color: var(--hero-primary);
+    opacity: 0.2;
+}
+
+.spinning-shape {
+    animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
 
 @media (max-width: 768px) {
     .page-hero {
@@ -117,7 +197,14 @@
         text-align: center !important;
     }
 
-    .hero-subtitle-kick::before {
-        display: none;
+    .hero-main-title {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+
+    .deco-shape {
+        width: 60px;
+        height: 60px;
+        top: 10%;
+        right: 5%;
     }
 }

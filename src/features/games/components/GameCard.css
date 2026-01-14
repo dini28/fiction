@@ -1,0 +1,191 @@
+/* Game Card Styles */
+.game-card {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #0d0d0d;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    z-index: 10;
+    transition: border-color 0.4s ease;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+.game-card:hover,
+.game-card:focus-visible {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+.game-card:focus-visible {
+    outline: 3px solid rgba(255, 70, 85, 0.7);
+    outline-offset: 4px;
+}
+
+.game-card:hover::before {
+    border-color: rgba(255, 70, 85, 0.5);
+}
+
+.game-bg-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.game-bg {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1), filter 0.5s ease;
+    filter: brightness(0.9) contrast(1.05);
+    object-fit: cover;
+}
+
+.game-card:hover .game-bg {
+    transform: scale(1.15);
+    filter: brightness(0.6) contrast(1.1);
+}
+
+.game-info {
+    position: absolute;
+    inset: 0;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 5;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 50%);
+}
+
+.game-logo-text {
+    font-family: 'Turret Road', sans-serif;
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
+    letter-spacing: -0.01em;
+    transform: translateY(8px);
+    opacity: 0.95;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.game-card:hover .game-logo-text {
+    transform: translateY(0);
+    opacity: 1;
+    color: var(--color-primary);
+    text-shadow: 0 0 20px rgba(255, 70, 85, 0.5);
+}
+
+.game-genre {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+/* Platforms */
+.platforms {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+}
+
+.game-card:hover .platforms {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.platform-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    border-radius: 6px;
+    font-size: 15px;
+    color: #ddd;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.platform-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.15);
+    color: #fff;
+}
+
+/* Coming Soon Badge */
+.coming-soon-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, #c89b3c 0%, #aa8332 100%);
+    color: #000;
+    font-weight: 800;
+    font-size: 0.7rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    z-index: 20;
+    box-shadow: 0 4px 15px rgba(200, 155, 60, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .game-card {
+        transform: none !important;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .game-logo-text {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .platforms {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .game-card:hover {
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 480px) {
+    .game-card {
+        border-radius: 6px;
+    }
+
+    .game-info {
+        padding: 1.25rem;
+    }
+
+    .platform-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+}

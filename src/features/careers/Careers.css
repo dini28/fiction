@@ -16,63 +16,87 @@
 
 /* 1. Jobs Grid (Table/Grid System) */
 .jobs-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .job-card {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr auto;
     align-items: center;
-    padding: 30px;
+    padding: 25px 30px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-left: 2px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     gap: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.job-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--color-primary);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    transform-origin: bottom;
 }
 
 .job-card:hover {
-    background: rgba(255, 70, 85, 0.03);
-    border-color: rgba(255, 255, 255, 0.1);
-    border-left-color: var(--color-primary);
-    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateX(5px);
+    border-color: rgba(255, 70, 85, 0.3);
+}
+
+.job-card:hover::before {
+    transform: scaleY(1);
 }
 
 .job-info h3 {
     font-family: 'Teko', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: white;
     margin: 0;
     line-height: 1;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .job-meta {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--color-text-gray);
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    font-weight: 500;
 }
 
 .apply-btn {
-    padding: 10px 30px;
+    padding: 8px 24px;
     background: transparent;
-    border: 1px solid var(--color-primary);
-    color: var(--color-primary);
-    font-family: 'Bruno Ace SC', sans-serif;
-    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     cursor: pointer;
     transition: all 0.3s ease;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
 .apply-btn:hover {
     background: var(--color-primary);
+    border-color: var(--color-primary);
     color: black;
-    box-shadow: 0 0 15px var(--color-primary);
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
 }
 
 /* 2. Benefits (Holographic Cards) */
@@ -83,22 +107,41 @@
 .benefits-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: 20px;
 }
 
 .benefit-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(10, 10, 15, 0.4) 100%);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 40px;
+    padding: 30px;
     position: relative;
     overflow: hidden;
+    transition: all 0.4s ease;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+.benefit-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, transparent 50%, rgba(255, 70, 85, 0.1) 50%);
     transition: all 0.3s ease;
 }
 
 .benefit-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--color-primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.15);
     transform: translateY(-5px);
+}
+
+.benefit-card:hover::after {
+    width: 50px;
+    height: 50px;
 }
 
 .benefit-card h4 {
@@ -107,13 +150,15 @@
     color: white;
     margin-bottom: 15px;
     text-transform: uppercase;
+    z-index: 1;
 }
 
 .benefit-card p {
     font-family: 'Rajdhani', sans-serif;
     font-size: 1rem;
-    color: var(--color-text-gray);
+    color: #a0a0a0;
     line-height: 1.5;
+    z-index: 1;
 }
 
 /* 3. Selection Process (Step Flow) */
@@ -121,47 +166,57 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 40px;
+    border-top: 2px solid rgba(255, 255, 255, 0.05);
+    padding-top: 50px;
+    margin-top: 20px;
+    position: relative;
 }
 
 .process-step {
     position: relative;
-    padding-right: 40px;
+    padding-right: 30px;
 }
 
 .process-step::before {
     content: '';
     position: absolute;
-    top: -45px;
+    top: -56px;
     left: 0;
-    width: 10px;
-    height: 10px;
-    background: var(--color-background-dark);
+    width: 12px;
+    height: 12px;
+    background: #0a0a0f;
     border: 2px solid var(--color-primary);
-    box-shadow: 0 0 10px var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary), inset 0 0 5px var(--color-primary);
+    z-index: 2;
 }
 
 .step-num {
     font-family: 'Teko', sans-serif;
-    font-size: 2.5rem;
-    color: rgba(255, 255, 255, 0.1);
-    margin-bottom: 10px;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.05);
+    margin-bottom: 5px;
     display: block;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.process-step:hover .step-num {
+    color: rgba(255, 70, 85, 0.2);
 }
 
 .step-content h4 {
     font-family: 'Teko', sans-serif;
     font-size: 1.5rem;
     color: white;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     text-transform: uppercase;
 }
 
 .step-content p {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 0.9rem;
-    color: var(--color-text-gray);
+    font-size: 0.95rem;
+    color: #a0a0a0;
+    line-height: 1.5;
 }
 
 .step-arrow {

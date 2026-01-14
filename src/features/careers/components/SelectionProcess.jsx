@@ -1,7 +1,9 @@
+import SectionStart from '../../../components/ui/SectionStart';
+
 const SelectionProcess = ({ process = [] }) => {
     return (
         <div className="careers-process" style={{ marginTop: '80px' }}>
-            <h3 className="section-small-title">THE SELECTION JOURNEY</h3>
+            <SectionStart title="PROCESS" subtitle="SELECTION JOURNEY" />
             <div className="process-map">
                 {process.map((item, index) => (
                     <div key={index} className="process-step">

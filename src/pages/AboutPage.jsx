@@ -1,6 +1,6 @@
 import About from '../features/about/About';
 import PageHero from '../components/ui/PageHero/PageHero';
-import aboutHeroBg from '../assets/images/about-hero.png';
+import aboutHeroBg from '../assets/images/about-hero.jpg';
 
 const AboutPage = () => {
     return (

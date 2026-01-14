@@ -1,11 +1,9 @@
-import React from 'react';
-import PageHero from '../../components/ui/PageHero/PageHero';
 import AboutMission from './components/AboutMission';
 import AboutTimeline from './components/AboutTimeline';
 import AboutCollective from './components/AboutCollective';
 import AboutStats from './components/AboutStats';
-import ScrollReveal from '../../components/ui/ScrollReveal/ScrollReveal';
-import aboutHeroBg from '../../assets/images/about-hero.png';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import './About.css';
 
 const About = () => {
@@ -31,29 +29,21 @@ const About = () => {
 
     return (
         <div className="about-container">
-            <PageHero
-                title="WHO WE ARE"
-                subtitle="FICTION STUDIOS"
-                description="We are the architects of the new digital frontier. Building worlds that defy reality."
-                backgroundImage={aboutHeroBg}
-                alignment="left"
-            />
-
-            <ScrollReveal>
+            <div className="section-spacer">
                 <AboutMission />
-            </ScrollReveal>
+            </div>
 
-            <ScrollReveal className="section-spacer">
+            <div className="section-spacer">
                 <AboutTimeline timeline={timelineData} />
-            </ScrollReveal>
+            </div>
 
-            <ScrollReveal className="section-spacer" stagger={0.1}>
+            <div className="section-spacer">
                 <AboutCollective team={teamData} />
-            </ScrollReveal>
+            </div>
 
-            <ScrollReveal className="section-spacer">
+            <div className="section-spacer">
                 <AboutStats stats={statsData} />
-            </ScrollReveal>
+            </div>
         </div>
     );
 };

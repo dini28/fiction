@@ -1,6 +1,6 @@
 import React from 'react';
 import Hero from '../features/hero/Hero';
-import HeroNews from '../features/HeroNews/HeroNews';
+import NewsHomeSection from '../features/news/home/NewsHomeSection';
 import TextParallax from '../features/text-parallax/TextParallax';
 import CharacterShowcase from '../features/character-showcase/CharacterShowcase';
 import SystemConfiguration from '../features/system-configuration/SystemConfiguration';
@@ -12,7 +12,7 @@ const Home = () => {
     return (
         <main>
             <Hero />
-            <HeroNews />
+            <NewsHomeSection />
             <TextParallax />
             <SystemConfiguration />
             <CharacterShowcase />

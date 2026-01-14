@@ -43,14 +43,6 @@ export const newsData = {
             badgeType: 'default',
             image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
             alt: 'Futuristic Arena'
-        },
-        {
-            id: 'news-4',
-            title: 'Ascension League: Season Zero Briefing',
-            badge: 'News',
-            badgeType: 'elite',
-            image: agent,
-            alt: 'Championship Relic'
         }
     ]
 };

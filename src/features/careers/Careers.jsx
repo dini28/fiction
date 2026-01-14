@@ -1,4 +1,3 @@
-import React from 'react';
 import JobsGrid from './components/JobsGrid';
 import Benefits from './components/Benefits';
 import SelectionProcess from './components/SelectionProcess';
@@ -6,8 +5,6 @@ import CultureFooter from './components/CultureFooter';
 import './Careers.css';
 
 import ScrollReveal from '../../components/ui/ScrollReveal/ScrollReveal';
-import PageHero from '../../components/ui/PageHero/PageHero';
-import careersHeroBg from '../../assets/images/careers-hero.png';
 
 const Careers = () => {
     const jobs = [
@@ -32,14 +29,6 @@ const Careers = () => {
 
     return (
         <div className="careers-container">
-            <PageHero
-                title="JOIN THE RANKS"
-                subtitle="CAREERS AT FICTION"
-                description="We are dealing in the currency of imagination. Join us and spend wisely."
-                backgroundImage={careersHeroBg}
-                alignment="center"
-            />
-
             <ScrollReveal>
                 <JobsGrid jobs={jobs} />
             </ScrollReveal>

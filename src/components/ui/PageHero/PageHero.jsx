@@ -12,43 +12,46 @@ const PageHero = ({
     subtitle = "SECTION",
     description,
     backgroundImage,
-    alignment = "left"
+    alignment = "center"
 }) => {
     const containerRef = useRef(null);
-    const [scrambledTitle, triggerScramble] = useScrambleText(title, 1200);
+    const [scrambledTitle, triggerScramble] = useScrambleText(title, 1500);
 
     useGSAP(() => {
         const tl = gsap.timeline({
             defaults: { ease: "power3.out" }
         });
 
+        // Background Animation
         tl.fromTo(".hero-bg-image",
             { scale: 1.1, filter: "brightness(0)" },
             { scale: 1, filter: "brightness(0.6) contrast(1.1)", duration: 1.5, ease: "power2.out" }
         );
 
+        // Content Animation
         tl.from(".hero-subtitle-kick", {
-            x: -20,
+            y: 20,
             opacity: 0,
             duration: 0.8,
-            delay: 0.5
-        }, "-=1.0");
-
-        tl.from(".hero-main-title", {
-            y: 30,
-            opacity: 0,
-            skewY: 5,
-            duration: 0.8,
-            onStart: triggerScramble
-        }, "-=0.6");
-
-        if (description) {
-            tl.from(".hero-desc", {
+            delay: 0.2
+        }, "-=1.0")
+            .from(".hero-main-title", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                skewY: 2,
+                onStart: triggerScramble
+            }, "-=0.6")
+            .from(".hero-desc", {
                 y: 20,
                 opacity: 0,
                 duration: 0.8
-            }, "-=0.4");
-        }
+            }, "-=0.6")
+            .from(".decorative-element", {
+                opacity: 0,
+                duration: 1.5,
+                stagger: 0.2
+            }, "-=1");
 
     }, { scope: containerRef, dependencies: [title] });
 
@@ -61,8 +64,21 @@ const PageHero = ({
                 <div className="hero-overlay-gradient"></div>
             </div>
 
+            {/* Decorative Elements */}
+            <div className="hero-decorations" aria-hidden="true">
+                <div className="decorative-element deco-line deco-line-1"></div>
+                <div className="decorative-element deco-line deco-line-2"></div>
+                <div className="decorative-element deco-shape">
+                    <svg viewBox="0 0 100 100" className="spinning-shape">
+                        <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="none" stroke="currentColor" strokeWidth="1" />
+                    </svg>
+                </div>
+            </div>
+
             <div className={`page-hero-content ${alignment}`}>
-                <div className="hero-subtitle-kick">{subtitle}</div>
+                <div className="hero-subtitle-kick">
+                    <span className="subtitle-text">{subtitle}</span>
+                </div>
                 <h1 className="hero-main-title">{scrambledTitle}</h1>
                 {description && <p className="hero-desc">{description}</p>}
             </div>

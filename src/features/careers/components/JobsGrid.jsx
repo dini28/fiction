@@ -1,15 +1,18 @@
-import React from 'react';
 import useKineticHover from '../../../hooks/useKineticHover';
+import SectionStart from '../../../components/ui/SectionStart';
 
 const JobCard = ({ job }) => {
-    const cardRef = useKineticHover(5); // Subtle effect for list items
+    const cardRef = useKineticHover(5);
 
     return (
         <div className="job-card" ref={cardRef}>
+             <div className="card-accent-line"></div>
             <div className="job-info">
                 <h3>{job.title}</h3>
             </div>
-            <div className="job-meta">{job.dept}</div>
+            <div className="job-meta">
+                <span style={{color: 'var(--color-primary)'}}>//</span> {job.dept}
+            </div>
             <div className="job-meta">{job.loc}</div>
             <div className="job-meta">{job.type}</div>
             <button className="apply-btn">
@@ -21,11 +24,14 @@ const JobCard = ({ job }) => {
 
 const JobsGrid = ({ jobs = [] }) => {
     return (
-        <div className="jobs-grid">
-            {jobs.map((job, index) => (
-                <JobCard key={index} job={job} />
-            ))}
-        </div>
+        <section className="jobs-section">
+            <SectionStart title="OPEN POSITIONS" subtitle="CAREERS" />
+            <div className="jobs-grid">
+                {jobs.map((job, index) => (
+                    <JobCard key={index} job={job} />
+                ))}
+            </div>
+        </section>
     );
 };
 
