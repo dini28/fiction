@@ -16,7 +16,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--color-text-gray);
     padding: 15px 40px;
-    font-family: 'Bruno Ace SC', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 0.9rem;
     letter-spacing: 2px;
     cursor: pointer;
@@ -73,7 +73,7 @@
 
 .card-tag {
     color: var(--color-primary);
-    font-family: 'Bruno Ace SC', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 0.7rem;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -81,13 +81,13 @@
 
 .card-date {
     color: var(--color-text-gray);
-    font-family: 'Rajdhani', sans-serif;
+
     font-size: 0.8rem;
     font-weight: 600;
 }
 
 .news-card h3 {
-    font-family: 'Teko', sans-serif;
+    font-family: var(--font-secondary);
     color: white;
     font-size: 2rem;
     line-height: 1;
@@ -101,7 +101,7 @@
 
 .news-card p {
     color: var(--color-text-gray);
-    font-family: 'Rajdhani', sans-serif;
+
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 30px;
@@ -116,7 +116,7 @@
 }
 
 .read-time {
-    font-family: 'Bruno Ace SC', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 0.7rem;
     color: rgba(255, 255, 255, 0.3);
 }

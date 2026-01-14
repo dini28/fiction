@@ -12,6 +12,9 @@
     --color-text-gray: #8f9193;
     --color-text-dark: #1a1a2e;
 
+    --font-primary: 'Turret Road', sans-serif;
+    --font-secondary: 'Bruno Ace SC', sans-serif;
+
     --spacing-xs: 8px;
     --spacing-sm: 10px;
     --spacing-md: 15px;

@@ -69,7 +69,7 @@
 }
 
 .game-logo-text {
-    font-family: 'Turret Road', sans-serif;
+    font-family: var(--font-primary);
     font-size: clamp(1.4rem, 2vw, 1.9rem);
     font-weight: 800;
     line-height: 1.1;
@@ -90,7 +90,7 @@
 }
 
 .game-genre {
-    font-family: 'Bruno Ace SC', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.7);
     margin-top: 5px;

@@ -8,9 +8,9 @@ const SystemConfiguration = () => {
             items: [
                 { label: "OS", value: "Windows 10 64-bit (Latest Update)" },
                 { label: "PROCESSOR", value: "Intel Core i5-8400 / AMD Ryzen 5 2600" },
-                { label: "MEMORY", value: "12 GB RAM" },
+                { label: "MEMORY", value: "8 GB RAM" },
                 { label: "GRAPHICS", value: "NVIDIA GeForce RTX 2060 / AMD Radeon RX 5600 XT" },
-                { label: "STORAGE", value: "70 GB SSD available space" } // Increased storage for modern games
+                { label: "STORAGE", value: "70 GB SSD available space" } 
             ]
         },
         recommended: {

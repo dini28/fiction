@@ -84,7 +84,7 @@
 
 .featured-content h2 {
     font-size: clamp(1.8rem, 3vw, 2.5rem);
-    font-family: 'Turret Road', sans-serif;
+    font-family: var(--font-primary);
     font-weight: 800;
     line-height: 1.15;
     color: #fff;
@@ -171,7 +171,7 @@
 }
 
 .games-category-label {
-    font-family: 'Bruno Ace SC', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 0.95rem;
     color: var(--color-primary);
     letter-spacing: 3px;
@@ -270,7 +270,7 @@
 }
 
 .game-logo-text {
-    font-family: 'Turret Road', sans-serif;
+    font-family: var(--font-primary);
     font-size: clamp(1.4rem, 2vw, 1.9rem);
     font-weight: 800;
     line-height: 1.1;

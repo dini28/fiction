@@ -58,6 +58,7 @@
 }
 
 .scroll-indicator {
+    font-family: 'Bruno Ace SC', sans-serif;
     margin-top: 4rem;
     font-size: 0.9rem;
     color: var(--color-primary);
@@ -77,9 +78,7 @@
     z-index: 0;
     display: flex;
     justify-content: flex-end;
-    /* Push image to the right */
     align-items: flex-end;
-    /* Anchor to bottom */
 }
 
 .char-img {
@@ -88,11 +87,9 @@
     max-width: 100%;
     object-fit: cover;
     object-position: center top;
-    /* Ensure face is visible */
     filter: grayscale(100%) contrast(1.2) brightness(0.6);
     transition: filter 0.5s ease;
     mask-image: linear-gradient(to left, black 60%, transparent 100%);
-    /* Fade out left side */
     -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
 }
 
