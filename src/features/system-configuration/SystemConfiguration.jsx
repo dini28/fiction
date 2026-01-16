@@ -1,4 +1,3 @@
-import React from 'react';
 import './SystemConfiguration.css';
 
 const SystemConfiguration = () => {
@@ -10,7 +9,7 @@ const SystemConfiguration = () => {
                 { label: "PROCESSOR", value: "Intel Core i5-8400 / AMD Ryzen 5 2600" },
                 { label: "MEMORY", value: "8 GB RAM" },
                 { label: "GRAPHICS", value: "NVIDIA GeForce RTX 2060 / AMD Radeon RX 5600 XT" },
-                { label: "STORAGE", value: "70 GB SSD available space" } 
+                { label: "STORAGE", value: "70 GB SSD available space" }
             ]
         },
         recommended: {

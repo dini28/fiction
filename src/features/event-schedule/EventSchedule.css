@@ -1,139 +1,191 @@
 .event-schedule-section {
     padding: var(--spacing-4xl) var(--spacing-lg);
-    background-color: var(--color-dark-bg);
+    background-color: var(--color-darker-bg);
     position: relative;
+    overflow: hidden;
+}
+
+/* Background Grid Effect */
+.event-schedule-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255, 70, 85, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 70, 85, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .event-schedule-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
-.section-header {
+.event-schedule-header {
+    text-align: center;
     margin-bottom: var(--spacing-3xl);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
 }
 
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 800;
+.event-schedule-title {
+    font-size: 3.5rem;
+    font-weight: 900;
     color: var(--color-text-white);
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-sm);
     text-transform: uppercase;
+    text-shadow: 0 0 30px rgba(255, 70, 85, 0.4);
+    position: relative;
+    display: inline-block;
 }
 
-.section-decoration {
-    flex-grow: 1;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-primary), transparent);
+/* Glitch/Tech Decoration for Title */
+.event-schedule-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 4px;
+    background: var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary);
+}
+
+.event-schedule-subtitle {
+    color: var(--color-text-gray);
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: var(--spacing-lg);
+    opacity: 0.8;
 }
 
 .events-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
 }
 
 .event-card {
     display: flex;
     align-items: stretch;
-    background: var(--color-dark-surface);
-    border-left: 4px solid transparent;
-    transition: var(--transition-normal);
-    position: relative;
-    overflow: hidden;
+    background: rgba(20, 20, 30, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0;
+    /* Layout handled by children */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
 }
 
 .event-card:hover {
     transform: translateX(10px);
-    background: rgba(26, 26, 46, 0.8);
+    border-color: rgba(255, 70, 85, 0.3);
+    background: linear-gradient(90deg, rgba(255, 70, 85, 0.05) 0%, rgba(20, 20, 30, 0.8) 100%);
 }
 
 .event-card.live {
-    border-left-color: var(--color-primary);
-    background: linear-gradient(90deg, rgba(255, 70, 85, 0.05), transparent);
-}
-
-.event-card.upcoming {
-    border-left-color: var(--color-text-gray);
-}
-
-.event-card.live:hover {
-    border-left-color: var(--color-accent-gold);
+    border-color: var(--color-primary);
+    background: linear-gradient(90deg, rgba(255, 70, 85, 0.1), rgba(20, 20, 30, 0.6));
 }
 
 .event-date-box {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 120px;
-    background: rgba(0, 0, 0, 0.2);
+    min-width: 140px;
+    background: rgba(255, 255, 255, 0.03);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
     font-weight: 700;
     font-size: 1.2rem;
     color: var(--color-text-white);
     text-align: center;
+    font-family: var(--font-secondary);
+    letter-spacing: 1px;
 }
 
 .event-card.live .event-date-box {
     color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+    background: rgba(255, 70, 85, 0.05);
 }
 
 .event-info {
     flex-grow: 1;
-    padding: var(--spacing-lg) var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-xl);
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .event-title {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     margin-bottom: var(--spacing-xs);
     color: var(--color-text-white);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    font-family: var(--font-secondary);
 }
 
 .event-desc {
     color: var(--color-text-gray);
     font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 .event-status-box {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    min-width: 150px;
-    gap: var(--spacing-xs);
+    min-width: 180px;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.event-card.live .event-status-box {
+    background: rgba(255, 70, 85, 0.05);
 }
 
 .event-time {
     color: var(--color-secondary);
     font-size: 0.9rem;
     font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .status-badge {
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: var(--radius-sm);
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .status-badge.live {
     background-color: rgba(255, 70, 85, 0.2);
     color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(255, 70, 85, 0.2);
     animation: pulse 2s infinite;
 }
 
 .status-badge.upcoming {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--color-text-gray);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @keyframes pulse {
@@ -155,18 +207,42 @@
         flex-direction: column;
     }
 
-    .event-date-box,
-    .event-status-box {
+    .event-date-box {
+        width: 100%;
         min-width: auto;
-        align-items: flex-start;
-        padding-bottom: 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: var(--spacing-md);
+        justify-content: flex-start;
+        text-align: left;
     }
 
     .event-status-box {
-        padding-top: 0;
+        width: 100%;
+        min-width: auto;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: var(--spacing-md) var(--spacing-xl);
         flex-direction: row;
         justify-content: space-between;
-        width: 100%;
-        padding-bottom: var(--spacing-lg);
+        align-items: center;
+    }
+
+    .event-time {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .event-schedule-title {
+        font-size: 2.2rem;
+    }
+
+    .event-info {
+        padding: var(--spacing-lg);
+    }
+
+    .event-status-box {
+        padding: var(--spacing-md) var(--spacing-lg);
     }
 }

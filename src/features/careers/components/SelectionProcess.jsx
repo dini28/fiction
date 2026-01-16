@@ -1,10 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SectionStart from '../../../components/ui/SectionStart';
+import '../Careers.css';
 
 const SelectionProcess = ({ process = [] }) => {
     return (
         <div className="careers-process" style={{ marginTop: '80px' }}>
-            <SectionStart title="PROCESS" subtitle="SELECTION JOURNEY" />
+            <header className="sys-config-header">
+                <h2 className="sys-config-title">EVENT TIMELINE</h2>
+                <div className="sys-config-subtitle">SELECTION JOURNEY</div>
+            </header>
             <div className="process-map modern-process">
                 {process.map((item, index) => (
                     <div key={index} className="process-step">

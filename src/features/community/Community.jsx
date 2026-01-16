@@ -11,12 +11,11 @@ const Community = () => {
     const containerRef = useRef(null);
 
     useGSAP(() => {
-        // Entrance Animations
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
+                start: "top 85%",
+                toggleActions: "play none none none"
             }
         });
 
@@ -36,19 +35,12 @@ const Community = () => {
                 opacity: 0,
                 duration: 0.6,
                 stagger: 0.2
-            }, "-=0.4")
-            .from(".stat-card", {
-                scale: 0.8,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: "back.out(1.7)"
-            }, "-=0.8");
+            }, "-=0.4");
 
         ScrollTrigger.refresh();
 
         // 3D Card Effect
-        const cards = gsap.utils.toArray('.stat-card');
+        const cards = gsap.utils.toArray('.community-stat-card');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -105,9 +97,9 @@ const Community = () => {
                         </div>
                     </div>
 
-                    <div className="stats-grid">
+                    <div className="community-stats-grid">
                         {communityData.stats.map((stat, index) => (
-                            <div key={index} className={`stat-card ${index === 0 ? 'featured' : ''}`}>
+                            <div key={index} className={`community-stat-card ${index === 0 ? 'featured' : ''}`}>
                                 <FontAwesomeIcon icon={stat.icon} className="stat-icon" />
                                 <span className="stat-value">{stat.value}</span>
                                 <span className="stat-label">{stat.label}</span>

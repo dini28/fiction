@@ -147,28 +147,32 @@
 }
 
 /* Stats Styling */
-.stats-grid {
-    display: grid;
+.community-stats-grid {
+    display: grid !important;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
     perspective: 1000px;
+    width: 100%;
 }
 
-.stat-card {
+.community-stat-card {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 35px 25px;
     border-radius: 4px;
     text-align: center;
-    transition: border-color 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-        background 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
     backdrop-filter: blur(10px);
     overflow: hidden;
+    min-height: 200px;
 }
 
-.stat-card::before {
+.community-stat-card::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -177,13 +181,13 @@
     transition: opacity 0.4s ease;
 }
 
-.stat-card:hover {
+.community-stat-card:hover {
     border-color: rgba(255, 70, 85, 0.5);
-    background: rgba(255, 70, 85, 0.03);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 70, 85, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 70, 85, 0.1);
 }
 
-.stat-card:hover::before {
+.community-stat-card:hover::before {
     opacity: 1;
 }
 
@@ -196,10 +200,9 @@
 
 .stat-value {
     display: block;
-    font-size: 3rem;
-    font-weight: 800;
-    font-family: 'Turret Road', sans-serif;
+    font-size: 4rem;
     color: white;
+    font-family: 'Courier New', Courier, monospace;
     line-height: 1;
     margin-bottom: 8px;
     letter-spacing: -1px;
@@ -207,21 +210,26 @@
 
 .stat-label {
     color: rgba(255, 255, 255, 0.4);
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 700;
 }
 
-.stat-card.featured {
+.community-stat-card.featured {
     grid-column: span 2;
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.1), transparent);
-    border-color: rgba(88, 101, 242, 0.2);
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.08), rgba(88, 101, 242, 0.02));
+    border-color: rgba(88, 101, 242, 0.3);
 }
 
-.stat-card.featured .stat-icon {
+.community-stat-card.featured .stat-icon {
     color: #5865F2;
     filter: drop-shadow(0 0 10px rgba(88, 101, 242, 0.3));
+}
+
+.community-stat-card.featured:hover {
+    border-color: #5865F2;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(88, 101, 242, 0.2);
 }
 
 @media (max-width: 1024px) {
@@ -253,11 +261,11 @@
         padding: 5rem 1.5rem;
     }
 
-    .stats-grid {
+    .community-stats-grid {
         grid-template-columns: 1fr;
     }
 
-    .stat-card.featured {
+    .community-stat-card.featured {
         grid-column: span 1;
     }
 }

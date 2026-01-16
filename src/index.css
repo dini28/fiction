@@ -52,6 +52,7 @@ body {
 a,
 button {
     cursor: pointer;
+    text-decoration: none;
 }
 
 .lenis.lenis-smooth {

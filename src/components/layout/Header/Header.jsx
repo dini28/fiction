@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faBars, faX } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../../assets/branding/logo.svg';
-import logo_white from '../../../assets/branding/logo_white.svg';
 import './Header.css';
 
 import discover from '../../../assets/images/discover.webp';
@@ -107,7 +106,7 @@ const Header = () => {
                     <div className="left-section">
                         <div className="logo">
                             <Link to="/" aria-label="Home">
-                                <img src={logo_white} alt="Fiction Logo" />
+                                <img src={logo} alt="Fiction Logo" />
                                 <h4>Fiction</h4>
                             </Link>
                         </div>
@@ -126,10 +125,10 @@ const Header = () => {
                     </div>
 
                     <nav className="center-section" aria-label="Main navigation">
-                        <Link to="/about" className="nav-item">Who We Are</Link>
-                        <Link to="/careers" className="nav-item">Work With Us</Link>
-                        <Link to="/news" className="nav-item">News</Link>
-                        <Link to="/armory" className="nav-item">Armory</Link>
+                        <NavLink to="/about" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>Who We Are</NavLink>
+                        <NavLink to="/careers" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>Work With Us</NavLink>
+                        <NavLink to="/news" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>News</NavLink>
+                        <NavLink to="/armory" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>Armory</NavLink>
                     </nav>
 
                     <div className="right-section">

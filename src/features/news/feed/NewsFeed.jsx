@@ -24,9 +24,9 @@ const NewsFeed = () => {
                 backgroundImage={newsHeroBg}
                 alignment="center"
             />
-            <div className="news-feed-content" style={{ maxWidth: '1400px', margin: '0 auto', padding: '4rem 40px' }}>
-                 <SectionStart title="LATEST LOGS" subtitle="ARCHIVES" />
-                 <NewsMasonry items={newsItems} />
+            <div className="news-feed-content">
+                <SectionStart title="LATEST LOGS" subtitle="ARCHIVES" />
+                <NewsMasonry items={newsItems} />
             </div>
             <div className="feed-pagination">
                 <button className="load-more-btn">DECRYPT OLDER LOGS</button>

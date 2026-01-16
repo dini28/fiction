@@ -4,7 +4,6 @@ import {
     faXTwitter, faInstagram, faDiscord,
     faLinkedin, faFacebook, faYoutube
 } from '@fortawesome/free-brands-svg-icons';
-import logo_white from '../../../assets/branding/logo_white.svg';
 import logo from '../../../assets/branding/logo.svg';
 import './Footer.css';
 import { useState, useRef } from 'react';
@@ -15,7 +14,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
-    const [isHovered, setIsHovered] = useState(false);
     const footerRef = useRef(null);
     const typographyRef = useRef(null);
 
@@ -42,33 +40,11 @@ const Footer = () => {
                 scrollTrigger: {
                     trigger: footerRef.current,
                     start: "top 95%",
-                    toggleActions: "play none none reverse"
+                    toggleActions: "play reverse play reverse"
                 }
             }
         );
 
-        // Professional Hover Effect
-        chars.forEach((char) => {
-            char.addEventListener('mouseenter', () => {
-                gsap.to(char, {
-                    y: -5,
-                    scale: 1.05,
-                    color: "rgba(255, 70, 85, 1)",
-                    duration: 0.3,
-                    ease: "power3.out"
-                });
-            });
-
-            char.addEventListener('mouseleave', () => {
-                gsap.to(char, {
-                    y: 0,
-                    scale: 1,
-                    color: "transparent",
-                    duration: 0.3,
-                    ease: "power3.inOut"
-                });
-            });
-        });
     }, { scope: footerRef });
 
     const mainLinks = [
@@ -109,21 +85,15 @@ const Footer = () => {
                         <span key={index} className="char">{char}</span>
                     ))}
                 </div>
+
                 <div className="footer-top">
                     <div className="footer-main">
                         <div className="footer-left">
                             <div className="footer-logo">
-                                <Link to="/">
-                                    <img
-                                        src={isHovered ? logo : logo_white}
-                                        alt="Fiction Games Logo"
-                                        onMouseEnter={() => setIsHovered(true)}
-                                        onMouseLeave={() => setIsHovered(false)}
-                                    />
+                                <Link to="/" aria-label="Home" className='footer-logo-link'>
+                                    <img src={logo} alt="Fiction Logo" />
+                                    <h4>Fiction</h4>
                                 </Link>
-                                <p className="logo-text">
-                                    Fiction <span> games </span>
-                                </p>
                             </div>
 
                             <nav className="footer-nav">

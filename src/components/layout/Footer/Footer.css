@@ -2,7 +2,7 @@
     margin-top: auto;
     background-color: var(--color-darker-bg);
     color: var(--color-text-gray);
-    padding: 80px 0 30px;
+    padding: 0 0 30px;
     position: relative;
     font-family: 'Turret Road', sans-serif;
     overflow-x: hidden;
@@ -76,25 +76,24 @@
 
 .footer-typography .char {
     font-family: 'Atomic Age', sans-serif;
-    font-size: clamp(4rem, 20vw, 22rem);
-    font-weight: 900;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+    font-size: clamp(4rem, 18vw, 20rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.05);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
     display: inline-block;
     line-height: 0.8;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.02em;
     cursor: default;
-    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Elegant Light Sweep */
     background: linear-gradient(110deg,
-            rgba(255, 255, 255, 0) 40%,
-            rgba(255, 255, 255, 0.1) 50%,
-            rgba(255, 255, 255, 0) 60%);
+            transparent 40%,
+            rgba(255, 255, 255, 0.08) 50%,
+            transparent 60%);
     background-size: 200% 100%;
     background-clip: text;
     -webkit-background-clip: text;
-    animation: lightSweep 12s infinite linear;
+    animation: lightSweep 15s infinite linear;
+    text-shadow: 0 0 40px rgba(255, 70, 85, 0.05);
 }
 
 @keyframes lightSweep {
@@ -128,25 +127,26 @@
 }
 
 .footer-logo {
-    display: flex;
-    align-items: center;
     height: 60px;
-    width: 100px;
+    width: 150px;
     color: var(--color-primary);
     transition: var(--transition-smooth);
     filter: drop-shadow(0 0 8px rgba(255, 70, 85, 0));
 }
 
+.footer-logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .footer-logo img {
-    width: 100%;
-    height: 100%;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
 }
 
-.footer-logo .logo-text {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.footer-logo h4 {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text-white);
@@ -160,19 +160,17 @@
 }
 
 .footer-nav a {
-    color: var(--color-text-gray);
+    color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
-    position: relative;
-    transition: var(--transition-smooth);
+    letter-spacing: 2px;
+    transition: none;
 }
 
 .footer-nav a:hover {
-    color: var(--color-text-white);
-    text-decoration: underline;
+    color: var(--color-primary);
 }
 
 .footer-socials {
@@ -183,17 +181,16 @@
 .footer-socials a {
     width: 45px;
     height: 45px;
-    color: var(--color-text-white);
+    color: rgba(255, 255, 255, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.3rem;
-    transition: var(--transition-smooth);
+    transition: none;
 }
 
 .footer-socials a:hover {
     color: var(--color-primary);
-    text-shadow: 0 0 10px var(--color-primary);
 }
 
 .footer-bottom {
@@ -217,16 +214,15 @@
 }
 
 .footer-legal a {
-    color: var(--color-text-gray);
+    color: rgba(255, 255, 255, 0.3);
     text-decoration: none;
-    font-size: 0.8rem;
-    transition: var(--transition-smooth);
+    font-size: 0.75rem;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 1px;
+    transition: none;
 }
 
-.footer-legal a:hover {
-    color: var(--color-text-white);
-    text-decoration: underline;
-}
+/* Removed hover effects */
 
 .footer-legal p {
     font-size: 1.2rem;
@@ -245,15 +241,43 @@
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
-    background: #1a1f2e;
-    padding: 10px 20px;
-    border-radius: 30px;
-    transition: var(--transition-smooth);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 24px;
+    border-radius: 4px;
+    /* More systematic gamer aesthetic */
+    font-family: 'Bruno Ace SC', sans-serif;
+    transition: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-back:hover {
-    background: var(--color-primary);
-    color: white;
+/* Removed hover effect */
+
+
+@media (max-width: 768px) {
+    .footer-main {
+        flex-direction: column;
+        gap: 45px;
+    }
+
+    .footer-left {
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-nav {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .footer-back {
+        width: 100%;
+        max-width: 280px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -326,33 +350,6 @@
         width: 100%;
         padding: 12px;
         text-align: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .footer-main {
-        flex-direction: column;
-        gap: 45px;
-    }
-
-    .footer-left {
-        align-items: center;
-        text-align: center;
-    }
-
-    .footer-nav {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px 20px;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 25px;
-    }
-
-    .footer-back {
-        width: 100%;
-        max-width: 280px;
     }
 }
 

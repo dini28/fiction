@@ -1,4 +1,3 @@
-import React from 'react';
 import './EventSchedule.css';
 
 const EventSchedule = () => {
@@ -25,7 +24,7 @@ const EventSchedule = () => {
             date: "JAN 28",
             description: "System upgrades and sector expansion.",
             status: "upcoming",
-            time: "02:00 - 06:00 UTC"
+            time: "06:00 UTC"
         },
         {
             id: 4,
@@ -40,9 +39,9 @@ const EventSchedule = () => {
     return (
         <section className="event-schedule-section">
             <div className="event-schedule-container">
-                <header className="section-header">
-                    <h2 className="section-title">EVENT TIMELINE</h2>
-                    <div className="section-decoration"></div>
+                <header className="event-schedule-header">
+                    <h2 className="event-schedule-title">EVENT TIMELINE</h2>
+                    <div className="event-schedule-subtitle">UPCOMING OPERATIONS & DROPS</div>
                 </header>
 
                 <div className="events-list">
