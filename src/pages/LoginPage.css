@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;900&family=Atomic+Age&family=Bruno+Ace+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atomic+Age&family=Bruno+Ace+SC&family=Turret+Road:wght@400;700;800&display=swap');
 
 .login-v4-wrapper {
     display: flex;
@@ -94,7 +94,7 @@
 }
 
 .brand-logo {
-    font-family: 'Atomic Age', sans-serif;
+    font-family: var(--font-accent);
     font-size: 1.2rem;
     font-weight: 900;
     color: #ff0000;
@@ -125,7 +125,7 @@
 }
 
 .mission-log {
-    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-family: var(--font-primary);
     margin-top: auto;
     background: rgba(0, 0, 0, 0.5);
     padding: 20px;

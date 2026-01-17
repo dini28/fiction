@@ -11,10 +11,10 @@ const SectionStart = ({ title, subtitle, description, withButton = false, button
                     <h2 className="start-title">{title}</h2>
                     {description && <p className="section-description">{description}</p>}
                 </div>
-                
+
                 {withButton && (
-                    <MagneticButton 
-                        className="start-btn" 
+                    <MagneticButton
+                        className="start-btn"
                         onClick={onClick}
                         aria-label={buttonLabel}
                     >

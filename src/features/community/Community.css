@@ -202,7 +202,7 @@
     display: block;
     font-size: 4rem;
     color: white;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-primary);
     line-height: 1;
     margin-bottom: 8px;
     letter-spacing: -1px;

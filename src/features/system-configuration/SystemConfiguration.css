@@ -177,7 +177,7 @@
 }
 
 .spec-value {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-primary);
     color: var(--color-text-white);
     font-size: 1rem;
     font-weight: 500;

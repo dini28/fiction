@@ -77,7 +77,7 @@
 }
 
 .job-info h3 {
-    font-family: 'Teko', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 1.6rem;
     color: white;
     margin: 0;
@@ -86,7 +86,7 @@
 }
 
 .job-status {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-primary);
     font-size: 0.7rem;
     font-weight: 700;
     padding: 2px 10px;
@@ -113,7 +113,7 @@
 }
 
 .job-meta {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-primary);
     font-size: 0.9rem;
     color: var(--color-text-gray);
     text-transform: uppercase;
@@ -125,7 +125,7 @@
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -190,7 +190,7 @@
 }
 
 .benefit-card h4 {
-    font-family: 'Teko', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 1.8rem;
     color: white;
     margin-bottom: 12px;
@@ -198,7 +198,7 @@
 }
 
 .benefit-card p {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-primary);
     font-size: 0.95rem;
     color: #a0a0a0;
     line-height: 1.6;
@@ -238,7 +238,7 @@
 }
 
 .step-num {
-    font-family: 'Teko', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 0.9rem;
     color: var(--color-primary);
     font-weight: bold;
@@ -277,7 +277,7 @@
 }
 
 .step-content h4 {
-    font-family: 'Teko', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 1.6rem;
     color: white;
     margin-bottom: 10px;
@@ -285,7 +285,7 @@
 }
 
 .step-content p {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-primary);
     font-size: 0.95rem;
     color: #808080;
     line-height: 1.4;

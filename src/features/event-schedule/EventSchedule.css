@@ -163,7 +163,7 @@
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: var(--spacing-xs);
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-primary);
 }
 
 .status-badge {
