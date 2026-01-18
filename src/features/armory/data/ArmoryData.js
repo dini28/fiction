@@ -1,20 +1,20 @@
-import Mouse from '../assets/images/Armory/Mouse.png';
-import RainJacket from '../assets/images/Armory/RainJacket.png';
-import Jacket from '../assets/images/Armory/Jacket.png';
-import BomberJacket from '../assets/images/Armory/BomberJacket.png';
-import Hoddie from '../assets/images/Armory/Hoddie.png';
-import Keyboard from '../assets/images/Armory/Keyboard.png';
-import Pants from '../assets/images/Armory/Pants.png';
-import Chair from '../assets/images/Armory/Chair.png';
-import Pendant from '../assets/images/Armory/Pendant.png';
-import Hat from '../assets/images/Armory/Hat.png';
-import Beanie from '../assets/images/Armory/Beanie.png'
-import City from '../assets/images/Armory/City.png'
-import Poster from '../assets/images/Armory/Poster.png'
-import model_1 from '../assets/images/Armory/model_1.png'
-import model_2 from '../assets/images/Armory/model_2.png'
-import model_3 from '../assets/images/Armory/model_3.png'
-import collector_edition from '../assets/images/Armory/collector_edition.png'
+import Mouse from '../../../assets/images/Armory/Mouse.png';
+import RainJacket from '../../../assets/images/Armory/RainJacket.png';
+import Jacket from '../../../assets/images/Armory/Jacket.png';
+import BomberJacket from '../../../assets/images/Armory/BomberJacket.png';
+import Hoddie from '../../../assets/images/Armory/Hoddie.png';
+import Keyboard from '../../../assets/images/Armory/Keyboard.png';
+import Pants from '../../../assets/images/Armory/Pants.png';
+import Chair from '../../../assets/images/Armory/Chair.png';
+import Pendant from '../../../assets/images/Armory/Pendant.png';
+import Hat from '../../../assets/images/Armory/Hat.png';
+import Beanie from '../../../assets/images/Armory/Beanie.png'
+import City from '../../../assets/images/Armory/City.png'
+import Poster from '../../../assets/images/Armory/Poster.png'
+import model_1 from '../../../assets/images/Armory/model_1.png'
+import model_2 from '../../../assets/images/Armory/model_2.png'
+import model_3 from '../../../assets/images/Armory/model_3.png'
+import collector_edition from '../../../assets/images/Armory/collector_edition.png'
 
 export const armoryData = {
     categories: [

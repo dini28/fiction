@@ -41,7 +41,7 @@ export const newsData = {
             title: 'Final Signal — Road to Obsidian City',
             badge: 'News',
             badgeType: 'default',
-            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
+            image: agent,
             alt: 'Futuristic Arena'
         }
     ]
