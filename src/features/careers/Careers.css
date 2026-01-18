@@ -353,10 +353,14 @@
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-    .job-card {
+@media (max-width: 768px) {
+    .jobs-grid {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 20px;
+    }
+
+    .job-card {
+        padding: 30px;
         text-align: center;
     }
 

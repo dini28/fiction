@@ -32,8 +32,10 @@
     background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
     color: white;
     text-align: center;
+    display: flex;
     align-items: center;
     justify-content: center;
+    width: 100vw;
     padding-left: 0;
 }
 
