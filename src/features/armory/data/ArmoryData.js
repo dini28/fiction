@@ -11,14 +11,12 @@ import Hat from '../assets/images/Armory/Hat.png';
 import Beanie from '../assets/images/Armory/Beanie.png'
 import City from '../assets/images/Armory/City.png'
 import Poster from '../assets/images/Armory/Poster.png'
+import model_1 from '../assets/images/Armory/model_1.png'
+import model_2 from '../assets/images/Armory/model_2.png'
+import model_3 from '../assets/images/Armory/model_3.png'
+import collector_edition from '../assets/images/Armory/collector_edition.png'
 
 export const armoryData = {
-    hero: {
-        title: "THE ARMORY",
-        subtitle: "OFFICIAL GEAR",
-        description: "Equip yourself with elite-grade apparel, collectibles, and peripherals. Verify your allegiance.",
-        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop"
-    },
     categories: [
         { id: 'all', label: 'SHOP ALL' },
         { id: 'apparel', label: 'APPAREL', subcategories: ['hoodies-jackets', 'loungewear', 'hats-beanies', 'jewelry'] },
@@ -114,23 +112,45 @@ export const armoryData = {
         // COLLECTIBLES
         {
             id: 'c1',
-            name: "SENIN RONIN 1:6 SCALE",
-            price: 299.99,
+            name: "STAR TACTICS: George",
+            price: 99.99,
             category: 'collectibles',
             subcategory: 'figures',
             rarity: 'legendary',
-            image: "https://plus.unsplash.com/premium_photo-1673895207787-8aa5237c15eb?q=80&w=2070&auto=format&fit=crop",
+            image: model_1,
             stats: { height: "12 INCH", articulation: "30 PTS", accessories: "8" },
             tag: "LIMITED RUN"
         },
         {
             id: 'c2',
-            name: "FICTION: ORIGINS - COLLECTOR'S ED.",
-            price: 199.99,
+            name: "OBSIDIAN EDGE: Liam",
+            price: 99.99,
+            category: 'collectibles',
+            subcategory: 'figures',
+            rarity: 'legendary',
+            image: model_2,
+            stats: { height: "12 INCH", articulation: "30 PTS", accessories: "8" },
+            tag: "LIMITED RUN"
+        },
+        {
+            id: 'c3',
+            name: "GRAVITY SHIFT: Noah",
+            price: 99.99,
+            category: 'collectibles',
+            subcategory: 'figures',
+            rarity: 'legendary',
+            image: model_3,
+            stats: { height: "12 INCH", articulation: "30 PTS", accessories: "8" },
+            tag: "LIMITED RUN"
+        },
+        {
+            id: 'c4',
+            name: "STAR TACTICS - COLLECTOR'S ED.",
+            price: 699.99,
             category: 'collectibles',
             subcategory: 'collectors-editions',
             rarity: 'mythic',
-            image: "https://images.unsplash.com/photo-1605901309584-818e25960b8f?q=80&w=2000&auto=format&fit=crop",
+            image: collector_edition,
             stats: { content: "GAME + OST", extras: "STATUE", packaging: "STEELBOOK" }
         },
 

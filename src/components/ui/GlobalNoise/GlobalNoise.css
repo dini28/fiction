@@ -68,12 +68,7 @@
     width: 200%;
     height: 200%;
     background: transparent;
-    /* Re-apply noise image here if we want animated static, 
-       but for performance we often keep the parent static and animate a child.
-       Simpler approach: just animate the parent's background position if standard image, 
-       but for SVG data URI, translation is better. */
     background-image: inherit;
     animation: noise-shift 0.2s infinite;
     visibility: hidden;
-    /* Disabled by default for performance, enable if 'gritty' needed */
 }

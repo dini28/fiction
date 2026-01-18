@@ -1,0 +1,6 @@
+.news-page {
+    /* Feature specific styles */
+    position: relative;
+    /* data content for lint fix */
+    min-height: 100vh;
+}

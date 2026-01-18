@@ -221,6 +221,46 @@
 }
 
 /* 3. Selection Process (Step Flow) */
+.sys-config-header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+}
+
+.sys-config-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--color-text-white);
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    text-shadow: 0 0 30px rgba(255, 70, 85, 0.4);
+    position: relative;
+    display: inline-block;
+}
+
+/* Glitch/Tech Decoration for Title */
+.sys-config-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 4px;
+    background: var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary);
+}
+
+.sys-config-subtitle {
+    color: var(--color-text-gray);
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: var(--spacing-lg);
+    opacity: 0.8;
+}
+
 .process-map {
     display: flex;
     justify-content: space-between;

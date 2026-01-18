@@ -9,45 +9,57 @@
 
 ## ✨ Key Features
 
-- **🛡️ Cinematic Character Showcase**
-  - **Desktop**: Horizontal scroll mechanism driven by GSAP ScrollTrigger for a seamless storytelling capability.
-  - **Mobile**: Responsive vertical stacking for natural touch navigation.
-  - **Interactivity**: Dynamic character stats, role descriptions, and visual effects.
+- **🛡️ Fiction Protocol (About)**
+  - **Philosophy Cards**: Interactive 3D flipping cards showcasing the studio's core values: Immersion Absolutism, Systemic Agency, and Narrative Architecture.
+  - **Animated Stats**: (Replaced by Philosophy section for deeper narrative impact).
 
-- **📰 Dynamic Gaming News Hub**
-  - **Grid Layout**: Responsive masonry-like grid for featured and latest news.
-  - **See More**: Expandable sections to keep the UI clean while offering depth.
-  - **Visuals**: High-quality thumbnails with hover effects and transitions.
+- **🎮 Armory & Gear**
+  - **Product Showcase**: Detailed gear layout with "morphing" SVG ease-of-access animations.
+  - **Filtering**: Category-based filtering for apparel, hardware, and collectibles.
+
+- **🛡️ Cinematic Character Showcase**
+  - **Horizontal/Vertical**: Adaptive scrolling mechanism driven by GSAP ScrollTrigger.
+  - **Visual Effects**: Glitch text and noise overlays for a futuristic feel.
+
+- **📰 Dynamic News & Careers**
+  - **News Feed**: Masonry-grid layout for updates.
+  - **Careers Portal**: Role-based modal system with "Selection Process" step indicators.
 
 - **🎨 Advanced Animations**
   - Powered by **GSAP (GreenSock Animation Platform)**.
-  - Parallax scrolling effects.
-  - Smooth element transitions and entry animations.
-
-- **📱 Fully Responsive**
-  - Adaptive layouts for Mobile, Tablet, and Desktop.
-  - Optimized touch interactions for smaller screens.
+  - `ScrollReveal` wrapper for consistent section entry animations.
+  - Custom "Text Parallax" and "Global Noise" effects.
 
 ## 🛠️ Tech Stack
 
 - ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 - ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-- ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-- ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 - ![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white)
-- ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-- ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
 - ![FontAwesome](https://img.shields.io/badge/Font_Awesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white)
 
+## 📂 Project Structure
+
+The project follows a **Feature-based Architecture** for scalability and maintainability:
+
+```
+src/
+├── features/            # Feature-specific logic (Components, Data, CSS)
+│   ├── about/           # "Fiction Protocol" & Team sections
+│   ├── armory/          # Product grid and data
+│   ├── careers/         # Job listings and application flow
+│   ├── home/            # Hero, Newsletter, Parallax sections
+│   ├── news/            # News feed and article logic
+│   └── not-found/       # 404 Error interface
+├── pages/               # Lightweight wrappers for routing
+│   ├── Home.jsx
+│   ├── AboutPage.jsx
+│   └── ...
+├── components/          # Shared UI elements (PageHero, Buttons, GlobalNoise)
+├── data/                # Shared data (Characters)
+└── App.jsx              # Main routing and layout
+```
+
 ## 🚀 Getting Started
-
-Follow these steps to set up the project locally.
-
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm or yarn
-
-### Installation
 
 1. **Clone the repository**
    ```bash
@@ -65,27 +77,6 @@ Follow these steps to set up the project locally.
    npm run dev
    ```
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
-
-## 📂 Project Structure
-
-```
-src/
-├── assets/          # Images, fonts, and static media
-├── components/      # Reusable React components
-│   ├── common/      # Shared components (Loader, Header, etc.)
-│   └── sections/    # Page specific sections (CharacterShowcase, etc.)
-├── data/            # Mock data for news and characters
-├── App.jsx          # Main application component
-├── main.jsx         # Entry point
-└── index.css        # Global styles and variables
-```
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
----

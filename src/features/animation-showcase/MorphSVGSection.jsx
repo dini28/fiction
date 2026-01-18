@@ -84,27 +84,40 @@ const MorphSVGSection = () => {
 
             <div className="morph-svg-container">
                 {/* Decorative Rings */}
-                <div className="analysis-ring" style={{ width: '380px', height: '380px', border: '1px solid rgba(255,255,255,0.1)' }}></div>
+                <div className="analysis-ring" style={{ width: '380px', height: '380px', border: '1px dashed rgba(255,255,255,0.2)' }}></div>
                 <div className="analysis-ring" style={{ width: '300px', height: '300px', animationDirection: 'reverse', animationDuration: '15s' }}></div>
 
                 <div className="hologram-wrapper">
-                    {/* Weapon Icon (Sniper-ish) */}
+                    {/* Start Icon: Armor (Fits 'Armory' / Apparel) */}
                     <div className="hologram-item active" ref={weaponRef}>
                         <svg width="200" height="200" viewBox="0 0 200 200">
-                            <path className="weapon-path" d="M20,100 L180,100 M160,80 L180,100 L160,120 M40,80 L40,120 M80,100 L80,130 M120,70 L120,100" />
-                            <rect x="50" y="90" width="100" height="20" className="weapon-path" />
-                            <circle cx="100" cy="100" r="30" className="weapon-path" fill="none" strokeDasharray="5,5" />
+                            {/* Chestplate Main */}
+                            <path className="weapon-path" d="M50,40 L150,40 L170,80 L150,160 L100,180 L50,160 L30,80 Z" fill="none" />
+                            {/* Neck/Collar */}
+                            <path className="weapon-path" d="M70,40 L70,60 L130,60 L130,40" />
+                            {/* Core Crystal */}
+                            <circle cx="100" cy="90" r="15" className="weapon-path" fill="none" />
+                            {/* Ab Ribs */}
+                            <path className="weapon-path" d="M70,120 L130,120 M80,140 L120,140" opacity="0.7" />
+                            {/* Shoulders */}
+                            <path className="weapon-path" d="M30,80 L10,60 M170,80 L190,60" strokeDasharray="5,5" />
                         </svg>
-                        <div style={{ position: 'absolute', bottom: '-40px', color: 'cyan', fontFamily: 'monospace' }}>MODE: OFFENSE</div>
+                        <div style={{ position: 'absolute', bottom: '-40px', color: 'cyan', fontFamily: 'monospace' }}>SYSTEM: ARMOR</div>
                     </div>
 
-                    {/* Shield Icon */}
+                    {/* End Icon: Weapon (Fits 'Arsenal') */}
                     <div className="hologram-item" ref={shieldRef}>
                         <svg width="200" height="200" viewBox="0 0 200 200">
-                            <path className="shield-path" d="M100,20 L170,50 V120 C170,160 100,190 100,190 C100,190 30,160 30,120 V50 L100,20 Z" />
-                            <path className="shield-path" d="M100,40 V170 M50,70 H150" opacity="0.5" />
+                            {/* Main Body */}
+                            <path className="shield-path" d="M30,110 L50,110 L60,80 L140,80 L150,95 L180,95 L180,105 L150,105 L150,120 L130,140 L80,140 L70,120 L30,120 Z" fill="none" />
+                            {/* Barrel Detail */}
+                            <path className="shield-path" d="M150,100 L180,100" />
+                            {/* Scope/Top Rail */}
+                            <path className="shield-path" d="M70,70 L130,70 L135,80 M70,70 L65,80" />
+                            {/* Trigger Guard */}
+                            <path className="shield-path" d="M90,120 L90,130 L110,130 L110,120" />
                         </svg>
-                        <div style={{ position: 'absolute', bottom: '-40px', color: 'magenta', fontFamily: 'monospace' }}>MODE: DEFENSE</div>
+                        <div style={{ position: 'absolute', bottom: '-40px', color: 'magenta', fontFamily: 'monospace' }}>SYSTEM: WEAPON</div>
                     </div>
                 </div>
             </div>

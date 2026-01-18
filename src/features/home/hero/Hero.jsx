@@ -4,9 +4,8 @@ import gsap from 'gsap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
-import MagneticButton from '../../components/ui/MagneticButton/MagneticButton';
-
-import useScrambleText from '../../hooks/useScrambleText';
+import MagneticButton from '../../../components/ui/MagneticButton/MagneticButton';
+import useScrambleText from '../../../hooks/useScrambleText';
 
 
 const Hero = () => {

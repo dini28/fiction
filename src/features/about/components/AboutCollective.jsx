@@ -9,8 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const MemberCard = ({ member, index }) => {
     const cardRef = useKineticHover(10);
-
-    // Split name for initials if no avatar image provided
     const initials = member.name.split(' ').map(n => n[0]).join('').substring(0, 2);
 
     return (

@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import './Community.css';
-import { communityData } from '../../data/homeSectionsData';
+import { communityData } from '../../../data/homeSectionsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Community = () => {

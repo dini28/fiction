@@ -1,11 +1,7 @@
-import NewsFeed from '../features/news/feed/NewsFeed';
+import News from '../features/news/News';
 
 const NewsPage = () => {
-    return (
-        <div className="page-wrapper news-page">
-            <NewsFeed />
-        </div>
-    );
+    return <News />;
 };
 
 export default NewsPage;
