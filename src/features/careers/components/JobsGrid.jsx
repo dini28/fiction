@@ -1,11 +1,17 @@
 import useKineticHover from '../../../hooks/useKineticHover';
 import SectionStart from '../../../components/ui/SectionStart';
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, onClick }) => {
     const cardRef = useKineticHover(5);
 
     return (
-        <div className="job-card modern-card" ref={cardRef}>
+        <div
+            className="job-card modern-card clickable"
+            ref={cardRef}
+            onClick={() => onClick(job)}
+            role="button"
+            tabIndex={0}
+        >
             <div className="card-accent-line"></div>
             <div className="job-header">
                 <div className="job-info">
@@ -20,20 +26,20 @@ const JobCard = ({ job }) => {
             <div className="job-meta">{job.type}</div>
             <div className="job-action">
                 <button className="apply-btn">
-                    Apply Now
+                    View Brief
                 </button>
             </div>
         </div>
     );
 };
 
-const JobsGrid = ({ jobs = [] }) => {
+const JobsGrid = ({ jobs = [], onJobClick }) => {
     return (
         <section className="jobs-section">
             <SectionStart title="OPEN POSITIONS" subtitle="CAREERS" />
             <div className="jobs-grid">
                 {jobs.map((job, index) => (
-                    <JobCard key={index} job={job} />
+                    <JobCard key={index} job={job} onClick={onJobClick} />
                 ))}
             </div>
         </section>

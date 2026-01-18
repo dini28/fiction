@@ -2,9 +2,12 @@ import AboutMission from './components/AboutMission';
 import AboutTimeline from './components/AboutTimeline';
 import AboutCollective from './components/AboutCollective';
 import AboutStats from './components/AboutStats';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 import './About.css';
+
+import director from '../../assets/images/team/director.png'
+import art from '../../assets/images/team/art.png'
+import audio from '../../assets/images/team/audio.png'
+import developer from '../../assets/images/team/developer.png'
 
 const About = () => {
     const timelineData = [
@@ -15,10 +18,10 @@ const About = () => {
     ];
 
     const teamData = [
-        { name: "Alex Chen", role: "Director", avatar: "AC" },
-        { name: "Sarah Lin", role: "Lead Audio", avatar: "SL" },
-        { name: "Marcus V", role: "Art Lead", avatar: "MV" },
-        { name: "Elena R", role: "Gameplay", avatar: "ER" }
+        { name: "Arjun Mehta", role: "Director", avatar: director },
+        { name: "Maya Collins", role: "Lead Audio", avatar: audio },
+        { name: "Lucas Reinhardt", role: "Art Lead", avatar: art },
+        { name: "Ethan Brooks", role: "Lead Developer", avatar: developer }
     ];
 
     const statsData = [

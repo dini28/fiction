@@ -1,0 +1,207 @@
+/* Career Modal Overlay */
+.career-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.career-modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Modal Container */
+.career-modal-container {
+    background-color: #0c0c0c;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 900px;
+    height: 90vh;
+    /* Increased height */
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    transform: translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    /* Container doesn't scroll, content does */
+}
+
+.career-modal-overlay.open .career-modal-container {
+    transform: translateY(0);
+}
+
+/* Header */
+.career-modal-header {
+    padding: 3rem;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.03), transparent);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.career-modal-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #ff4655;
+}
+
+.career-job-dept {
+    font-family: 'Bruno Ace SC', sans-serif;
+    color: #ff4655;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+}
+
+.career-job-title {
+    font-family: 'Turret Road', sans-serif;
+    color: #fff;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.career-meta-row {
+    display: flex;
+    gap: 2rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: #ff4655;
+    border-color: #ff4655;
+}
+
+/* Scrollable Content */
+/* Scrollable Content */
+.career-modal-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 3rem;
+    min-height: 0;
+    /* Critical for flex scrolling */
+}
+
+.career-section {
+    margin-bottom: 3rem;
+}
+
+.career-section h3 {
+    font-family: 'Bruno Ace SC', sans-serif;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.5);
+    padding-left: 1rem;
+}
+
+.career-section p,
+.career-section ul {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.7;
+}
+
+.career-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.career-section li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.career-section li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: #ff4655;
+    font-weight: bold;
+}
+
+/* Footer Action */
+.career-modal-footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: #080808;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.apply-action-btn {
+    background: #ff4655;
+    color: #000;
+    border: none;
+    padding: 1rem 3rem;
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: all 0.2s;
+}
+
+.apply-action-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 5px 20px rgba(255, 70, 85, 0.4);
+}
+
+@media (max-width: 768px) {
+
+    .career-modal-header,
+    .career-modal-content {
+        padding: 1.5rem;
+    }
+
+    .career-job-title {
+        font-size: 1.8rem;
+    }
+
+    .career-meta-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

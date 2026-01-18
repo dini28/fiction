@@ -81,7 +81,7 @@ export const armoryData = {
             stats: { material: "SOFT-TOUCH", comfort: "MAX", style: "JOGGER" }
         },
         {
-            id: 'a7',
+            id: 'a5',
             name: "GAMER BEANIE",
             price: 29.99,
             category: 'apparel',

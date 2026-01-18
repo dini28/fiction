@@ -1,5 +1,5 @@
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import './ArmoryPage.css';
@@ -9,6 +9,8 @@ import MagneticButton from '../components/ui/MagneticButton/MagneticButton';
 import PageHero from '../components/ui/PageHero/PageHero';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilter } from '@fortawesome/free-solid-svg-icons';
+
+const MorphSVGSection = lazy(() => import('../features/animation-showcase/MorphSVGSection'));
 
 const ArmoryPage = () => {
     const [activeCategory, setActiveCategory] = useState('all');
@@ -55,6 +57,10 @@ const ArmoryPage = () => {
                 description={armoryData.hero.description}
                 backgroundImage={armoryData.hero.image}
             />
+
+            <Suspense fallback={<div style={{ height: '80vh', background: '#080808' }} />}>
+                <MorphSVGSection />
+            </Suspense>
 
             <section className="armory-content container">
                 <div className="armory-controls">

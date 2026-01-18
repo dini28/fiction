@@ -1,6 +1,9 @@
+import { Suspense, lazy } from 'react';
 import About from '../features/about/About';
 import PageHero from '../components/ui/PageHero/PageHero';
 import aboutHeroBg from '../assets/images/about-hero.jpg';
+
+const DrawSVGSection = lazy(() => import('../features/animation-showcase/DrawSVGSection'));
 
 const AboutPage = () => {
     return (
@@ -12,6 +15,9 @@ const AboutPage = () => {
                 backgroundImage={aboutHeroBg}
                 alignment="center"
             />
+            <Suspense fallback={<div style={{ height: '80vh', background: '#050505' }} />}>
+                <DrawSVGSection />
+            </Suspense>
             <About />
         </div>
     );

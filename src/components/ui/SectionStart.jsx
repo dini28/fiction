@@ -23,7 +23,6 @@ const SectionStart = ({ title, subtitle, description, withButton = false, button
                     </MagneticButton>
                 )}
             </div>
-            <div className="start-line"></div>
         </div>
     );
 };

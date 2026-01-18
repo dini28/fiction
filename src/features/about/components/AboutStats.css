@@ -1,0 +1,152 @@
+.about-stats {
+    width: 100%;
+    padding: 6rem 2rem;
+    background-color: #080808;
+    /* Slightly lighter than pure black */
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* --- Stat Card Styles --- */
+.stat-card-digital {
+    position: relative;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 70, 85, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    clip-path: polygon(20px 0, 100% 0,
+            100% calc(100% - 20px), calc(100% - 20px) 100%,
+            0 100%, 0 20px);
+}
+
+.stat-card-digital:hover {
+    border-color: rgba(255, 70, 85, 0.4);
+    box-shadow: 0 0 20px rgba(255, 70, 85, 0.1);
+    transform: translateY(-5px);
+}
+
+.stat-card-digital::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-top: 2px solid #ff4655;
+    border-left: 2px solid #ff4655;
+}
+
+.stat-card-digital::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    border-bottom: 2px solid #ff4655;
+    border-right: 2px solid #ff4655;
+}
+
+/* --- Circular Progress Ring --- */
+.ring-container {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-ring-svg {
+    transform: rotate(-90deg);
+    /* Start from top */
+    width: 100%;
+    height: 100%;
+}
+
+.ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 4;
+}
+
+.ring-progress {
+    fill: none;
+    stroke: #ff4655;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 440;
+    /* 2 * PI * r (approx for r=70) */
+    stroke-dashoffset: 440;
+    /* Initially hidden */
+    transition: stroke-dashoffset 2s ease-out;
+}
+
+.ring-inner-circle {
+    fill: none;
+    stroke: rgba(255, 70, 85, 0.3);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+    animation: rotate 20s linear infinite;
+    transform-origin: center;
+}
+
+/* --- Text & Content --- */
+.stat-content {
+    text-align: center;
+    z-index: 2;
+}
+
+.stat-value-digital {
+    font-family: 'Turret Road', sans-serif;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+}
+
+.stat-label-digital {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* --- Animations --- */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        gap: 2rem;
+    }
+
+    .stat-value-digital {
+        font-size: 2.8rem;
+    }
+}

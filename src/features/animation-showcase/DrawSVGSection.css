@@ -1,0 +1,112 @@
+.draw-svg-section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #050505;
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(255, 70, 85, 0.05) 0%, transparent 70%),
+        linear-gradient(rgba(255, 70, 85, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 70, 85, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 50px 50px, 50px 50px;
+    position: relative;
+    padding: 6rem 2rem;
+    overflow: hidden;
+}
+
+.draw-svg-container {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    z-index: 2;
+    /* Cursor for interactive feel */
+    cursor: crosshair;
+}
+
+.draw-svg-content {
+    text-align: center;
+    margin-bottom: 3rem;
+    z-index: 3;
+}
+
+.draw-svg-title {
+    font-family: 'Turret Road', sans-serif;
+    font-size: 4rem;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(255, 70, 85, 0.5);
+}
+
+.draw-svg-subtitle {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 1.2rem;
+    color: var(--color-primary, #ff4655);
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    opacity: 0.8;
+}
+
+.svg-wrapper {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+/* Base path style */
+.draw-path {
+    fill: none;
+    stroke: rgba(255, 70, 85, 0.1);
+    stroke-width: 1;
+}
+
+/* Main animated path */
+.main-circuit-path {
+    filter: drop-shadow(0 0 5px #ff4655);
+}
+
+/* Secondary/Decorative paths */
+.secondary-path {
+    vector-effect: non-scaling-stroke;
+}
+
+/* Nodes */
+.hex-node path {
+    transition: fill 0.3s ease;
+}
+
+.hex-node:hover path {
+    fill: rgba(255, 70, 85, 0.2);
+    cursor: pointer;
+}
+
+.hex-node circle {
+    filter: drop-shadow(0 0 5px #ff4655);
+}
+
+/* Node Labels */
+.hex-label {
+    fill: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    /* Let clicks pass through to node */
+}
+
+/* Layer positioning for parallax */
+.svg-layer-back,
+.svg-layer-front {
+    will-change: transform;
+}
+
+@media (max-width: 768px) {
+    .draw-svg-title {
+        font-size: 2.5rem;
+    }
+
+    .draw-svg-container {
+        transform: scale(0.8);
+    }
+}

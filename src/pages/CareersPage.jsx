@@ -1,6 +1,9 @@
+import { Suspense, lazy } from 'react';
 import Careers from '../features/careers/Careers';
 import PageHero from '../components/ui/PageHero/PageHero';
 import careerHero from '../assets/images/careerHero.jpg';
+
+const TextScrollSection = lazy(() => import('../features/animation-showcase/TextScrollSection'));
 
 const CareersPage = () => {
     return (
@@ -12,6 +15,9 @@ const CareersPage = () => {
                 backgroundImage={careerHero}
                 alignment="center"
             />
+            <Suspense fallback={<div style={{ height: '50vh', background: '#0b0b0b' }} />}>
+                <TextScrollSection />
+            </Suspense>
             <Careers />
         </div>
     );

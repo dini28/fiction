@@ -11,10 +11,9 @@
     padding: 0 40px;
     display: flex;
     flex-direction: column;
-    gap: 120px;
+    gap: 100px;
 }
 
-/* --- Modern Design System Props --- */
 :root {
     --card-bg: rgba(255, 255, 255, 0.02);
     --card-border: rgba(255, 255, 255, 0.05);
@@ -38,60 +37,69 @@
 
 /* 1. Jobs Grid (Table/Grid System) */
 .jobs-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 60px;
 }
 
 .job-card {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-    align-items: center;
-    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
     gap: 20px;
     position: relative;
     overflow: hidden;
+    height: 100%;
 }
 
 .job-card::before {
     content: '';
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
     width: 3px;
     height: 0;
     background: var(--color-primary);
-    transform: translateY(-50%);
     transition: height 0.4s ease;
 }
 
 .job-card:hover::before {
-    height: 60%;
+    height: 100%;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
 .job-info {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .job-info h3 {
     font-family: var(--font-secondary);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: white;
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 1px;
+    line-height: 1.2;
 }
 
 .job-status {
     font-family: var(--font-primary);
     font-size: 0.7rem;
     font-weight: 700;
-    padding: 2px 10px;
+    padding: 4px 12px;
     border-radius: 2px;
     text-transform: uppercase;
+    display: inline-block;
+    align-self: flex-start;
 }
 
 .job-status.hot {
@@ -106,33 +114,41 @@
     border: 1px solid rgba(0, 255, 150, 0.2);
 }
 
-.meta-bracket {
-    color: var(--color-primary);
-    font-weight: bold;
-    margin-right: 5px;
-}
-
 .job-meta {
     font-family: var(--font-primary);
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--color-text-gray);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+}
+
+.meta-bracket {
+    color: var(--color-primary);
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.job-action {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .apply-btn {
-    padding: 10px 24px;
+    width: 100%;
+    padding: 15px 0;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     font-family: var(--font-secondary);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.15em;
     cursor: pointer;
     transition: all 0.3s ease;
-    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
 
 .apply-btn:hover {
@@ -140,7 +156,7 @@
     border-color: var(--color-primary);
     color: black;
     box-shadow: 0 0 20px rgba(255, 70, 85, 0.5);
-    transform: scale(1.05);
+    transform: translateY(-2px);
 }
 
 /* 2. Benefits (Holographic Cards) */
@@ -209,7 +225,7 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    margin-top: 60px;
+    margin-top: 50px;
     position: relative;
     padding: 20px 0;
 }
@@ -261,7 +277,6 @@
 .process-step:hover .step-icon-container {
     border-color: var(--color-primary);
     box-shadow: 0 0 20px var(--card-glow);
-    transform: translateY(-5px);
 }
 
 .step-icon {
@@ -294,12 +309,13 @@
 
 .step-connector {
     position: absolute;
-    top: 35px;
+    top: 5%;
     left: calc(50% + 50px);
     width: calc(100% - 100px);
-    height: 1px;
+    height: 2px;
     background: linear-gradient(90deg, var(--color-primary) 0%, rgba(255, 255, 255, 0.05) 100%);
-    opacity: 0.3;
+    opacity: 0.5;
+    box-shadow: 0 0 20px var(--card-glow);
     pointer-events: none;
 }
 
@@ -308,14 +324,13 @@
     display: flex;
     justify-content: center;
     gap: 60px;
-    padding-top: 60px;
+    padding: 30px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .culture-item {
     display: flex;
     align-items: center;
-    gap: 15px;
     opacity: 0.5;
     transition: opacity 0.3s;
 }

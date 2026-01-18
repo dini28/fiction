@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import JobsGrid from './components/JobsGrid';
 import Benefits from './components/Benefits';
 import SelectionProcess from './components/SelectionProcess';
 import CultureFooter from './components/CultureFooter';
+import CareerModal from './components/CareerModal';
+import { careerOpportunities } from '../../data/careersData';
 import './Careers.css';
 
 import ScrollReveal from '../../components/ui/ScrollReveal/ScrollReveal';
@@ -9,12 +12,17 @@ import ScrollReveal from '../../components/ui/ScrollReveal/ScrollReveal';
 import { faGlobe, faChartLine, faHeartPulse, faGamepad, faFileShield, faUserAstronaut, faMicrochip, faCrown } from '@fortawesome/free-solid-svg-icons';
 
 const Careers = () => {
-    const jobs = [
-        { title: "Senior Gameplay Engineer", dept: "Engineering", loc: "Remote / Tokyo", type: "Full-time", status: "Hot" },
-        { title: "VFX Artist", dept: "Art", loc: "Tokyo", type: "Full-time", status: "New" },
-        { title: "Community Manager", dept: "Publishing", loc: "Remote", type: "Contract" }
-    ];
+    const [selectedJob, setSelectedJob] = useState(null);
 
+    const handleJobClick = (job) => {
+        setSelectedJob(job);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedJob(null);
+    };
+
+    // Data for other sections remains local for now as it's static content
     const benefits = [
         { icon: faGlobe, title: "Global Freedom", desc: "Work from anywhere. We value output, not desk time." },
         { icon: faChartLine, title: "Uncapped Growth", desc: "Profit sharing and equity for every full-time operative." },
@@ -32,8 +40,10 @@ const Careers = () => {
     return (
         <div className="careers-container">
             <ScrollReveal>
-                <JobsGrid jobs={jobs} />
+                <JobsGrid jobs={careerOpportunities} onJobClick={handleJobClick} />
             </ScrollReveal>
+
+            <CareerModal job={selectedJob} onClose={handleCloseModal} />
 
             <ScrollReveal className="section-spacer" stagger={0.1}>
                 <Benefits benefits={benefits} />

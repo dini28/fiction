@@ -2,11 +2,14 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import SectionStart from '../../../components/ui/SectionStart';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useKineticHover from '../../../hooks/useKineticHover';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const MemberCard = ({ member, index }) => {
     const cardRef = useKineticHover(10);
-    
+
     // Split name for initials if no avatar image provided
     const initials = member.name.split(' ').map(n => n[0]).join('').substring(0, 2);
 
@@ -16,14 +19,12 @@ const MemberCard = ({ member, index }) => {
                 <span className="card-id">ID: 00{index + 1}</span>
                 <span className="card-status">:: ACTIVE</span>
             </div>
-            
+
             <div className="member-visual">
                 <div className="profile-frame">
-                    {member.avatar ? (
-                         <span className="avatar-content">{member.avatar}</span>
-                    ) : (
-                        <div className="avatar-placeholder">{initials}</div>
-                    )}
+                    <div className="image-container">
+                        <img src={member.avatar} alt={member.name} />
+                    </div>
                     <div className="scan-overlay"></div>
                     <div className="corner-accent top-left"></div>
                     <div className="corner-accent bottom-right"></div>
@@ -46,19 +47,32 @@ const AboutCollective = ({ team = [] }) => {
     const containerRef = useRef(null);
 
     useGSAP(() => {
-        gsap.from(".personnel-card", {
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
-            },
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out"
+        if (!team.length) return;
+
+        // Force a layout refresh to ensure positions are correct
+        ScrollTrigger.refresh();
+
+        // Use batch for better performance and reliability on grids
+        ScrollTrigger.batch(".personnel-card", {
+            onEnter: batch => gsap.to(batch, {
+                opacity: 1,
+                y: 0,
+                stagger: { each: 0.1, grid: [1, 4] },
+                overwrite: true
+            }),
+            onLeave: batch => gsap.set(batch, { opacity: 0, y: -40, overwrite: true }),
+            onEnterBack: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.1, overwrite: true }),
+            onLeaveBack: batch => gsap.set(batch, { opacity: 0, y: 40, overwrite: true }),
+
+            // Initial state set via GSAP to ensure no flash of unstyled content
+            // We set them to hidden initially
+            start: "top 85%",
         });
-    }, { scope: containerRef });
+
+        // Set initial state immediately
+        gsap.set(".personnel-card", { opacity: 0, y: 40 });
+
+    }, { scope: containerRef, dependencies: [team] });
 
     return (
         <section className="about-collective" ref={containerRef}>

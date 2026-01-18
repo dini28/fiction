@@ -157,7 +157,7 @@ const CharacterShowcase = () => {
     return (
         <section className="char-showcase-wrapper" ref={triggerRef}>
             <div className="char-showcase-container" ref={containerRef}>
-                <div className="char-intro-panel char-panel">
+                <div className="char-intro-panel">
                     <div className="char-intro-content">
                         <h2>CHOOSE YOUR<br /><span className="highlight">CHAMPION</span></h2>
                         <p>Distinct Classes. Infinite Possibilities.</p>

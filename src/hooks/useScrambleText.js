@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const useScrambleText = (targetText, duration = 2000) => {
     const [text, setText] = useState(targetText);
+    const rafRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        };
+    }, []);
 
     // We'll expose a function to start the scramble
     const scramble = () => {
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
         const startTime = Date.now();
+
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
         const update = () => {
             const elapsedTime = Date.now() - startTime;
@@ -23,11 +32,13 @@ const useScrambleText = (targetText, duration = 2000) => {
             setText(scrambled);
 
             if (progress < 1) {
-                requestAnimationFrame(update);
+                rafRef.current = requestAnimationFrame(update);
+            } else {
+                rafRef.current = null;
             }
         };
 
-        requestAnimationFrame(update);
+        rafRef.current = requestAnimationFrame(update);
     };
 
     return [text, scramble];

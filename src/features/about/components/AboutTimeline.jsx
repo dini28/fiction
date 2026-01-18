@@ -8,7 +8,7 @@ const AboutTimeline = ({ timeline = [] }) => {
 
     useGSAP(() => {
         const items = gsap.utils.toArray('.timeline-item');
-        
+
         items.forEach((item, index) => {
             gsap.from(item, {
                 scrollTrigger: {
@@ -23,8 +23,8 @@ const AboutTimeline = ({ timeline = [] }) => {
                 ease: "power3.out"
             });
         });
-        
-    }, { scope: containerRef });
+
+    }, { scope: containerRef, dependencies: [timeline] });
 
     return (
         <section className="about-origins" ref={containerRef}>
