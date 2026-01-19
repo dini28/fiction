@@ -4,13 +4,14 @@ import {
     faXTwitter, faInstagram, faDiscord,
     faLinkedin, faFacebook, faYoutube
 } from '@fortawesome/free-brands-svg-icons';
+
 import logo from '../../../assets/branding/logo.svg';
 import './Footer.css';
-import { useState, useRef } from 'react';
+
+import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {

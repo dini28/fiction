@@ -1,7 +1,5 @@
-import Badge from '../../../components/ui/Badge';
-
 const FeaturedNews = ({ news }) => {
-    const { image, title, subtitle, badge, badgeType } = news;
+    const { image, title, subtitle } = news;
 
     return (
         <article className="featured-news" role="article" aria-label="Featured news">
@@ -12,7 +10,6 @@ const FeaturedNews = ({ news }) => {
                     <br />
                     {subtitle}
                 </h2>
-                <Badge text={badge} type={badgeType} />
             </div>
         </article>
     );

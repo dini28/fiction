@@ -8,7 +8,7 @@ import './FictionProtocol.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ProtocolCard = ({ title, subtitle, icon, index }) => {
+const ProtocolCard = ({ title, subtitle, icon }) => {
     return (
         <div className="protocol-card">
             <div className="card-inner">

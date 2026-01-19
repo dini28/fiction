@@ -1,15 +1,15 @@
 import { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
+
 import SectionStart from '../../../components/ui/SectionStart';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useKineticHover from '../../../hooks/useKineticHover';
 
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const MemberCard = ({ member, index }) => {
     const cardRef = useKineticHover(10);
-    const initials = member.name.split(' ').map(n => n[0]).join('').substring(0, 2);
 
     return (
         <div className="personnel-card" ref={cardRef}>
@@ -46,11 +46,7 @@ const AboutCollective = ({ team = [] }) => {
 
     useGSAP(() => {
         if (!team.length) return;
-
-        // Force a layout refresh to ensure positions are correct
         ScrollTrigger.refresh();
-
-        // Use batch for better performance and reliability on grids
         ScrollTrigger.batch(".personnel-card", {
             onEnter: batch => gsap.to(batch, {
                 opacity: 1,
@@ -58,12 +54,10 @@ const AboutCollective = ({ team = [] }) => {
                 stagger: { each: 0.1, grid: [1, 4] },
                 overwrite: true
             }),
+
             onLeave: batch => gsap.set(batch, { opacity: 0, y: -40, overwrite: true }),
             onEnterBack: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.1, overwrite: true }),
             onLeaveBack: batch => gsap.set(batch, { opacity: 0, y: 40, overwrite: true }),
-
-            // Initial state set via GSAP to ensure no flash of unstyled content
-            // We set them to hidden initially
             start: "top 85%",
         });
 

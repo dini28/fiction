@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, lazy, Suspense } from 'react';
+import { useState, useRef, lazy, Suspense } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import './Armory.css';
@@ -17,11 +17,6 @@ const Armory = () => {
     const [activeSubcategory, setActiveSubcategory] = useState('all');
     const containerRef = useRef(null);
     const productGridRef = useRef(null);
-
-    // Reset subcategory when main category changes
-    useEffect(() => {
-        setActiveSubcategory('all');
-    }, [activeCategory]);
 
     const filteredProducts = armoryData.products.filter(p => {
         if (activeCategory === 'all') return true;

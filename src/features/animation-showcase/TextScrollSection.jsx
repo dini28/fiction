@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
+
+import './TextScrollSection.css';
+
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import './TextScrollSection.css';
-
 gsap.registerPlugin(ScrollTrigger);
 
 const TextScrollSection = () => {
@@ -68,29 +69,8 @@ const TextScrollSection = () => {
             }
         });
 
-        // Reset skew smoothly when scrolling stops
-        let targetSkew = 0;
-
-        ScrollTrigger.create({
-            onUpdate: (self) => {
-                targetSkew = clamp(self.getVelocity() / -300);
-            }
-        });
-
+        // Smoothly when scrolling stops
         gsap.ticker.add(() => {
-            // Smoothly interpolate currentSkew towards targetSkew (which is updated by scroll velocity)
-            // But if scroll stops, targetSkew stays at last value? No, getVelocity needs onUpdate.
-            // Better approach: Proxy value with onUpdate, and a timeout to reset, OR just let friction handle it.
-
-            // Actually, we can just decay the targetSkew to 0 continuously, 
-            // and let ScrollTrigger pump it up when moving.
-
-            // Simple approach: Linear interpolation (Lerp) to 0
-            // But we need the ScrollTrigger to 'feed' it.
-
-            // Let's use a proxy object that ScrollTrigger updates, and we tween that proxy.
-
-            // Alternative: Just decay the applied skew if it's non-zero
             if (Math.abs(proxy.skew) > 0.1) {
                 proxy.skew *= 0.9; // Decay
                 skewSetter(proxy.skew);

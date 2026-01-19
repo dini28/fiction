@@ -16,31 +16,23 @@ export const newsData = {
         image: image,
         title: 'Operation: Ironfall',
         subtitle: 'Cinematic Gameplay Reveal',
-        badge: 'Live Now',
-        badgeType: 'critical'
     },
     sidebar: [
         {
             id: 'news-1',
             title: 'CLAIM THE CROWN | Ascension League',
-            badge: 'News',
-            badgeType: 'elite',
             image: news_1,
             alt: 'Ascension League Arena'
         },
         {
             id: 'news-2',
             title: 'LEAVE NO TRACE || Phantom Unit Trailer',
-            badge: 'News',
-            badgeType: 'default',
             image: news_2,
             alt: 'Sci-Fi Operative'
         },
         {
             id: 'news-3',
             title: 'Final Signal — Road to Obsidian City',
-            badge: 'News',
-            badgeType: 'default',
             image: agent,
             alt: 'Futuristic Arena'
         }

@@ -1,5 +1,5 @@
 import NewsFeed from './feed/NewsFeed';
-import './News.css'; // Assuming we might move CSS here or create one
+import './News.css';
 
 const News = () => {
     return (

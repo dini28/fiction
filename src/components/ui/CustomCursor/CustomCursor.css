@@ -2,14 +2,18 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 8px;
-    height: 8px;
-    background-color: var(--hero-primary, #ff4655);
-    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    color: var(--hero-primary, #ff4655);
+    border-radius: 0;
     pointer-events: none;
     z-index: 10000;
     transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* mix-blend-mode: difference; Remove for better visibility of the crosshair color */
 }
 
 .custom-cursor-follower {
@@ -35,7 +39,7 @@
 }
 
 .custom-cursor-dot.hover {
-    transform: translate(-50%, -50%) scale(0.5);
+    transform: translate(-50%, -50%) rotate(90deg);
 }
 
 /* Hide on Mobile */
