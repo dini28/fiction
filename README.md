@@ -1,4 +1,6 @@
 # FICTION
+### Working on the issue of page reload error
+
 ### Immersive Gaming Experience Platform
 
 > A high-fidelity, visually stunning web application designed to showcase the future of gaming narrative and character design.
