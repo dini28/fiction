@@ -26,6 +26,10 @@ const LoginPage = lazy(() => import('./pages/LoginPage'));
 const ArmoryPage = lazy(() => import('./pages/ArmoryPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
+import { CartProvider } from './context/CartContext';
+import CartDrawer from './features/cart/CartDrawer';
+import CheckoutOverlay from './features/checkout/CheckoutOverlay';
+
 // Helper
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -77,8 +81,12 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <ScrollToTop />
-      <AppContent />
+      <CartProvider>
+        <ScrollToTop />
+        <CartDrawer />
+        <CheckoutOverlay />
+        <AppContent />
+      </CartProvider>
     </Router>
   )
 }

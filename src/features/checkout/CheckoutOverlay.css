@@ -1,0 +1,232 @@
+.checkout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 3000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+}
+
+.checkout-modal {
+    width: 90%;
+    max-width: 500px;
+    background: var(--color-darker-bg);
+    border: 1px solid rgba(255, 70, 85, 0.3);
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 0 50px rgba(255, 70, 85, 0.15);
+    border-radius: 4px;
+}
+
+.close-checkout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-gray);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-checkout-btn:hover {
+    color: var(--color-primary);
+}
+
+.step-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.step-icon {
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.step-header h2 {
+    font-family: 'Bruno Ace SC', sans-serif;
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.step-header p {
+    color: var(--color-text-gray);
+    font-size: 0.9rem;
+}
+
+.step-header p span {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    color: var(--color-primary);
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    color: white;
+    font-family: 'Turret Road', sans-serif;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(255, 70, 85, 0.2);
+}
+
+.action-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--color-primary);
+    border: none;
+    color: white;
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-btn:hover {
+    background: var(--color-primary-dark);
+}
+
+.action-btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.step-success {
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: var(--color-secondary);
+    /* Greenish or distinct color */
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.receipt-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 4px;
+    margin: 20px 0;
+    font-family: 'Bruno Ace SC', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.receipt-box strong {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.checkout-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.progress-dot.active {
+    background: var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary);
+}
+
+.progress-line {
+    width: 30px;
+    height: 2px;
+    background: #333;
+    transition: background 0.3s;
+}
+
+.progress-line.active {
+    background: var(--color-primary);
+}

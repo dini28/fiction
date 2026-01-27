@@ -1,4 +1,5 @@
 import { useState, useRef, lazy, Suspense } from 'react';
+import { useCart } from '../../context/CartContext';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import './Armory.css';
@@ -7,12 +8,13 @@ import GlobalNoise from '../../components/ui/GlobalNoise/GlobalNoise';
 import MagneticButton from '../../components/ui/MagneticButton/MagneticButton';
 import PageHero from '../../components/ui/PageHero/PageHero';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilter, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import ArmoryHero from '../../assets/images/backgrounds/ArmoryHero.jpg';
 
 const MorphSVGSection = lazy(() => import('../animation-showcase/MorphSVGSection'));
 
 const Armory = () => {
+    const { addToCart, openCart, cartCount } = useCart();
     const [activeCategory, setActiveCategory] = useState('all');
     const [activeSubcategory, setActiveSubcategory] = useState('all');
     const containerRef = useRef(null);
@@ -44,6 +46,10 @@ const Armory = () => {
 
     return (
         <div className="page-wrapper armory-page" ref={containerRef}>
+            <button className="armory-cart-float" onClick={openCart} aria-label="Open cart">
+                <FontAwesomeIcon icon={faShoppingCart} />
+                {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+            </button>
             <GlobalNoise />
 
             <PageHero
@@ -111,7 +117,10 @@ const Armory = () => {
                                     </div>
                                     {product.tag && <span className="product-tag">{product.tag}</span>}
                                     <div className="product-overlay">
-                                        <MagneticButton className="quick-buy-btn">
+                                        <MagneticButton
+                                            className="quick-buy-btn"
+                                            onClick={() => addToCart(product)}
+                                        >
                                             ADD TO CART
                                         </MagneticButton>
                                     </div>

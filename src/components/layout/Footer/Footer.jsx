@@ -8,45 +8,10 @@ import {
 import logo from '../../../assets/branding/logo.svg';
 import './Footer.css';
 
-import { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, useState, useEffect } from 'react';
 
 const Footer = () => {
     const footerRef = useRef(null);
-    const typographyRef = useRef(null);
-
-    useGSAP(() => {
-        const chars = typographyRef.current.querySelectorAll('.char');
-
-        // Entrance Animation
-        gsap.fromTo(chars,
-            {
-                y: 50,
-                opacity: 0,
-                rotateX: -20,
-            },
-            {
-                y: 0,
-                opacity: 1,
-                rotateX: 0,
-                stagger: {
-                    amount: 0.5,
-                    from: "start"
-                },
-                duration: 1.2,
-                ease: "expo.out",
-                scrollTrigger: {
-                    trigger: footerRef.current,
-                    start: "top 95%",
-                    toggleActions: "play reverse play reverse"
-                }
-            }
-        );
-
-    }, { scope: footerRef });
 
     const mainLinks = [
         { label: "WHO WE ARE", path: "/about" },
@@ -72,21 +37,13 @@ const Footer = () => {
     ];
 
     const scrollToTop = (e) => {
-        if (window.location.pathname === '/') {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
         <footer className="footer" ref={footerRef}>
             <div className="footer-container">
-                <div className="footer-typography" ref={typographyRef}>
-                    {"Fiction".split("").map((char, index) => (
-                        <span key={index} className="char">{char}</span>
-                    ))}
-                </div>
-
                 <div className="footer-top">
                     <div className="footer-main">
                         <div className="footer-left">

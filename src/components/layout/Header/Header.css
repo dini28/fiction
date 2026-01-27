@@ -798,8 +798,12 @@
 }
 
 .sign-in-btn:hover::before {
-    left: 150%;
+    left: 100%;
 }
+
+
+
+
 
 .sign-in-btn .btn-text {
     position: relative;
