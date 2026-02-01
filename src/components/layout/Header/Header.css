@@ -1,5 +1,4 @@
 .header {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -10,10 +9,15 @@
 }
 
 .header.scrolled {
+    position: fixed;
     background-color: rgba(15, 25, 35, 0.85);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header.header-hidden {
+    transform: translateY(-100%);
 }
 
 .header-container {

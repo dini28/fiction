@@ -31,10 +31,24 @@ const Header = () => {
     const dropdownRef = useRef(null);
     const dropdownButtonRef = useRef(null);
 
+
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollY = useRef(0);
+
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+                setIsVisible(false);
+            } else {
+                setIsVisible(true);
+            }
+
+            setIsScrolled(currentScrollY);
+
+            lastScrollY.current = currentScrollY;
         };
+
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -101,7 +115,7 @@ const Header = () => {
 
     return (
         <>
-            <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+            <header className={`header ${isScrolled ? 'scrolled' : ''} ${!isVisible ? 'header-hidden' : ''}`}>
                 <div className="header-container">
                     <div className="left-section">
                         <div className="logo">
