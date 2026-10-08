@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faBars, faX } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faBars, faX, faBagShopping } from '@fortawesome/free-solid-svg-icons';
+import { useCart } from '../../../context/useCart';
 import logo from '../../../assets/branding/logo.svg';
 import './Header.css';
 
@@ -17,6 +18,7 @@ import fictionsupport from '../../../assets/images/business/fictionsupport.webp'
 import fictionmerch from '../../../assets/images/business/fictionmerch.webp';
 
 const Header = () => {
+    const { cartCount, openCart } = useCart();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -146,6 +148,15 @@ const Header = () => {
                     </nav>
 
                     <div className="right-section">
+                        <button
+                            type="button"
+                            className="header-cart-btn"
+                            onClick={openCart}
+                            aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
+                        >
+                            <FontAwesomeIcon icon={faBagShopping} />
+                            {cartCount > 0 && <span className="header-cart-count">{cartCount}</span>}
+                        </button>
                         <Link to="/login" className="sign-in-link">
                             Sign In
                         </Link>

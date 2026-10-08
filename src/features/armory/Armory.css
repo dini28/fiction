@@ -1,430 +1,883 @@
-.armory-content {
-    position: relative;
-    z-index: 2;
-    padding: 2rem;
+.armory-page {
+    --armory-accent: var(--color-primary, #ff4655);
+    --armory-accent-soft: rgba(255, 70, 85, 0.12);
+    --armory-bg: #0b0d12;
+    --armory-surface: #12151c;
+    --armory-surface-raised: #171b24;
+    --armory-line: rgba(236, 232, 225, 0.08);
+    --armory-line-strong: rgba(236, 232, 225, 0.16);
+    --armory-text: #ece8e1;
+    --armory-muted: #8b919c;
+    --armory-dim: #5d636e;
+    --armory-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+    --rarity-common: #8b919c;
+    --rarity-rare: #4fb3c8;
+    --rarity-epic: #a07ad6;
+    --rarity-legendary: #d6a24a;
+    --rarity-mythic: #ff4655;
+
+    background: var(--armory-bg);
+    color: var(--armory-text);
+    padding-bottom: 6rem;
 }
 
-/* Controls & Filters */
-.armory-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-bottom: 4rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding-bottom: 2rem;
-}
-
-.filter-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.armory-container {
     width: 100%;
+    max-width: 1360px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
 }
 
-.main-filters {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #888;
-    padding: 0.8rem 2rem;
-    font-family: 'Bruno Ace SC', sans-serif;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    position: relative;
+.armory-page .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
     overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
-.filter-btn::after {
+.armory-page button:focus-visible,
+.armory-page select:focus-visible,
+.armory-page input:focus-visible {
+    outline: 2px solid var(--armory-accent);
+    outline-offset: 2px;
+}
+
+/* Shared type */
+.armory-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-secondary);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--armory-accent);
+}
+
+.armory-eyebrow::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: currentColor;
+}
+
+.armory-section-title {
+    margin-top: 0.6rem;
+    font-family: var(--font-secondary);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+}
+
+/* Shared buttons */
+.armory-btn-primary,
+.armory-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.95rem 1.6rem;
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    transition: background-color 0.25s var(--armory-ease), color 0.25s var(--armory-ease),
+        border-color 0.25s var(--armory-ease), transform 0.15s ease;
+}
+
+.armory-btn-primary {
+    background: var(--armory-accent);
+    color: #0b0d12;
+}
+
+.armory-btn-primary:hover {
+    background: #ff5f6c;
+}
+
+.armory-btn-secondary {
+    background: transparent;
+    color: var(--armory-text);
+    border-color: var(--armory-line-strong);
+}
+
+.armory-btn-secondary:hover {
+    border-color: var(--armory-accent);
+    color: var(--armory-accent);
+}
+
+.armory-btn-primary:active,
+.armory-btn-secondary:active,
+.add-to-cart-btn:active {
+    transform: translateY(1px);
+}
+
+.armory-link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--armory-text);
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--armory-line-strong);
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+
+.armory-link-btn:hover {
+    color: var(--armory-accent);
+    text-decoration-color: currentColor;
+}
+
+/* Perks strip */
+.armory-perks {
+    border-bottom: 1px solid var(--armory-line);
+    background: var(--armory-surface);
+}
+
+.armory-perks-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.armory-perk {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.4rem 1.25rem;
+    border-left: 1px solid var(--armory-line);
+}
+
+.armory-perk:first-child {
+    border-left: none;
+    padding-left: 0;
+}
+
+.armory-perk-icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--armory-line-strong);
+    color: var(--armory-accent);
+    font-size: 0.9rem;
+}
+
+.armory-perk strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.armory-perk strong + span {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.8rem;
+    color: var(--armory-muted);
+}
+
+/* Featured drop */
+.featured-drop {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    margin-top: clamp(3rem, 6vw, 5rem);
+    background:
+        radial-gradient(120% 90% at 0% 0%, rgba(255, 70, 85, 0.1) 0%, transparent 55%),
+        var(--armory-surface);
+    border: 1px solid var(--armory-line);
+}
+
+.featured-media {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-right: 1px solid var(--armory-line);
+}
+
+.featured-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--armory-ease);
+}
+
+.featured-drop:hover .featured-media img {
+    transform: scale(1.03);
+}
+
+.featured-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 4.5vw, 4rem);
+}
+
+.featured-title {
+    margin-top: 1rem;
+    font-family: var(--font-secondary);
+    font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    text-transform: uppercase;
+    text-wrap: balance;
+}
+
+.featured-desc {
+    margin-top: 1.25rem;
+    max-width: 52ch;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--armory-muted);
+}
+
+.featured-includes {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1.5rem;
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--armory-line);
+}
+
+.featured-includes li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.featured-check {
+    color: var(--armory-accent);
+    font-size: 0.75rem;
+}
+
+.featured-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2.25rem;
+}
+
+.featured-price {
+    font-size: 2rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+}
+
+.featured-note {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--armory-dim);
+}
+
+/* Shop */
+.armory-shop {
+    margin-top: clamp(4rem, 7vw, 6rem);
+    scroll-margin-top: 6rem;
+}
+
+.armory-shop-header {
+    margin-bottom: 2rem;
+}
+
+.armory-toolbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--armory-line);
+}
+
+.armory-tabs {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.armory-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.armory-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    flex-shrink: 0;
+    padding: 0 0 1rem;
+    background: none;
+    border: none;
+    color: var(--armory-muted);
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+
+.armory-tab::after {
     content: '';
     position: absolute;
-    bottom: 0;
     left: 0;
-    width: 0%;
+    right: 0;
+    bottom: -1px;
     height: 2px;
-    background: var(--hero-primary, #ff4655);
-    transition: width 0.3s ease;
+    background: var(--armory-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--armory-ease);
 }
 
-.filter-btn:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.08);
+.armory-tab:hover {
+    color: var(--armory-text);
 }
 
-.filter-btn.active {
-    color: #fff;
-    border-color: rgba(255, 70, 85, 0.5);
-    background: rgba(255, 70, 85, 0.05);
+.armory-tab.is-active {
+    color: var(--armory-text);
 }
 
-.filter-btn.active::after {
-    width: 100%;
+.armory-tab.is-active::after {
+    transform: scaleX(1);
 }
 
-.sub-filters {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    padding-left: 1rem;
-    border-left: 2px solid var(--hero-primary);
-    animation: fadeIn 0.4s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateX(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.sub-filter-btn {
-    background: transparent;
-    border: none;
-    color: #666;
-    font-family: 'Turret Road', sans-serif;
+.armory-tab-count {
+    font-size: 0.72rem;
     font-weight: 500;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 0.4rem 0.8rem;
-    transition: color 0.3s ease;
+    color: var(--armory-dim);
+    font-variant-numeric: tabular-nums;
 }
 
-.sub-filter-btn:hover,
-.sub-filter-btn.active {
-    color: var(--hero-primary);
+.armory-tab.is-active .armory-tab-count {
+    color: var(--armory-accent);
 }
 
-.sub-filter-btn.active {
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(255, 70, 85, 0.4);
+.armory-toolbar-actions {
+    display: flex;
+    gap: 0.75rem;
+    padding-bottom: 0.85rem;
 }
 
-/* Search */
 .armory-search {
     display: flex;
     align-items: center;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 0.8rem 1.2rem;
-    gap: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    width: 100%;
-    max-width: 400px;
-    align-self: flex-end;
-    transition: border-color 0.3s ease;
+    gap: 0.7rem;
+    width: 260px;
+    height: 42px;
+    padding: 0 0.9rem;
+    background: var(--armory-surface);
+    border: 1px solid var(--armory-line);
+    transition: border-color 0.2s ease;
 }
 
 .armory-search:focus-within {
-    border-color: var(--hero-primary);
+    border-color: var(--armory-line-strong);
 }
 
-.search-icon {
-    color: #666;
+.armory-search-icon {
+    color: var(--armory-dim);
+    font-size: 0.85rem;
 }
 
 .armory-search input {
+    flex: 1;
+    min-width: 0;
     background: transparent;
     border: none;
-    color: #fff;
     outline: none;
-    font-family: 'Turret Road', sans-serif;
-    width: 100%;
-    font-size: 1rem;
+    color: var(--armory-text);
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
 }
 
-.filter-icon {
-    color: #666;
+.armory-search input::placeholder {
+    color: var(--armory-dim);
+}
+
+.armory-search input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.armory-page .armory-search input:focus-visible {
+    outline: none;
+}
+
+.armory-search-clear {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    background: none;
+    border: none;
+    color: var(--armory-muted);
+    transition: color 0.2s ease;
+}
+
+.armory-search-clear:hover {
+    color: var(--armory-text);
+}
+
+.armory-sort select {
+    height: 42px;
+    padding: 0 2.4rem 0 0.9rem;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238b919c' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 0.9rem center,
+        var(--armory-surface);
+    border: 1px solid var(--armory-line);
+    color: var(--armory-text);
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    appearance: none;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: border-color 0.2s ease;
 }
 
-.filter-icon:hover {
-    color: #fff;
+.armory-sort select:hover {
+    border-color: var(--armory-line-strong);
 }
 
-/* Product Grid */
+.armory-sort option {
+    background: var(--armory-surface-raised);
+}
+
+.armory-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+}
+
+.armory-chip {
+    padding: 0.5rem 0.95rem;
+    background: transparent;
+    border: 1px solid var(--armory-line);
+    color: var(--armory-muted);
+    font-family: var(--font-primary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.armory-chip:hover {
+    color: var(--armory-text);
+    border-color: var(--armory-line-strong);
+}
+
+.armory-chip.is-active {
+    color: var(--armory-text);
+    border-color: var(--armory-accent);
+    background: var(--armory-accent-soft);
+}
+
+.armory-results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 2.5rem;
+    margin: 1.5rem 0 1.25rem;
+    font-size: 0.85rem;
+    color: var(--armory-muted);
+}
+
+.armory-results-bar strong {
+    color: var(--armory-text);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Product grid */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 5rem;
-    min-height: 400px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
 }
 
 .product-card {
-    background: linear-gradient(145deg, rgba(20, 20, 20, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
-    position: relative;
+    background: var(--armory-surface);
+    border: 1px solid var(--armory-line);
+    transition: border-color 0.3s var(--armory-ease), background-color 0.3s var(--armory-ease);
 }
 
 .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-    border-color: rgba(255, 255, 255, 0.2);
-    z-index: 2;
+    border-color: var(--armory-line-strong);
+    background: var(--armory-surface-raised);
 }
 
-.product-image-container {
-    height: 340px;
-    background: #0f0f0f;
+.product-media {
     position: relative;
+    aspect-ratio: 1;
     overflow: hidden;
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-bottom: 1px solid var(--armory-line);
 }
 
-.img-wrapper {
+.product-media img {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    object-fit: cover;
+    transition: transform 0.8s var(--armory-ease);
 }
 
-.img-wrapper img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
-}
-
-.product-card:hover .img-wrapper {
-    transform: scale(1.08);
+.product-card:hover .product-media img {
+    transform: scale(1.05);
 }
 
 .product-tag {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: var(--hero-primary);
-    color: #000;
-    font-family: 'Bruno Ace SC', sans-serif;
-    font-weight: 700;
-    font-size: 0.65rem;
-    padding: 0.3rem 0.6rem;
-    z-index: 5;
-    letter-spacing: 1px;
+    top: 0.85rem;
+    left: 0.85rem;
+    padding: 0.35rem 0.6rem;
+    background: var(--armory-accent);
+    color: #0b0d12;
+    font-family: var(--font-primary);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
 }
 
-.product-overlay {
+.product-in-cart {
     position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    backdrop-filter: blur(2px);
+    right: 0.85rem;
+    bottom: 0.85rem;
+    padding: 0.35rem 0.6rem;
+    background: rgba(11, 13, 18, 0.85);
+    border: 1px solid var(--armory-line-strong);
+    backdrop-filter: blur(6px);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
 }
 
-.product-card:hover .product-overlay {
-    opacity: 1;
-}
-
-/* Product Info */
-.product-info {
-    padding: 1.5rem;
-    flex-grow: 1;
+.product-body {
     display: flex;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.01);
+    flex: 1;
+    padding: 1.1rem 1.2rem 1.2rem;
 }
 
-.product-header {
+.product-meta {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.8rem;
-    gap: 1rem;
+    gap: 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--armory-dim);
 }
+
+.product-rarity {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--rarity-color, var(--armory-muted));
+}
+
+.rarity-dot {
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    transform: rotate(45deg);
+}
+
+.rarity-common { --rarity-color: var(--rarity-common); }
+.rarity-rare { --rarity-color: var(--rarity-rare); }
+.rarity-epic { --rarity-color: var(--rarity-epic); }
+.rarity-legendary { --rarity-color: var(--rarity-legendary); }
+.rarity-mythic { --rarity-color: var(--rarity-mythic); }
 
 .product-name {
-    font-family: 'Turret Road', sans-serif;
+    margin-top: 0.55rem;
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
     font-weight: 700;
-    font-size: 1.1rem;
-    line-height: 1.2;
-    color: #fff;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
+    text-wrap: balance;
+}
+
+.product-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.4rem;
+    margin: 1rem 0 1.25rem;
+}
+
+.product-spec dt {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--armory-dim);
+}
+
+.product-spec dd {
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--armory-muted);
+    white-space: nowrap;
+}
+
+.product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--armory-line);
 }
 
 .product-price {
-    font-family: 'Bruno Ace SC', sans-serif;
-    color: var(--hero-primary);
-    font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
 }
 
-.product-rarity-bar {
-    height: 2px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    margin-bottom: 1.2rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.product-rarity-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 40%;
-    background: currentColor;
-}
-
-.product-card.rarity-common .product-rarity-bar {
-    color: #888;
-}
-
-.product-card.rarity-rare .product-rarity-bar {
-    color: #00bcd4;
-}
-
-.product-card.rarity-epic .product-rarity-bar {
-    color: #9c27b0;
-}
-
-.product-card.rarity-legendary .product-rarity-bar {
-    color: #ffd700;
-}
-
-.product-card.rarity-mythic .product-rarity-bar {
-    color: #ff4655;
-}
-
-.product-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.add-to-cart-btn {
+    display: inline-flex;
+    align-items: center;
     gap: 0.5rem;
-    margin-top: auto;
+    padding: 0.6rem 0.9rem;
+    background: transparent;
+    border: 1px solid var(--armory-line-strong);
+    color: var(--armory-text);
+    font-family: var(--font-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
+.add-to-cart-btn svg {
+    font-size: 0.7rem;
+}
+
+.add-to-cart-btn:hover,
+.product-card:hover .add-to-cart-btn {
+    border-color: var(--armory-accent);
+}
+
+.add-to-cart-btn:hover {
+    background: var(--armory-accent);
+    color: #0b0d12;
+}
+
+.add-to-cart-btn:disabled,
+.armory-btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Empty state */
+.armory-empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 5rem 1.5rem;
+    border: 1px dashed var(--armory-line-strong);
+    text-align: center;
+}
+
+.armory-empty h3 {
+    font-family: var(--font-secondary);
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.armory-empty p {
+    color: var(--armory-muted);
+    margin-bottom: 0.75rem;
+}
+
+/* Floating cart */
 .armory-cart-float {
     position: fixed;
-    top: 100px;
-    /* Below standard header height */
-    right: 30px;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
     z-index: 900;
-    /* High but below overlays */
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(10, 10, 15, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--color-primary);
-    font-size: 1.2rem;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    gap: 0.65rem;
+    height: 52px;
+    padding: 0 0.6rem 0 1.15rem;
+    background: rgba(18, 21, 28, 0.92);
+    border: 1px solid var(--armory-line-strong);
+    color: var(--armory-text);
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 32px rgba(3, 4, 8, 0.55);
+    transition: border-color 0.25s ease, transform 0.25s var(--armory-ease);
 }
 
 .armory-cart-float:hover {
-    transform: scale(1.1);
-    border-color: var(--color-primary);
-    box-shadow: 0 0 20px rgba(255, 70, 85, 0.3);
+    border-color: var(--armory-accent);
+    transform: translateY(-2px);
 }
 
-.armory-cart-float .cart-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: var(--color-primary);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: bold;
-    min-width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid var(--color-darker-bg);
+.armory-cart-count {
+    display: grid;
+    place-items: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 0.5rem;
+    background: var(--armory-accent);
+    color: #0b0d12;
+    font-variant-numeric: tabular-nums;
 }
 
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-}
-
-.stat-label {
-    font-size: 0.6rem;
-    color: #555;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.stat-val {
-    font-size: 0.75rem;
-    color: #ccc;
-    font-family: 'Turret Road', sans-serif;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* No Results */
-.no-results {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 4rem;
-    color: #666;
-}
-
-.no-results h3 {
-    font-family: 'Bruno Ace SC', sans-serif;
-    font-size: 1.5rem;
-    color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-@media (max-width: 900px) {
-    .armory-controls {
-        flex-direction: column-reverse;
+/* Responsive */
+@media (max-width: 1024px) {
+    .armory-perks-list {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .armory-search {
-        max-width: 100%;
-        align-self: stretch;
+    .armory-perk:nth-child(odd) {
+        border-left: none;
+        padding-left: 0;
     }
-}
 
-@media (max-width: 600px) {
-    .product-grid {
+    .armory-perk:nth-child(n + 3) {
+        border-top: 1px solid var(--armory-line);
+    }
+
+    .featured-drop {
         grid-template-columns: 1fr;
     }
 
-    .main-filters {
-        overflow-x: auto;
-        padding-bottom: 0.5rem;
+    .featured-media {
+        aspect-ratio: 16 / 10;
+        border-right: none;
+        border-bottom: 1px solid var(--armory-line);
+    }
+}
+
+@media (max-width: 768px) {
+    .armory-toolbar {
+        flex-direction: column-reverse;
+        flex-wrap: nowrap;
+        align-items: stretch;
     }
 
-    .filter-btn {
-        flex-shrink: 0;
+    .armory-toolbar-actions {
+        padding-bottom: 0;
+    }
+
+    .armory-search {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+
+    .armory-search input {
+        width: 100%;
+    }
+
+    .armory-sort select {
+        max-width: 160px;
+    }
+
+    .armory-tabs {
+        gap: 1.5rem;
+    }
+
+    .featured-includes {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .armory-perks-list {
+        grid-template-columns: 1fr;
+    }
+
+    .armory-perk,
+    .armory-perk:nth-child(odd) {
+        padding: 1rem 0;
+        border-left: none;
+    }
+
+    .armory-perk + .armory-perk {
+        border-top: 1px solid var(--armory-line);
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+
+    .product-body {
+        padding: 0.85rem;
+    }
+
+    .product-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+        font-size: 0.66rem;
+    }
+
+    .product-specs {
+        display: none;
+    }
+
+    .product-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .add-to-cart-btn {
+        justify-content: center;
+        padding: 0.65rem 0.5rem;
+        font-size: 0.72rem;
+        white-space: nowrap;
+    }
+
+    .armory-cart-label {
+        display: none;
+    }
+
+    .armory-cart-float {
+        padding-left: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .armory-page *,
+    .armory-page *::before,
+    .armory-page *::after {
+        transition-duration: 0.01ms !important;
     }
 }

@@ -1,23 +1,111 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useCart } from '../../context/useCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faCheckCircle, faShieldAlt, faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faCheckCircle, faLock, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { formatPrice } from '../../utils/formatPrice';
+import { useScrollLock } from '../../components/ui/SmoothScroll/scrollLock';
+import {
+    formatCardNumber,
+    formatExpiry,
+    formatCvc,
+    validateShipping,
+    validatePayment
+} from './checkoutValidation';
 import './CheckoutOverlay.css';
 
+const STEPS = [
+    { id: 'shipping', label: 'Shipping' },
+    { id: 'payment', label: 'Payment' },
+    { id: 'confirmed', label: 'Confirmed' }
+];
+
+const EMPTY_SHIPPING = { fullName: '', email: '', address: '', city: '', postalCode: '', country: '' };
+const EMPTY_PAYMENT = { cardNumber: '', expiry: '', cvc: '' };
+const PAYMENT_FORMATTERS = { cardNumber: formatCardNumber, expiry: formatExpiry, cvc: formatCvc };
+const PROCESSING_DELAY_MS = 1800;
+
+const Field = ({ name, label, error, className = '', ...inputProps }) => {
+    const id = `checkout-${name}`;
+    return (
+        <div className={`form-group ${className}`}>
+            <label htmlFor={id}>{label}</label>
+            <input
+                id={id}
+                name={name}
+                aria-invalid={Boolean(error)}
+                aria-describedby={error ? `${id}-error` : undefined}
+                {...inputProps}
+            />
+            {error && <p id={`${id}-error`} className="field-error">{error}</p>}
+        </div>
+    );
+};
+
+const OrderSummary = ({ items, subtotal, shipping, total }) => (
+    <div className="order-summary">
+        <ul className="order-lines">
+            {items.map(item => (
+                <li key={item.id}>
+                    <img src={item.image} alt="" />
+                    <span className="order-line-name">
+                        {item.name}
+                        <small>Qty {item.quantity}</small>
+                    </span>
+                    <span className="order-line-price">{formatPrice(item.price * item.quantity)}</span>
+                </li>
+            ))}
+        </ul>
+        <dl className="order-totals">
+            <div>
+                <dt>Subtotal</dt>
+                <dd>{formatPrice(subtotal)}</dd>
+            </div>
+            <div>
+                <dt>Shipping</dt>
+                <dd>{shipping === 0 ? 'Free' : formatPrice(shipping)}</dd>
+            </div>
+            <div className="order-total">
+                <dt>Total</dt>
+                <dd>{formatPrice(total)}</dd>
+            </div>
+        </dl>
+    </div>
+);
+
+const createOrderId = () => `FG-${Math.random().toString(36).slice(2, 10).toUpperCase()}`;
+
 const CheckoutOverlay = () => {
-    const { isCheckoutOpen, closeCheckout, clearCart, cartTotal } = useCart();
-    const [step, setStep] = useState(1);
+    const {
+        cart,
+        cartCount,
+        cartSubtotal,
+        shippingCost,
+        cartTotal,
+        isCheckoutOpen,
+        closeCheckout,
+        openCart,
+        clearCart
+    } = useCart();
+
+    const [step, setStep] = useState('shipping');
+    const [shipping, setShipping] = useState(EMPTY_SHIPPING);
+    const [payment, setPayment] = useState(EMPTY_PAYMENT);
+    const [errors, setErrors] = useState({});
     const [isProcessing, setIsProcessing] = useState(false);
-    const [orderId, setOrderId] = useState('');
+    const [order, setOrder] = useState(null);
 
     const overlayRef = useRef(null);
     const modalRef = useRef(null);
+    const processingTimer = useRef(null);
+
+    useScrollLock(isCheckoutOpen);
 
     useGSAP(() => {
         if (isCheckoutOpen) {
-            gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, pointerEvents: "auto", display: "flex" });
+            gsap.set(overlayRef.current, { display: "flex" });
+            gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, pointerEvents: "auto" });
             gsap.fromTo(modalRef.current,
                 { y: 50, opacity: 0, scale: 0.9 },
                 { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.2)" }
@@ -29,119 +117,234 @@ const CheckoutOverlay = () => {
                 pointerEvents: "none",
                 onComplete: () => {
                     gsap.set(overlayRef.current, { display: "none" });
-                    setStep(1); // Reset step on close
+                    setPayment(EMPTY_PAYMENT);
+                    setErrors({});
+                    setStep(current => current === 'confirmed' ? 'shipping' : current);
                 }
             });
         }
     }, { dependencies: [isCheckoutOpen], scope: overlayRef });
 
-    const handlePayment = (e) => {
-        e.preventDefault();
-        setIsProcessing(true);
+    useEffect(() => {
+        if (!isCheckoutOpen) return;
+        modalRef.current?.querySelector('input, .action-btn')?.focus({ preventScroll: true });
+    }, [isCheckoutOpen, step]);
 
-        // Mock API call
-        setTimeout(() => {
-            setIsProcessing(false);
-            setOrderId(Math.random().toString(36).slice(2, 11).toUpperCase());
-            setStep(3); // Success step
-            clearCart();
-        }, 2000);
+    useEffect(() => {
+        if (!isCheckoutOpen || isProcessing) return;
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') closeCheckout();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isCheckoutOpen, isProcessing, closeCheckout]);
+
+    useEffect(() => () => clearTimeout(processingTimer.current), []);
+
+    const handleClose = () => {
+        if (!isProcessing) closeCheckout();
     };
 
+    const handleEditCart = () => {
+        closeCheckout();
+        openCart();
+    };
+
+    const focusFirstError = (fieldErrors) => {
+        const [firstInvalid] = Object.keys(fieldErrors);
+        modalRef.current?.querySelector(`[name="${firstInvalid}"]`)?.focus();
+    };
+
+    const handleShippingChange = (e) => {
+        const { name, value } = e.target;
+        setShipping(prev => ({ ...prev, [name]: value }));
+        setErrors(prev => ({ ...prev, [name]: undefined }));
+    };
+
+    const handlePaymentChange = (e) => {
+        const { name, value } = e.target;
+        setPayment(prev => ({ ...prev, [name]: PAYMENT_FORMATTERS[name](value) }));
+        setErrors(prev => ({ ...prev, [name]: undefined }));
+    };
+
+    const submitShipping = (e) => {
+        e.preventDefault();
+        const fieldErrors = validateShipping(shipping);
+        setErrors(fieldErrors);
+        if (Object.keys(fieldErrors).length > 0) {
+            focusFirstError(fieldErrors);
+            return;
+        }
+        setStep('payment');
+    };
+
+    const submitPayment = (e) => {
+        e.preventDefault();
+        const fieldErrors = validatePayment(payment);
+        setErrors(fieldErrors);
+        if (Object.keys(fieldErrors).length > 0) {
+            focusFirstError(fieldErrors);
+            return;
+        }
+
+        const placedOrder = {
+            id: createOrderId(),
+            items: cart,
+            subtotal: cartSubtotal,
+            shipping: shippingCost,
+            total: cartTotal,
+            shipTo: shipping
+        };
+
+        setIsProcessing(true);
+        processingTimer.current = setTimeout(() => {
+            setOrder(placedOrder);
+            setIsProcessing(false);
+            setPayment(EMPTY_PAYMENT);
+            setStep('confirmed');
+            clearCart();
+        }, PROCESSING_DELAY_MS);
+    };
+
+    const currentStepIndex = STEPS.findIndex(s => s.id === step);
+
     return (
-        <div ref={overlayRef} className="checkout-overlay">
-            <div ref={modalRef} className="checkout-modal">
-                <button className="close-checkout-btn" onClick={closeCheckout}>
+        <div
+            ref={overlayRef}
+            className="checkout-overlay"
+            onClick={(e) => e.target === e.currentTarget && handleClose()}
+        >
+            <div
+                ref={modalRef}
+                className="checkout-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="checkout-title"
+                data-lenis-prevent
+            >
+                <button
+                    className="close-checkout-btn"
+                    onClick={handleClose}
+                    disabled={isProcessing}
+                    aria-label="Close checkout"
+                >
                     <FontAwesomeIcon icon={faTimes} />
                 </button>
 
-                {step === 1 && (
-                    <div className="checkout-step step-identity">
+                <ol className="checkout-steps">
+                    {STEPS.map((s, index) => (
+                        <li
+                            key={s.id}
+                            className={`${index === currentStepIndex ? 'is-active' : ''} ${index < currentStepIndex ? 'is-complete' : ''}`}
+                            aria-current={index === currentStepIndex ? 'step' : undefined}
+                        >
+                            <span className="checkout-step-index">{index + 1}</span>
+                            {s.label}
+                        </li>
+                    ))}
+                </ol>
+
+                {step === 'shipping' && (
+                    <div className="checkout-step">
                         <div className="step-header">
-                            <FontAwesomeIcon icon={faShieldAlt} className="step-icon" />
-                            <h2>IDENTITY VERIFICATION</h2>
-                            <p>Confirm operative details for delivery.</p>
+                            <h2 id="checkout-title">Shipping details</h2>
+                            <p>
+                                {cartCount} {cartCount === 1 ? 'item' : 'items'} · <span>{formatPrice(cartTotal)}</span>
+                                <button type="button" className="text-btn" onClick={handleEditCart}>Edit cart</button>
+                            </p>
                         </div>
-                        <form onSubmit={(e) => { e.preventDefault(); setStep(2); }}>
-                            <div className="form-group">
-                                <label>CODENAME / FULL NAME</label>
-                                <input type="text" required placeholder="OPERATIVE NAME" />
-                            </div>
-                            <div className="form-group">
-                                <label>SECTOR / ADDRESS</label>
-                                <input type="text" required placeholder="DELIVERY SECTOR" />
-                            </div>
+                        <form onSubmit={submitShipping} noValidate>
+                            <Field name="fullName" label="Full name" autoComplete="name"
+                                value={shipping.fullName} onChange={handleShippingChange} error={errors.fullName} />
+                            <Field name="email" label="Email" type="email" autoComplete="email"
+                                value={shipping.email} onChange={handleShippingChange} error={errors.email} />
+                            <Field name="address" label="Street address" autoComplete="street-address"
+                                value={shipping.address} onChange={handleShippingChange} error={errors.address} />
                             <div className="form-row">
-                                <div className="form-group">
-                                    <label>ZONE / CITY</label>
-                                    <input type="text" required placeholder="CITY" />
-                                </div>
-                                <div className="form-group">
-                                    <label>POSTAL CODE</label>
-                                    <input type="text" required placeholder="ZIP" />
-                                </div>
+                                <Field name="city" label="City" autoComplete="address-level2"
+                                    value={shipping.city} onChange={handleShippingChange} error={errors.city} />
+                                <Field name="postalCode" label="Postal code" autoComplete="postal-code"
+                                    value={shipping.postalCode} onChange={handleShippingChange} error={errors.postalCode} />
                             </div>
+                            <Field name="country" label="Country" autoComplete="country-name"
+                                value={shipping.country} onChange={handleShippingChange} error={errors.country} />
                             <button type="submit" className="action-btn">
-                                PROCEED TO ALLOCATION
+                                Continue to payment
                             </button>
                         </form>
                     </div>
                 )}
 
-                {step === 2 && (
-                    <div className="checkout-step step-payment">
+                {step === 'payment' && (
+                    <div className="checkout-step">
                         <div className="step-header">
-                            <FontAwesomeIcon icon={faCreditCard} className="step-icon" />
-                            <h2>RESOURCE ALLOCATION</h2>
-                            <p>Authorize transfer of <span>${cartTotal.toLocaleString()}</span> credits.</p>
+                            <h2 id="checkout-title">Review & pay</h2>
                         </div>
-                        <form onSubmit={handlePayment}>
-                            <div className="form-group">
-                                <label>CARD NUMBER</label>
-                                <input type="text" placeholder="0000 0000 0000 0000" maxLength="19" required />
+
+                        <div className="ship-to">
+                            <div>
+                                <span className="ship-to-label">Ship to</span>
+                                <p>{shipping.fullName}, {shipping.address}, {shipping.city} {shipping.postalCode}, {shipping.country}</p>
                             </div>
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <label>EXPIRY</label>
-                                    <input type="text" placeholder="MM/YY" maxLength="5" required />
-                                </div>
-                                <div className="form-group">
-                                    <label>CVC</label>
-                                    <input type="text" placeholder="123" maxLength="3" required />
-                                </div>
-                            </div>
-                            <button type="submit" className="action-btn pay-btn" disabled={isProcessing}>
-                                {isProcessing ? 'AUTHORIZING...' : `CONFIRM TRANSFER ($${cartTotal.toLocaleString()})`}
-                                {isProcessing && <div className="spinner"></div>}
+                            <button type="button" className="text-btn" onClick={() => setStep('shipping')} disabled={isProcessing}>
+                                Edit
                             </button>
+                        </div>
+
+                        <OrderSummary items={cart} subtotal={cartSubtotal} shipping={shippingCost} total={cartTotal} />
+
+                        <form onSubmit={submitPayment} noValidate>
+                            <Field name="cardNumber" label="Card number" inputMode="numeric" autoComplete="cc-number"
+                                placeholder="1234 5678 9012 3456" value={payment.cardNumber}
+                                onChange={handlePaymentChange} error={errors.cardNumber} disabled={isProcessing} />
+                            <div className="form-row">
+                                <Field name="expiry" label="Expiry" inputMode="numeric" autoComplete="cc-exp"
+                                    placeholder="MM/YY" value={payment.expiry}
+                                    onChange={handlePaymentChange} error={errors.expiry} disabled={isProcessing} />
+                                <Field name="cvc" label="CVC" inputMode="numeric" autoComplete="cc-csc"
+                                    placeholder="123" value={payment.cvc}
+                                    onChange={handlePaymentChange} error={errors.cvc} disabled={isProcessing} />
+                            </div>
+                            <p className="demo-note">
+                                <FontAwesomeIcon icon={faLock} />
+                                Demo store: no payment is taken. Use test card 4242 4242 4242 4242.
+                            </p>
+                            <div className="form-actions">
+                                <button
+                                    type="button"
+                                    className="secondary-btn"
+                                    onClick={() => setStep('shipping')}
+                                    disabled={isProcessing}
+                                    aria-label="Back to shipping"
+                                >
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                </button>
+                                <button type="submit" className="action-btn" disabled={isProcessing || cart.length === 0}>
+                                    {isProcessing ? 'Processing…' : `Pay ${formatPrice(cartTotal)}`}
+                                    {isProcessing && <div className="spinner"></div>}
+                                </button>
+                            </div>
                         </form>
                     </div>
                 )}
 
-                {step === 3 && (
+                {step === 'confirmed' && order && (
                     <div className="checkout-step step-success">
                         <div className="success-icon">
                             <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
-                        <h2>TRANSACTION COMPLETE</h2>
-                        <p>Assets have been requisitioned. Prepare for deployment.</p>
+                        <h2 id="checkout-title">Order confirmed</h2>
+                        <p>Thanks, {order.shipTo.fullName.split(' ')[0]}. Your gear ships to {order.shipTo.city}, {order.shipTo.country}.</p>
                         <div className="receipt-box">
-                            <span>ORDER ID:</span>
-                            <strong>#{orderId}</strong>
+                            <span>Order number</span>
+                            <strong>{order.id}</strong>
                         </div>
+                        <OrderSummary items={order.items} subtotal={order.subtotal} shipping={order.shipping} total={order.total} />
                         <button className="action-btn" onClick={closeCheckout}>
-                            RETURN TO BASE
+                            Continue shopping
                         </button>
                     </div>
                 )}
-
-                <div className="checkout-progress">
-                    <div className={`progress-dot ${step >= 1 ? 'active' : ''}`}></div>
-                    <div className={`progress-line ${step >= 2 ? 'active' : ''}`}></div>
-                    <div className={`progress-dot ${step >= 2 ? 'active' : ''}`}></div>
-                    <div className={`progress-line ${step >= 3 ? 'active' : ''}`}></div>
-                    <div className={`progress-dot ${step >= 3 ? 'active' : ''}`}></div>
-                </div>
             </div>
         </div>
     );

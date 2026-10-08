@@ -23,10 +23,17 @@
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 2001;
     transform: translateX(100%);
-    /* Start hidden */
-    display: flex;
+    /* Hidden until opened so the off-canvas panel can't widen the mobile viewport */
+    display: none;
     flex-direction: column;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.cart-items {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
 .cart-header {
@@ -49,6 +56,41 @@
     color: var(--color-primary);
 }
 
+.cart-shipping {
+    padding: 16px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cart-shipping p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    font-size: 0.85rem;
+    color: var(--color-text-gray);
+}
+
+.cart-shipping p svg {
+    color: var(--color-primary);
+}
+
+.cart-shipping strong {
+    color: var(--color-text-white);
+}
+
+.cart-shipping-bar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.cart-shipping-bar span {
+    display: block;
+    height: 100%;
+    background: var(--color-primary);
+    transition: width 0.4s ease;
+}
+
 .close-cart-btn {
     background: transparent;
     border: none;
@@ -69,6 +111,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overscroll-behavior: contain;
 }
 
 .empty-cart {
@@ -78,13 +121,33 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    opacity: 0.5;
 }
 
 .empty-cart p {
     font-family: 'Bruno Ace SC', sans-serif;
     font-size: 1.2rem;
     margin-bottom: 10px;
+}
+
+.empty-cart span {
+    color: var(--color-text-gray);
+    font-size: 0.9rem;
+}
+
+.empty-cart-link {
+    margin-top: 24px;
+    padding: 12px 24px;
+    border: 1px solid var(--color-primary);
+    color: var(--color-text-white);
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.empty-cart-link:hover {
+    background: var(--color-primary);
 }
 
 .cart-item {
@@ -166,8 +229,13 @@
     transition: background 0.2s;
 }
 
-.quantity-controls button:hover {
+.quantity-controls button:hover:not(:disabled) {
     background: var(--color-primary);
+}
+
+.quantity-controls button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
 .quantity-controls span {
@@ -177,24 +245,83 @@
     text-align: center;
 }
 
+.item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.item-line-total {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-text-white);
+}
+
+.item-limit {
+    margin: 6px 0 0;
+    font-size: 0.75rem;
+    color: var(--color-text-gray);
+}
+
 .cart-footer {
     padding: 25px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.2);
 }
 
-.cart-total {
+.cart-summary {
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cart-summary div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    font-family: 'Bruno Ace SC', sans-serif;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-gray);
 }
 
-.total-amount {
+.cart-summary dd {
+    margin: 0;
+    color: var(--color-text-white);
+}
+
+.cart-summary .cart-total {
+    margin-top: 6px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 1.1rem;
+    color: var(--color-text-white);
+}
+
+.cart-summary .total-amount {
     color: var(--color-primary);
     font-size: 1.4rem;
+}
+
+.continue-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-gray);
+    font-family: 'Turret Road', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.continue-btn:hover {
+    color: var(--color-text-white);
 }
 
 .checkout-btn {
@@ -246,5 +373,18 @@
 @media (max-width: 480px) {
     .cart-drawer {
         width: 100%;
+    }
+}
+
+/* On short screens the totals would crush the item list, so the whole panel scrolls instead */
+@media (max-height: 640px) {
+    .cart-drawer {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .cart-items {
+        flex: none;
+        overflow: visible;
     }
 }

@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import 'lenis/dist/lenis.css';
+import { registerLenis } from './scrollLock';
 
 const SmoothScroll = ({ children }) => {
     useEffect(() => {
@@ -28,7 +29,10 @@ const SmoothScroll = ({ children }) => {
 
         gsap.ticker.lagSmoothing(0);
 
+        const unregister = registerLenis(lenis);
+
         return () => {
+            unregister();
             gsap.ticker.remove(onTick);
             lenis.destroy();
         };

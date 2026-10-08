@@ -12,7 +12,8 @@ const PageHero = ({
     subtitle = "SECTION",
     description,
     backgroundImage,
-    alignment = "center"
+    alignment = "center",
+    compact = false
 }) => {
     const containerRef = useRef(null);
     const [scrambledTitle, triggerScramble] = useScrambleText(title, 1500);
@@ -56,10 +57,10 @@ const PageHero = ({
     }, { scope: containerRef, dependencies: [title] });
 
     return (
-        <section className="page-hero" ref={containerRef}>
+        <section className={`page-hero ${compact ? 'page-hero--compact' : ''}`} ref={containerRef}>
             <div className="hero-bg-wrapper">
                 {backgroundImage && (
-                    <img src={backgroundImage} alt="custom-hero-bg" className="hero-bg-image" />
+                    <img src={backgroundImage} alt="" className="hero-bg-image" />
                 )}
                 <div className="hero-overlay-gradient"></div>
             </div>

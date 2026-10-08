@@ -1,89 +1,111 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { CartContext } from './useCart';
+import { armoryData } from '../features/armory/data/ArmoryData';
+import { MAX_QUANTITY_PER_ITEM, getShippingCost } from '../features/cart/cartPricing';
+
+const STORAGE_KEY = 'fiction_cart';
+
+const productsById = new Map(armoryData.products.map(product => [product.id, product]));
+
+const clampQuantity = (quantity) => Math.min(Math.max(quantity, 0), MAX_QUANTITY_PER_ITEM);
+
+// Only ids and quantities are persisted so prices and images always come from the live catalog.
+const loadCart = () => {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+        if (!Array.isArray(saved)) return [];
+        return saved
+            .filter(line => productsById.has(line?.id) && line.quantity > 0)
+            .map(line => ({ id: line.id, quantity: clampQuantity(line.quantity) }));
+    } catch (error) {
+        console.error("Failed to load cart from local storage", error);
+        return [];
+    }
+};
 
 export const CartProvider = ({ children }) => {
-    const [cart, setCart] = useState(() => {
-        try {
-            const savedCart = localStorage.getItem('fiction_cart');
-            return savedCart ? JSON.parse(savedCart) : [];
-        } catch (error) {
-            console.error("Failed to load cart from local storage", error);
-            return [];
-        }
-    });
-
+    const [lines, setLines] = useState(loadCart);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+    const [lastAdded, setLastAdded] = useState(null);
 
     useEffect(() => {
         try {
-            localStorage.setItem('fiction_cart', JSON.stringify(cart));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
         } catch (error) {
             console.error("Failed to save cart to local storage", error);
         }
-    }, [cart]);
+    }, [lines]);
+
+    const cart = useMemo(
+        () => lines.map(line => ({ ...productsById.get(line.id), quantity: line.quantity })),
+        [lines]
+    );
 
     const addToCart = (product) => {
-        setCart(prevCart => {
-            const existingItem = prevCart.find(item => item.id === product.id);
-            if (existingItem) {
-                return prevCart.map(item =>
-                    item.id === product.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                );
-            }
-            return [...prevCart, { ...product, quantity: 1 }];
-        });
-        setIsCartOpen(true); // Open cart when item is added
+        const existing = lines.find(line => line.id === product.id);
+        if (existing && existing.quantity >= MAX_QUANTITY_PER_ITEM) return;
+
+        setLines(prev => existing
+            ? prev.map(line => line.id === product.id ? { ...line, quantity: clampQuantity(line.quantity + 1) } : line)
+            : [...prev, { id: product.id, quantity: 1 }]
+        );
+        setLastAdded({ product, quantity: (existing?.quantity ?? 0) + 1, key: Date.now() });
     };
 
     const removeFromCart = (productId) => {
-        setCart(prevCart => prevCart.filter(item => item.id !== productId));
+        setLines(prev => prev.filter(line => line.id !== productId));
     };
 
     const updateQuantity = (productId, delta) => {
-        setCart(prevCart => prevCart.map(item => {
-            if (item.id === productId) {
-                const newQuantity = Math.max(0, item.quantity + delta);
-                return { ...item, quantity: newQuantity };
-            }
-            return item;
-        }).filter(item => item.quantity > 0)); // Remove if quantity becomes 0
+        setLines(prev => prev
+            .map(line => line.id === productId ? { ...line, quantity: clampQuantity(line.quantity + delta) } : line)
+            .filter(line => line.quantity > 0)
+        );
     };
 
-    const clearCart = () => {
-        setCart([]);
-    };
+    const clearCart = () => setLines([]);
 
-    const toggleCart = () => setIsCartOpen(prev => !prev);
-    const closeCart = () => setIsCartOpen(false);
-    const openCart = () => setIsCartOpen(true);
+    const openCart = () => {
+        setLastAdded(null);
+        setIsCartOpen(true);
+    };
+    const closeCart = useCallback(() => setIsCartOpen(false), []);
+    const dismissLastAdded = useCallback(() => setLastAdded(null), []);
 
     const openCheckout = () => {
+        if (lines.length === 0) return;
+        setLastAdded(null);
         setIsCartOpen(false);
         setIsCheckoutOpen(true);
     };
-    const closeCheckout = () => setIsCheckoutOpen(false);
+    const closeCheckout = useCallback(() => setIsCheckoutOpen(false), []);
 
-    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-    const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const cartCount = lines.reduce((total, line) => total + line.quantity, 0);
+    const cartSubtotal = Math.round(
+        cart.reduce((total, item) => total + Math.round(item.price * 100) * item.quantity, 0)
+    ) / 100;
+    const shippingCost = getShippingCost(cartSubtotal);
+    const cartTotal = Math.round((cartSubtotal + shippingCost) * 100) / 100;
 
     const value = {
         cart,
-        isCartOpen,
-        isCheckoutOpen,
+        cartCount,
+        cartSubtotal,
+        shippingCost,
+        cartTotal,
         addToCart,
         removeFromCart,
         updateQuantity,
         clearCart,
-        toggleCart,
-        closeCart,
+        isCartOpen,
         openCart,
+        closeCart,
+        isCheckoutOpen,
         openCheckout,
         closeCheckout,
-        cartCount,
-        cartTotal
+        lastAdded,
+        dismissLastAdded
     };
 
     return (

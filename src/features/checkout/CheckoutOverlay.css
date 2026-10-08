@@ -4,21 +4,28 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
     z-index: 3000;
     display: none;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
     opacity: 0;
 }
 
 .checkout-modal {
-    width: 90%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
     background: var(--color-darker-bg);
     border: 1px solid rgba(255, 70, 85, 0.3);
-    padding: 40px;
+    padding: 36px 40px 40px;
     position: relative;
     box-shadow: 0 0 50px rgba(255, 70, 85, 0.15);
     border-radius: 4px;
@@ -36,61 +43,137 @@
     transition: color 0.2s;
 }
 
-.close-checkout-btn:hover {
+.close-checkout-btn:hover:not(:disabled) {
     color: var(--color-primary);
 }
 
-.step-header {
-    text-align: center;
-    margin-bottom: 30px;
+.close-checkout-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
-.step-icon {
-    font-size: 3rem;
-    color: var(--color-primary);
-    margin-bottom: 20px;
+/* Step indicator */
+.checkout-steps {
+    display: flex;
+    gap: 6px;
+    margin: 0 40px 28px 0;
+    padding: 0;
+    list-style: none;
 }
 
-.step-header h2 {
+.checkout-steps li {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 2px solid #333;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-gray);
+    transition: border-color 0.3s, color 0.3s;
+}
+
+.checkout-steps li.is-active,
+.checkout-steps li.is-complete {
+    border-color: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.checkout-step-index {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #333;
+    font-size: 0.7rem;
+}
+
+.checkout-steps li.is-active .checkout-step-index,
+.checkout-steps li.is-complete .checkout-step-index {
+    background: var(--color-primary);
+}
+
+/* Step header */
+.checkout-modal .step-header {
+    margin-bottom: 24px;
+}
+
+.checkout-modal .step-header h2,
+.step-success h2 {
     font-family: 'Bruno Ace SC', sans-serif;
     color: white;
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    margin: 0 0 8px;
 }
 
-.step-header p {
+.checkout-modal .step-header p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
     color: var(--color-text-gray);
     font-size: 0.9rem;
 }
 
-.step-header p span {
-    color: var(--color-primary);
+.checkout-modal .step-header p span {
+    color: var(--color-text-white);
     font-weight: bold;
 }
 
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-row {
-    display: flex;
-    gap: 20px;
-}
-
-.form-row .form-group {
-    flex: 1;
-}
-
-label {
-    display: block;
+.checkout-modal .text-btn {
+    margin-left: auto;
+    padding: 0;
+    background: none;
+    border: none;
     color: var(--color-primary);
-    font-family: 'Bruno Ace SC', sans-serif;
+    font-family: 'Turret Road', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+}
+
+.checkout-modal .text-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Form */
+.checkout-modal form {
+    margin-top: 24px;
+}
+
+.checkout-modal .form-group {
+    margin-bottom: 18px;
+}
+
+.checkout-modal .form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.checkout-modal .form-row .form-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.checkout-modal label {
+    display: block;
+    color: var(--color-text-gray);
+    font-family: 'Turret Road', sans-serif;
     font-size: 0.8rem;
+    font-weight: 700;
     margin-bottom: 8px;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-input {
+.checkout-modal input {
     width: 100%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -102,13 +185,46 @@ input {
     transition: border-color 0.3s;
 }
 
-input:focus {
+.checkout-modal input:focus {
     outline: none;
     border-color: var(--color-primary);
     box-shadow: 0 0 10px rgba(255, 70, 85, 0.2);
 }
 
-.action-btn {
+.checkout-modal input[aria-invalid="true"] {
+    border-color: var(--color-primary);
+}
+
+.checkout-modal input:disabled {
+    opacity: 0.6;
+}
+
+.field-error {
+    margin: 6px 0 0;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+}
+
+.demo-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0 12px;
+    color: var(--color-text-gray);
+    font-size: 0.8rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.form-actions .action-btn {
+    flex: 1;
+}
+
+/* Buttons */
+.checkout-modal .action-btn {
     width: 100%;
     padding: 15px;
     background: var(--color-primary);
@@ -126,13 +242,33 @@ input:focus {
     gap: 10px;
 }
 
-.action-btn:hover {
+.checkout-modal .action-btn:hover:not(:disabled) {
     background: var(--color-primary-dark);
 }
 
-.action-btn:disabled {
+.checkout-modal .action-btn:disabled {
     opacity: 0.7;
     cursor: wait;
+}
+
+.secondary-btn {
+    flex-shrink: 0;
+    width: 52px;
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--color-text-white);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.secondary-btn:hover:not(:disabled) {
+    border-color: var(--color-primary);
+}
+
+.secondary-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .spinner {
@@ -154,15 +290,135 @@ input:focus {
     }
 }
 
+/* Ship-to + order summary */
+.ship-to {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ship-to-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-gray);
+}
+
+.ship-to p {
+    margin: 4px 0 0;
+    color: var(--color-text-white);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.order-summary {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.order-lines {
+    margin: 0;
+    padding: 6px 16px;
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.order-lines li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 0.85rem;
+}
+
+.order-lines li + li {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.order-lines img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.order-line-name {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    color: var(--color-text-white);
+    font-weight: 700;
+}
+
+.order-line-name small {
+    color: var(--color-text-gray);
+    font-weight: 500;
+}
+
+.order-line-price {
+    color: var(--color-text-white);
+}
+
+.order-totals {
+    margin: 0;
+    padding: 12px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.order-totals div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--color-text-gray);
+}
+
+.order-totals dd {
+    margin: 0;
+    color: var(--color-text-white);
+}
+
+.order-totals .order-total {
+    padding-top: 8px;
+    margin-top: 2px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 1rem;
+    color: var(--color-text-white);
+}
+
+.order-totals .order-total dd {
+    color: var(--color-primary);
+}
+
+/* Confirmation */
 .step-success {
     text-align: center;
 }
 
+.step-success > p {
+    color: var(--color-text-gray);
+}
+
+.step-success .order-summary {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
 .success-icon {
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: var(--color-secondary);
-    /* Greenish or distinct color */
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     animation: pulse 2s infinite;
 }
 
@@ -200,33 +456,17 @@ input:focus {
     letter-spacing: 2px;
 }
 
-.checkout-progress {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-}
+@media (max-width: 480px) {
+    .checkout-modal {
+        padding: 28px 20px 24px;
+    }
 
-.progress-dot {
-    width: 10px;
-    height: 10px;
-    background: #333;
-    border-radius: 50%;
-    transition: background 0.3s;
-}
+    .checkout-steps li {
+        font-size: 0.65rem;
+    }
 
-.progress-dot.active {
-    background: var(--color-primary);
-    box-shadow: 0 0 10px var(--color-primary);
-}
-
-.progress-line {
-    width: 30px;
-    height: 2px;
-    background: #333;
-    transition: background 0.3s;
-}
-
-.progress-line.active {
-    background: var(--color-primary);
+    .checkout-modal .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
 }

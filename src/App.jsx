@@ -28,6 +28,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 import { CartProvider } from './context/CartContext';
 import CartDrawer from './features/cart/CartDrawer';
+import CartToast from './features/cart/CartToast';
 import CheckoutOverlay from './features/checkout/CheckoutOverlay';
 
 // Helper
@@ -84,6 +85,7 @@ function App() {
       <CartProvider>
         <ScrollToTop />
         <CartDrawer />
+        <CartToast />
         <CheckoutOverlay />
         <AppContent />
       </CartProvider>

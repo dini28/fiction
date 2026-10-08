@@ -6,87 +6,104 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 import logo from '../../../assets/branding/logo.svg';
+import { armoryData } from '../../../features/armory/data/ArmoryData';
+import { useCart } from '../../../context/useCart';
 import './Footer.css';
 
-import { useRef } from 'react';
+const studioLinks = [
+    { label: "Who we are", to: "/about" },
+    { label: "Work with us", to: "/careers" },
+    { label: "News", to: "/news" }
+];
+
+const armoryLinks = [
+    { label: "Shop all", to: "/armory" },
+    ...armoryData.categories
+        .filter(category => category.id !== 'all')
+        .map(category => ({ label: category.label, to: `/armory?category=${category.id}` }))
+];
+
+const socialIcons = [
+    { icon: faXTwitter, label: "X" },
+    { icon: faInstagram, label: "Instagram" },
+    { icon: faDiscord, label: "Discord" },
+    { icon: faLinkedin, label: "LinkedIn" },
+    { icon: faFacebook, label: "Facebook" },
+    { icon: faYoutube, label: "YouTube" },
+];
 
 const Footer = () => {
-    const footerRef = useRef(null);
+    const { cartCount, openCart } = useCart();
 
-    const mainLinks = [
-        { label: "WHO WE ARE", path: "/about" },
-        { label: "WORK WITH US", path: "/careers" },
-        { label: "NEWS", path: "/news" },
-        { label: "ARMORY", path: "/armory" }
-    ];
-
-    const navLinks = [
-        "PRESS", "SECURITY", "LEGAL", "LEADERSHIP",
-        "CANDIDATE PRIVACY", "TERMS OF SERVICE", "PRIVACY NOTICE",
-        "PLAYER SUPPORT", "E-VERIFY", "ACCESSIBILITY",
-        "ANNUAL REPORTS", "PEERING INFORMATION"
-    ];
-
-    const socialIcons = [
-        { icon: faXTwitter, label: "Twitter" },
-        { icon: faInstagram, label: "Instagram" },
-        { icon: faDiscord, label: "Discord" },
-        { icon: faLinkedin, label: "LinkedIn" },
-        { icon: faFacebook, label: "Facebook" },
-        { icon: faYoutube, label: "YouTube" },
-    ];
-
-    const scrollToTop = (e) => {
-        e.preventDefault();
+    const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
-        <footer className="footer" ref={footerRef}>
+        <footer className="footer">
             <div className="footer-container">
-                <div className="footer-top">
-                    <div className="footer-main">
-                        <div className="footer-left">
-                            <div className="footer-logo">
-                                <Link to="/" aria-label="Home" className='footer-logo-link'>
-                                    <img src={logo} alt="Fiction Logo" />
-                                    <h4>Fiction</h4>
-                                </Link>
-                            </div>
-
-                            <nav className="footer-nav">
-                                {mainLinks.map((link) => (
-                                    <Link key={link.label} to={link.path}>
-                                        {link.label}
-                                    </Link>
-                                ))}
-                                {navLinks.map((link) => (
-                                    <Link key={link} to="/404">
-                                        {link}
-                                    </Link>
-                                ))}
-                            </nav>
-                        </div>
-
-                        <div className="footer-socials">
-                            {socialIcons.map((social, index) => (
-                                <a key={index} href="#" aria-label={social.label}>
-                                    <FontAwesomeIcon icon={social.icon} />
-                                </a>
+                <div className="footer-main">
+                    <div className="footer-brand">
+                        <Link to="/" aria-label="Fiction home" className="footer-logo-link">
+                            <img src={logo} alt="" />
+                            <h4>Fiction</h4>
+                        </Link>
+                        <ul className="footer-socials" aria-label="Social channels">
+                            {socialIcons.map((social) => (
+                                <li key={social.label} className="footer-social" title={social.label}>
+                                    <FontAwesomeIcon icon={social.icon} aria-hidden="true" />
+                                    <span className="visually-hidden">{social.label}</span>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
 
-                    <div className="footer-bottom">
-                        <div className="footer-legal">
-                            <Link to="/404">Cookie Preferences</Link>
-                            <p> | </p>
-                            <span>© {new Date().getFullYear()} <span className='logo'> Fiction </span> Games, Inc. All Rights Reserved.</span>
+                    <nav className="footer-columns" aria-label="Footer">
+                        <div className="footer-column">
+                            <h3 className="footer-heading">Studio</h3>
+                            <ul>
+                                {studioLinks.map(link => (
+                                    <li key={link.to}>
+                                        <Link to={link.to}>{link.label}</Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                        <a href="#top" className="footer-back" onClick={scrollToTop}>
-                            TO THE SURFACE <span>▲</span>
-                        </a>
-                    </div>
+
+                        <div className="footer-column">
+                            <h3 className="footer-heading">Armory</h3>
+                            <ul>
+                                {armoryLinks.map(link => (
+                                    <li key={link.to}>
+                                        <Link to={link.to} state={{ scrollTo: 'shop' }}>{link.label}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="footer-column">
+                            <h3 className="footer-heading">Account</h3>
+                            <ul>
+                                <li>
+                                    <Link to="/login">Sign in</Link>
+                                </li>
+                                <li>
+                                    <button type="button" onClick={openCart}>
+                                        Cart{cartCount > 0 && ` (${cartCount})`}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+
+                <div className="footer-bottom">
+                    <p className="footer-legal">
+                        © {new Date().getFullYear()} <span className="logo">Fiction</span> Games, Inc. All rights reserved.
+                    </p>
+                    <button type="button" className="footer-back" onClick={scrollToTop} aria-label="Back to top">
+                        TO THE SURFACE <span aria-hidden="true">▲</span>
+                    </button>
                 </div>
             </div>
         </footer>

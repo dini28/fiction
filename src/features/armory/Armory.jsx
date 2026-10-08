@@ -1,170 +1,277 @@
-import { useState, useRef, lazy, Suspense } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useCart } from '../../context/useCart';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import './Armory.css';
-import { armoryData } from './data/ArmoryData';
-import GlobalNoise from '../../components/ui/GlobalNoise/GlobalNoise';
-import MagneticButton from '../../components/ui/MagneticButton/MagneticButton';
+import { armoryData, sortOptions, perks } from './data/ArmoryData';
 import PageHero from '../../components/ui/PageHero/PageHero';
+import ProductCard from './components/ProductCard';
+import FeaturedDrop from './components/FeaturedDrop';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilter, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import {
+    faMagnifyingGlass,
+    faXmark,
+    faBagShopping,
+    faTruckFast,
+    faRotateLeft,
+    faLock,
+    faBolt
+} from '@fortawesome/free-solid-svg-icons';
 import ArmoryHero from '../../assets/images/backgrounds/ArmoryHero.jpg';
 
-const MorphSVGSection = lazy(() => import('../animation-showcase/MorphSVGSection'));
+const perkIcons = {
+    shipping: faTruckFast,
+    returns: faRotateLeft,
+    secure: faLock,
+    drops: faBolt
+};
+
+const subcategoryLabels = Object.fromEntries(
+    armoryData.categories.flatMap(cat => (cat.subcategories || []).map(sub => [sub.id, sub.label]))
+);
+
+const categoryCounts = armoryData.products.reduce(
+    (counts, p) => ({ ...counts, [p.category]: (counts[p.category] || 0) + 1 }),
+    { all: armoryData.products.length }
+);
+
+const featuredProduct = armoryData.products.find(p => p.featured);
+
+const sorters = {
+    featured: () => 0,
+    'price-asc': (a, b) => a.price - b.price,
+    'price-desc': (a, b) => b.price - a.price,
+    name: (a, b) => a.name.localeCompare(b.name)
+};
 
 const Armory = () => {
-    const { addToCart, openCart, cartCount } = useCart();
-    const [activeCategory, setActiveCategory] = useState('all');
-    const [activeSubcategory, setActiveSubcategory] = useState('all');
+    const { cart, addToCart, openCart, cartCount } = useCart();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const location = useLocation();
     const [searchQuery, setSearchQuery] = useState('');
-    const containerRef = useRef(null);
+    const [sortBy, setSortBy] = useState('featured');
+    const pageRef = useRef(null);
+    const shopRef = useRef(null);
     const productGridRef = useRef(null);
 
+    const currentCategoryData = armoryData.categories.find(c => c.id === searchParams.get('category'))
+        ?? armoryData.categories[0];
+    const activeCategory = currentCategoryData.id;
+    const activeSubcategory = currentCategoryData.subcategories?.find(s => s.id === searchParams.get('type'))?.id
+        ?? 'all';
+
+    const setFilters = (category, subcategory) => {
+        const params = new URLSearchParams();
+        if (category !== 'all') params.set('category', category);
+        if (subcategory !== 'all') params.set('type', subcategory);
+        setSearchParams(params, { replace: true });
+    };
+
+    useEffect(() => {
+        if (location.state?.scrollTo !== 'shop') return;
+        shopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, [location.key, location.state]);
+
     const normalizedQuery = searchQuery.trim().toLowerCase();
+    const hasActiveFilters = activeCategory !== 'all' || normalizedQuery !== '' || sortBy !== 'featured';
 
-    const filteredProducts = armoryData.products.filter(p => {
-        if (normalizedQuery && !p.name.toLowerCase().includes(normalizedQuery)) return false;
-        if (activeCategory === 'all') return true;
-        if (p.category !== activeCategory) return false;
-        if (activeSubcategory === 'all') return true;
-        return p.subcategory === activeSubcategory;
-    });
+    const filteredProducts = armoryData.products
+        .filter(p => {
+            if (normalizedQuery && !p.name.toLowerCase().includes(normalizedQuery)) return false;
+            if (activeCategory === 'all') return true;
+            if (p.category !== activeCategory) return false;
+            if (activeSubcategory === 'all') return true;
+            return p.subcategory === activeSubcategory;
+        })
+        .sort(sorters[sortBy]);
 
-    const handleCategoryChange = (categoryId) => {
-        setActiveCategory(categoryId);
-        setActiveSubcategory('all');
+    const cartQuantities = useMemo(
+        () => Object.fromEntries(cart.map(item => [item.id, item.quantity])),
+        [cart]
+    );
+
+    const handleCategoryChange = (categoryId) => setFilters(categoryId, 'all');
+
+    const clearFilters = () => {
+        setFilters('all', 'all');
+        setSearchQuery('');
+        setSortBy('featured');
     };
 
     useGSAP(() => {
-        // Animate products when filter changes
-        gsap.fromTo(".product-card",
-            { y: 30, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.4,
-                stagger: 0.05,
-                ease: "power2.out",
-                overwrite: true
-            }
-        );
-    }, { scope: productGridRef, dependencies: [activeCategory, activeSubcategory, normalizedQuery] });
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const currentCategoryData = armoryData.categories.find(c => c.id === activeCategory);
+        gsap.from('.armory-reveal', {
+            y: 40,
+            opacity: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            stagger: 0.12,
+            scrollTrigger: { trigger: '.armory-perks', start: 'top 85%' }
+        });
+    }, { scope: pageRef });
+
+    useGSAP(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        gsap.fromTo('.product-card',
+            { y: 24, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.45, stagger: 0.04, ease: 'power2.out', overwrite: true }
+        );
+    }, { scope: productGridRef, dependencies: [activeCategory, activeSubcategory, normalizedQuery, sortBy] });
 
     return (
-        <div className="page-wrapper armory-page" ref={containerRef}>
-            <button className="armory-cart-float" onClick={openCart} aria-label="Open cart">
-                <FontAwesomeIcon icon={faShoppingCart} />
-                {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-            </button>
-            <GlobalNoise />
-
+        <div className="page-wrapper armory-page" ref={pageRef}>
             <PageHero
                 title="ARMORY"
                 subtitle="OFFICIAL GEAR"
-                description="Equip yourself with elite-grade apparel, collectibles, and peripherals. Verify your allegiance."
+                description="Apparel, collectibles, and hardware designed with the teams behind our worlds."
                 backgroundImage={ArmoryHero}
                 alignment="center"
+                compact
             />
 
-            <Suspense fallback={<div style={{ height: '80vh', background: '#080808' }} />}>
-                <MorphSVGSection />
-            </Suspense>
+            <section className="armory-perks" aria-label="Store benefits">
+                <ul className="armory-container armory-perks-list">
+                    {perks.map(perk => (
+                        <li key={perk.id} className="armory-perk armory-reveal">
+                            <span className="armory-perk-icon" aria-hidden="true">
+                                <FontAwesomeIcon icon={perkIcons[perk.id]} />
+                            </span>
+                            <span>
+                                <strong>{perk.title}</strong>
+                                <span>{perk.text}</span>
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            </section>
 
-            <section className="armory-content container">
-                <div className="armory-controls">
-                    <div className="filter-section">
-                        <div className="main-filters">
-                            {armoryData.categories.map(cat => (
-                                <button
-                                    key={cat.id}
-                                    className={`filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                                    onClick={() => handleCategoryChange(cat.id)}
-                                >
-                                    {cat.label}
-                                </button>
-                            ))}
-                        </div>
+            {featuredProduct && (
+                <div className="armory-container armory-reveal">
+                    <FeaturedDrop
+                        product={featuredProduct}
+                        quantityInCart={cartQuantities[featuredProduct.id] || 0}
+                        onAdd={addToCart}
+                    />
+                </div>
+            )}
 
-                        {currentCategoryData && currentCategoryData.subcategories && (
-                            <div className="sub-filters">
+            <section ref={shopRef} className="armory-shop armory-container" aria-labelledby="armory-shop-title">
+                <header className="armory-shop-header">
+                    <div>
+                        <span className="armory-eyebrow">Catalog</span>
+                        <h2 id="armory-shop-title" className="armory-section-title">
+                            {currentCategoryData?.label ?? 'All gear'}
+                        </h2>
+                    </div>
+                </header>
+
+                <div className="armory-toolbar">
+                    <div className="armory-tabs" role="group" aria-label="Filter by category">
+                        {armoryData.categories.map(cat => (
+                            <button
+                                key={cat.id}
+                                type="button"
+                                className={`armory-tab ${activeCategory === cat.id ? 'is-active' : ''}`}
+                                aria-pressed={activeCategory === cat.id}
+                                onClick={() => handleCategoryChange(cat.id)}
+                            >
+                                {cat.label}
+                                <span className="armory-tab-count">{categoryCounts[cat.id] ?? 0}</span>
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="armory-toolbar-actions">
+                        <label className="armory-search">
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className="armory-search-icon" />
+                            <input
+                                type="search"
+                                placeholder="Search gear"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                aria-label="Search products"
+                            />
+                            {searchQuery && (
                                 <button
-                                    className={`sub-filter-btn ${activeSubcategory === 'all' ? 'active' : ''}`}
-                                    onClick={() => setActiveSubcategory('all')}
+                                    type="button"
+                                    className="armory-search-clear"
+                                    onClick={() => setSearchQuery('')}
+                                    aria-label="Clear search"
                                 >
-                                    VIEW ALL
+                                    <FontAwesomeIcon icon={faXmark} />
                                 </button>
-                                {currentCategoryData.subcategories.map(sub => (
-                                    <button
-                                        key={sub}
-                                        className={`sub-filter-btn ${activeSubcategory === sub ? 'active' : ''}`}
-                                        onClick={() => setActiveSubcategory(sub)}
-                                    >
-                                        {sub.replace('-', ' & ').replace('-', ' ')}
-                                    </button>
+                            )}
+                        </label>
+
+                        <label className="armory-sort">
+                            <span className="visually-hidden">Sort products</span>
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                {sortOptions.map(opt => (
+                                    <option key={opt.id} value={opt.id}>{opt.label}</option>
                                 ))}
-                            </div>
-                        )}
+                            </select>
+                        </label>
                     </div>
+                </div>
 
-                    <div className="armory-search">
-                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
-                        <input
-                            type="text"
-                            placeholder="SEARCH DATABASE..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            aria-label="Search products"
-                        />
-                        <FontAwesomeIcon icon={faFilter} className="filter-icon" />
+                {currentCategoryData?.subcategories && (
+                    <div className="armory-chips" role="group" aria-label="Filter by type">
+                        {[{ id: 'all', label: 'View all' }, ...currentCategoryData.subcategories].map(sub => (
+                            <button
+                                key={sub.id}
+                                type="button"
+                                className={`armory-chip ${activeSubcategory === sub.id ? 'is-active' : ''}`}
+                                aria-pressed={activeSubcategory === sub.id}
+                                onClick={() => setFilters(activeCategory, sub.id)}
+                            >
+                                {sub.label}
+                            </button>
+                        ))}
                     </div>
+                )}
+
+                <div className="armory-results-bar">
+                    <p aria-live="polite">
+                        Showing <strong>{filteredProducts.length}</strong> of {armoryData.products.length} items
+                    </p>
+                    {hasActiveFilters && (
+                        <button type="button" className="armory-link-btn" onClick={clearFilters}>
+                            Reset filters
+                        </button>
+                    )}
                 </div>
 
                 <div className="product-grid" ref={productGridRef}>
                     {filteredProducts.length > 0 ? (
                         filteredProducts.map(product => (
-                            <div key={product.id} className={`product-card rarity-${product.rarity}`}>
-                                <div className="product-image-container">
-                                    <div className="img-wrapper">
-                                        {product.image && <img src={product.image} alt={product.name} />}
-                                    </div>
-                                    {product.tag && <span className="product-tag">{product.tag}</span>}
-                                    <div className="product-overlay">
-                                        <MagneticButton
-                                            className="quick-buy-btn"
-                                            onClick={() => addToCart(product)}
-                                        >
-                                            ADD TO CART
-                                        </MagneticButton>
-                                    </div>
-                                </div>
-                                <div className="product-info">
-                                    <div className="product-header">
-                                        <h3 className="product-name">{product.name}</h3>
-                                        <span className="product-price">${product.price}</span>
-                                    </div>
-                                    <div className="product-rarity-bar" data-rarity={product.rarity}></div>
-                                    <div className="product-stats">
-                                        {Object.entries(product.stats).map(([key, value]) => (
-                                            <div key={key} className="stat-item">
-                                                <span className="stat-label">{key.replace('_', ' ')}</span>
-                                                <span className="stat-val">{value}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
+                            <ProductCard
+                                key={product.id}
+                                product={product}
+                                subcategoryLabel={subcategoryLabels[product.subcategory]}
+                                quantityInCart={cartQuantities[product.id] || 0}
+                                onAdd={addToCart}
+                            />
                         ))
                     ) : (
-                        <div className="no-results">
-                            <h3>NO ASSETS FOUND</h3>
-                            <p>Adjust your filters, Operative.</p>
+                        <div className="armory-empty">
+                            <h3>No gear matches your filters</h3>
+                            <p>Try a different search term or browse all categories.</p>
+                            <button type="button" className="armory-btn-secondary" onClick={clearFilters}>
+                                Reset filters
+                            </button>
                         </div>
                     )}
                 </div>
             </section>
+
+            <button type="button" className="armory-cart-float" onClick={openCart} aria-label={`Open cart, ${cartCount} items`}>
+                <FontAwesomeIcon icon={faBagShopping} />
+                <span className="armory-cart-label">Cart</span>
+                <span className="armory-cart-count">{cartCount}</span>
+            </button>
         </div>
     );
 };

@@ -24,18 +24,21 @@
     box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
 }
 
+.footer .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
 .footer-container {
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
     flex-direction: column;
-}
-
-.footer-top {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
 }
 
 .footer-main {
@@ -45,22 +48,11 @@
     gap: 60px;
 }
 
-.footer-left {
-    flex: 2;
+/* Brand + socials */
+.footer-brand {
     display: flex;
     flex-direction: column;
-    gap: 35px;
-}
-
-.footer-logo {
-    height: 60px;
-    width: 150px;
-    color: var(--color-primary);
-    transition: filter 0.3s ease;
-}
-
-.footer-logo:hover {
-    filter: drop-shadow(0 0 12px rgba(255, 70, 85, 0.4));
+    gap: 28px;
 }
 
 .footer-logo-link {
@@ -68,99 +60,106 @@
     align-items: center;
     gap: 10px;
     text-decoration: none;
+    transition: filter 0.3s ease;
 }
 
-.footer-logo img {
+.footer-logo-link:hover {
+    filter: drop-shadow(0 0 12px rgba(255, 70, 85, 0.4));
+}
+
+.footer-logo-link img {
     width: 50px;
     height: 50px;
     object-fit: contain;
 }
 
-.footer-logo h4 {
+.footer-logo-link h4 {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text-white);
     font-family: 'Atomic Age', sans-serif;
 }
 
-.footer-nav {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px 30px;
+.footer-socials {
+    display: flex;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.footer-nav a {
+.footer-social {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.2rem;
+}
+
+/* Link columns */
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+    gap: 30px 60px;
+}
+
+.footer-heading {
+    margin: 0 0 18px;
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-text-white);
+}
+
+.footer-column ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-column a,
+.footer-column button {
+    padding: 0;
+    background: none;
+    border: none;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
+    font-family: inherit;
     font-size: 0.85rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 2px;
+    cursor: pointer;
     transition: color 0.2s ease;
 }
 
-.footer-nav a:hover {
+.footer-column a:hover,
+.footer-column button:hover {
     color: var(--color-primary);
 }
 
-.footer-socials {
-    display: flex;
-    gap: 12px;
-}
-
-.footer-socials a {
-    width: 45px;
-    height: 45px;
-    color: rgba(255, 255, 255, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.footer-socials a:hover {
-    color: var(--color-primary);
-    transform: translateY(-2px);
-}
-
+/* Bottom bar */
 .footer-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     margin-top: 50px;
     padding-top: 30px;
     border-top: 1px solid var(--color-dark-surface);
 }
 
 .footer-legal {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.footer-legal span {
+    margin: 0;
     color: #555;
     font-size: 0.8rem;
-}
-
-.footer-legal a {
-    color: rgba(255, 255, 255, 0.3);
-    text-decoration: none;
-    font-size: 0.75rem;
-    font-family: var(--font-primary);
-    letter-spacing: 1px;
-    transition: color 0.2s ease;
-}
-
-.footer-legal a:hover {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-legal p {
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 2px;
 }
 
 .footer-legal .logo {
@@ -169,7 +168,6 @@
 
 .footer-back {
     color: var(--color-text-white);
-    text-decoration: none;
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 2px;
@@ -178,6 +176,7 @@
     padding: 12px 24px;
     border-radius: 4px;
     font-family: 'Bruno Ace SC', sans-serif;
+    cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -187,111 +186,9 @@
     border-color: var(--color-primary);
 }
 
-@media (max-width: 768px) {
-    .footer-main {
-        flex-direction: column;
-        gap: 45px;
-    }
-
-    .footer-left {
-        align-items: center;
-        text-align: center;
-    }
-
-    .footer-nav {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px 20px;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 25px;
-    }
-
-    .footer-back {
-        width: 100%;
-        max-width: 280px;
-    }
-}
-
-@media (max-width: 480px) {
-    .footer {
-        padding: 60px 0 25px;
-        text-align: center;
-    }
-
+@media (min-width: 1440px) {
     .footer-container {
-        padding: 0 20px;
-    }
-
-    .footer-typography {
-        padding: 60px 0 40px;
-    }
-
-    .footer-typography .char {
-        font-size: clamp(3rem, 15vw, 16rem);
-    }
-
-    .footer-main {
-        flex-direction: column;
-        gap: 40px;
-        align-items: center;
-    }
-
-    .footer-left {
-        align-items: center;
-        gap: 25px;
-    }
-
-    .footer-logo {
-        width: 90px;
-        height: 55px;
-    }
-
-    .footer-logo h4 {
-        font-size: 1.2rem;
-    }
-
-    .footer-nav {
-        grid-template-columns: 1fr;
-        gap: 14px;
-        text-align: center;
-    }
-
-    .footer-nav a {
-        font-size: 0.75rem;
-    }
-
-    .footer-socials {
-        justify-content: center;
-    }
-
-    .footer-socials a {
-        width: 42px;
-        height: 42px;
-        font-size: 1.2rem;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-
-    .footer-legal {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .footer-legal p {
-        font-size: 1rem;
-    }
-
-    .footer-back {
-        width: 100%;
-        padding: 12px;
-        text-align: center;
+        max-width: 1500px;
     }
 }
 
@@ -304,40 +201,67 @@
         gap: 50px;
     }
 
-    .footer-nav {
-        grid-template-columns: repeat(2, minmax(140px, 1fr));
-    }
-
-    .footer-legal p {
-        font-size: 1.1rem;
+    .footer-columns {
+        gap: 30px 40px;
     }
 }
 
-@media (min-width: 1440px) {
+@media (max-width: 768px) {
+    .footer-main {
+        flex-direction: column;
+        align-items: center;
+        gap: 45px;
+        text-align: center;
+    }
+
+    .footer-brand {
+        align-items: center;
+    }
+
+    .footer-columns {
+        width: 100%;
+        gap: 30px 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+    }
+
+    .footer-back {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 60px 0 25px;
+    }
+
     .footer-container {
-        max-width: 1500px;
+        padding: 0 20px;
     }
 
-    .footer-nav a {
-        font-size: 0.85rem;
+    .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 32px;
     }
 
-    .footer-socials a {
-        width: 48px;
-        height: 48px;
-        font-size: 1.35rem;
+    .footer-column a,
+    .footer-column button {
+        font-size: 0.75rem;
+    }
+
+    .footer-socials {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
 
-/* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
-    .footer-typography .char {
-        animation: none;
-    }
-
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
+    .footer * {
         transition-duration: 0.01ms !important;
     }
 }

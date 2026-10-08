@@ -16,6 +16,12 @@
     --hero-glow: rgba(255, 70, 85, 0.5);
 }
 
+.page-hero--compact {
+    height: 72vh;
+    min-height: 520px;
+    max-height: 760px;
+}
+
 /* Background */
 .hero-bg-wrapper {
     position: absolute;
@@ -124,6 +130,7 @@
     color: var(--hero-dim);
     max-width: 600px;
     margin-bottom: 2rem;
+    text-wrap: balance;
 }
 
 /* Decorations */
@@ -189,6 +196,10 @@
 @media (max-width: 768px) {
     .page-hero {
         height: 50vh;
+    }
+
+    .page-hero--compact {
+        min-height: 460px;
     }
 
     .page-hero-content {

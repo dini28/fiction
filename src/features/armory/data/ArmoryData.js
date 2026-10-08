@@ -15,14 +15,60 @@ import model_1 from '../../../assets/images/Armory/model_1.png'
 import model_2 from '../../../assets/images/Armory/model_2.png'
 import model_3 from '../../../assets/images/Armory/model_3.png'
 import collector_edition from '../../../assets/images/Armory/collector_edition.png'
+import { FREE_SHIPPING_THRESHOLD } from '../../cart/cartPricing';
+
+export const rarityLabels = {
+    common: 'Standard',
+    rare: 'Rare',
+    epic: 'Epic',
+    legendary: 'Legendary',
+    mythic: 'Mythic'
+};
+
+export const sortOptions = [
+    { id: 'featured', label: 'Featured' },
+    { id: 'price-asc', label: 'Price: low to high' },
+    { id: 'price-desc', label: 'Price: high to low' },
+    { id: 'name', label: 'Name: A to Z' }
+];
+
+export const perks = [
+    { id: 'shipping', title: 'Worldwide shipping', text: `Free on orders over $${FREE_SHIPPING_THRESHOLD}` },
+    { id: 'returns', title: '30-day returns', text: 'Unworn gear, no questions asked' },
+    { id: 'secure', title: 'Secure checkout', text: 'Encrypted card processing' },
+    { id: 'drops', title: 'Members get first access', text: 'Limited drops open early' }
+];
 
 export const armoryData = {
     categories: [
-        { id: 'all', label: 'SHOP ALL' },
-        { id: 'apparel', label: 'APPAREL', subcategories: ['hoodies-jackets', 'loungewear', 'hats-beanies', 'jewelry'] },
-        { id: 'collectibles', label: 'COLLECTIBLES', subcategories: ['figures', 'collectors-editions'] },
-        { id: 'hardware', label: 'HARDWARE', subcategories: ['gaming-chair', 'keyboard', 'mouse'] },
-        { id: 'art', label: 'ART', subcategories: ['art-prints', 'posters'] }
+        { id: 'all', label: 'All gear' },
+        {
+            id: 'apparel', label: 'Apparel', subcategories: [
+                { id: 'hoodies-jackets', label: 'Hoodies & jackets' },
+                { id: 'loungewear', label: 'Loungewear' },
+                { id: 'hats-beanies', label: 'Hats & beanies' },
+                { id: 'jewelry', label: 'Jewelry' }
+            ]
+        },
+        {
+            id: 'collectibles', label: 'Collectibles', subcategories: [
+                { id: 'figures', label: 'Figures' },
+                { id: 'collectors-editions', label: "Collector's editions" }
+            ]
+        },
+        {
+            id: 'hardware', label: 'Hardware', subcategories: [
+                { id: 'gaming-chair', label: 'Chairs' },
+                { id: 'keyboard', label: 'Keyboards' },
+                { id: 'mouse', label: 'Mice' }
+            ]
+        },
+        {
+            id: 'art', label: 'Art', subcategories: [
+                { id: 'art-prints', label: 'Art prints' },
+                { id: 'posters', label: 'Posters' }
+            ]
+        }
     ],
     products: [
         // APPAREL
@@ -55,7 +101,7 @@ export const armoryData = {
             subcategory: 'hoodies-jackets',
             rarity: 'epic',
             image: RainJacket,
-            stats: { material: "POLYSTER", weight: "LIGHT", chain: "24 INCH" }
+            stats: { material: "POLYESTER", weight: "LIGHT", shell: "WATERPROOF" }
         },
         {
             id: 'a4',
@@ -151,7 +197,11 @@ export const armoryData = {
             subcategory: 'collectors-editions',
             rarity: 'mythic',
             image: collector_edition,
-            stats: { content: "GAME + OST", extras: "STATUE", packaging: "STEELBOOK" }
+            stats: { content: "GAME + OST", extras: "STATUE", packaging: "STEELBOOK" },
+            tag: "NEW DROP",
+            featured: true,
+            description: "The definitive Star Tactics box. A hand-painted 14-inch Vanguard dreadnought statue, the full game in a numbered steelbook, the original soundtrack, and a set of metal collector's pieces.",
+            includes: ["Hand-painted 14\" dreadnought statue", "Numbered steelbook edition", "Original soundtrack CD", "Metal keychain and fleet pin"]
         },
 
         // HARDWARE
