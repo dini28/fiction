@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/useCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';

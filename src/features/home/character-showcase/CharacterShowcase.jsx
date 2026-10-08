@@ -18,10 +18,10 @@ const CharacterShowcase = () => {
             const sections = gsap.utils.toArray('.char-panel');
             const totalPanels = sections.length;
 
-            if (totalPanels === 0) return;
+            if (totalPanels < 2) return;
 
             // Horizontal Scroll Animation
-            gsap.to(containerRef.current, {
+            const horizontalTween = gsap.to(containerRef.current, {
                 xPercent: -100 * (totalPanels - 1) / totalPanels,
                 ease: "none",
                 scrollTrigger: {
@@ -30,8 +30,7 @@ const CharacterShowcase = () => {
                     scrub: 1,
                     end: () => "+=" + (containerRef.current ? containerRef.current.offsetWidth : 3000),
                     snap: 1 / (totalPanels - 1),
-                    invalidateOnRefresh: true,
-                    id: "horizontalScroll"
+                    invalidateOnRefresh: true
                 }
             });
 
@@ -46,7 +45,7 @@ const CharacterShowcase = () => {
                             ease: "none",
                             scrollTrigger: {
                                 trigger: section,
-                                containerAnimation: gsap.getById("horizontalScroll"), // If we named it, but here we can just scrub
+                                containerAnimation: horizontalTween,
                                 start: "left right",
                                 end: "right left",
                                 scrub: true

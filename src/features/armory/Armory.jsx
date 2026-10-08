@@ -1,5 +1,5 @@
 import { useState, useRef, lazy, Suspense } from 'react';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/useCart';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import './Armory.css';
@@ -17,15 +17,24 @@ const Armory = () => {
     const { addToCart, openCart, cartCount } = useCart();
     const [activeCategory, setActiveCategory] = useState('all');
     const [activeSubcategory, setActiveSubcategory] = useState('all');
+    const [searchQuery, setSearchQuery] = useState('');
     const containerRef = useRef(null);
     const productGridRef = useRef(null);
 
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+
     const filteredProducts = armoryData.products.filter(p => {
+        if (normalizedQuery && !p.name.toLowerCase().includes(normalizedQuery)) return false;
         if (activeCategory === 'all') return true;
         if (p.category !== activeCategory) return false;
         if (activeSubcategory === 'all') return true;
         return p.subcategory === activeSubcategory;
     });
+
+    const handleCategoryChange = (categoryId) => {
+        setActiveCategory(categoryId);
+        setActiveSubcategory('all');
+    };
 
     useGSAP(() => {
         // Animate products when filter changes
@@ -40,7 +49,7 @@ const Armory = () => {
                 overwrite: true
             }
         );
-    }, { scope: productGridRef, dependencies: [filteredProducts] });
+    }, { scope: productGridRef, dependencies: [activeCategory, activeSubcategory, normalizedQuery] });
 
     const currentCategoryData = armoryData.categories.find(c => c.id === activeCategory);
 
@@ -72,7 +81,7 @@ const Armory = () => {
                                 <button
                                     key={cat.id}
                                     className={`filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                                    onClick={() => setActiveCategory(cat.id)}
+                                    onClick={() => handleCategoryChange(cat.id)}
                                 >
                                     {cat.label}
                                 </button>
@@ -102,7 +111,13 @@ const Armory = () => {
 
                     <div className="armory-search">
                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
-                        <input type="text" placeholder="SEARCH DATABASE..." />
+                        <input
+                            type="text"
+                            placeholder="SEARCH DATABASE..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            aria-label="Search products"
+                        />
                         <FontAwesomeIcon icon={faFilter} className="filter-icon" />
                     </div>
                 </div>

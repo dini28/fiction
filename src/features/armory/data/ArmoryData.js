@@ -52,7 +52,7 @@ export const armoryData = {
             name: "RAIN JACKET",
             price: 119.99,
             category: 'apparel',
-            subcategory: 'jewelry',
+            subcategory: 'hoodies-jackets',
             rarity: 'epic',
             image: RainJacket,
             stats: { material: "POLYSTER", weight: "LIGHT", chain: "24 INCH" }

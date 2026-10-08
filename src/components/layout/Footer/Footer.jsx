@@ -8,7 +8,7 @@ import {
 import logo from '../../../assets/branding/logo.svg';
 import './Footer.css';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 
 const Footer = () => {
     const footerRef = useRef(null);

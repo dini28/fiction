@@ -2,12 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import './CustomCursor.css';
 
+const INTERACTIVE_SELECTOR = 'a, button, .clickable, input, textarea, select, label';
+
+const hasFinePointer = typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
+
 const CustomCursor = () => {
     const cursorRef = useRef(null);
     const followerRef = useRef(null);
     const [isHovering, setIsHovering] = useState(false);
 
     useEffect(() => {
+        if (!hasFinePointer) return;
+
         const cursor = cursorRef.current;
         const follower = followerRef.current;
 
@@ -25,41 +31,22 @@ const CustomCursor = () => {
             setFollowerY(e.clientY);
         };
 
-        const onMouseEnterLink = () => setIsHovering(true);
-        const onMouseLeaveLink = () => setIsHovering(false);
+        // Delegated so elements mounted after this effect (route changes, modals) are covered
+        const onMouseOver = (e) => {
+            setIsHovering(Boolean(e.target.closest?.(INTERACTIVE_SELECTOR)));
+        };
 
         window.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseover', onMouseOver);
 
-        const interactiveElements = document.querySelectorAll('a, button, .clickable, input, textarea');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', onMouseEnterLink);
-            el.addEventListener('mouseleave', onMouseLeaveLink);
-        });
-
-        // Clean up
         return () => {
-            document.body.style.cursor = 'auto'; // Restore cursor
+            document.body.style.cursor = '';
             window.removeEventListener('mousemove', onMouseMove);
-            interactiveElements.forEach(el => {
-                el.removeEventListener('mouseenter', onMouseEnterLink);
-                el.removeEventListener('mouseleave', onMouseLeaveLink);
-            });
+            document.removeEventListener('mouseover', onMouseOver);
         };
     }, []);
 
-    useEffect(() => {
-        const updateListeners = () => {
-            const interactiveElements = document.querySelectorAll('a, button, input');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => setIsHovering(true));
-                el.addEventListener('mouseleave', () => setIsHovering(false));
-            });
-        };
-
-        const interval = setInterval(updateListeners, 2000);
-        return () => clearInterval(interval);
-    }, []);
-
+    if (!hasFinePointer) return null;
 
     return (
         <>

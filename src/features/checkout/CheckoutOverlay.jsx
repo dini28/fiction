@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/useCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheckCircle, faShieldAlt, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';
@@ -10,6 +10,7 @@ const CheckoutOverlay = () => {
     const { isCheckoutOpen, closeCheckout, clearCart, cartTotal } = useCart();
     const [step, setStep] = useState(1);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [orderId, setOrderId] = useState('');
 
     const overlayRef = useRef(null);
     const modalRef = useRef(null);
@@ -41,6 +42,7 @@ const CheckoutOverlay = () => {
         // Mock API call
         setTimeout(() => {
             setIsProcessing(false);
+            setOrderId(Math.random().toString(36).slice(2, 11).toUpperCase());
             setStep(3); // Success step
             clearCart();
         }, 2000);
@@ -125,7 +127,7 @@ const CheckoutOverlay = () => {
                         <p>Assets have been requisitioned. Prepare for deployment.</p>
                         <div className="receipt-box">
                             <span>ORDER ID:</span>
-                            <strong>#{Math.random().toString(36).substr(2, 9).toUpperCase()}</strong>
+                            <strong>#{orderId}</strong>
                         </div>
                         <button className="action-btn" onClick={closeCheckout}>
                             RETURN TO BASE
